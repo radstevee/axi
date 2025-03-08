@@ -23,6 +23,10 @@ repositories {
     mavenCentral()
 }
 
+dependencies {
+    implementation(libs.bundles.kotlinx)
+}
+
 kotlin {
     jvmToolchain(21)
 }

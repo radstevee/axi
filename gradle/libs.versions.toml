@@ -27,6 +27,3 @@ caffeine = { module = "com.github.ben-manes.caffeine:caffeine", version.ref = "c
 
 [bundles]
 kotlinx = ["kotlinx-serialization", "kotlinx-coroutines"]
-
-[plugins]
-kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
