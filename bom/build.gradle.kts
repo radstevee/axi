@@ -3,6 +3,9 @@ plugins {
     `maven-publish`
 }
 
+group = "net.radstevee.axi"
+version = rootProject.property("version") as String
+
 javaPlatform {
     allowDependencies()
 }
