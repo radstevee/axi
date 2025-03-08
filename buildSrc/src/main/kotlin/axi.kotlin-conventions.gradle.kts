@@ -33,6 +33,11 @@ kotlin {
 
 tasks.withType<KotlinCompile>().configureEach {
     explicitApiMode = ExplicitApiMode.Strict
+    compilerOptions.freeCompilerArgs.addAll(
+        "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
+        "-opt-in=kotlinx.coroutines.DelicateCoroutinesApi",
+        "-opt-in=kotlin.contracts.ExperimentalContracts",
+    )
 }
 
 testing {

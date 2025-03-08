@@ -12,7 +12,7 @@ public object AxiPluginHolder {
         return plugin!!
     }
 
-    public suspend fun AxiPlugin.gracefully(block: suspend CoroutineScope.() -> Unit) {
+    internal suspend fun AxiPlugin.gracefully(block: suspend CoroutineScope.() -> Unit) {
         if (plugin == null) {
             plugin = this
         }
