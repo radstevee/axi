@@ -7,6 +7,7 @@ rootProject.name = "axi-parent"
 setOf(
     "core",
     "coroutines",
+    "bom",
 ).forEach { mod ->
     include("axi-$mod")
     project(":axi-$mod").projectDir = file(mod)

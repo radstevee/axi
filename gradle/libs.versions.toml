@@ -5,9 +5,9 @@ kotlinx-coroutines = "1.8.1"
 jetbrains-annotations = "24.0.1"
 caffeine = "3.1.8"
 dokka = "2.0.0"
-shadow = "9.0.0-beta10"
 paper = "1.21.4-R0.1-SNAPSHOT"
 paperweight = "2.0.0-beta.14"
+mccoroutine = "2.21.0"
 
 [libraries]
 kotlinx-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization-json" }
@@ -25,5 +25,9 @@ jetbrains-annotations = { module = "org.jetbrains:annotations", version.ref = "j
 
 caffeine = { module = "com.github.ben-manes.caffeine:caffeine", version.ref = "caffeine" }
 
+mccoroutine-bukkit-api = { module = "com.github.shynixn.mccoroutine:mccoroutine-bukkit-api", version.ref = "mccoroutine" }
+mccoroutine-bukkit-core = { module = "com.github.shynixn.mccoroutine:mccoroutine-bukkit-core", version.ref = "mccoroutine" }
+
 [bundles]
 kotlinx = ["kotlinx-serialization", "kotlinx-coroutines"]
+mccoroutine = ["mccoroutine-bukkit-api", "mccoroutine-bukkit-core"]

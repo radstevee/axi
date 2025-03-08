@@ -86,3 +86,26 @@ java {
         languageVersion = JavaLanguageVersion.of(21)
     }
 }
+
+abstract class AxiExtension {
+    internal val deps: MutableList<String> = mutableListOf()
+
+    fun dependencies(vararg modules: String) {
+        deps.addAll(modules)
+    }
+}
+
+extensions.create("axi", AxiExtension::class)
+
+afterEvaluate {
+    val ext = the<AxiExtension>()
+    if (name != "axi-core") {
+        ext.dependencies("core")
+    }
+
+    dependencies {
+        ext.deps.forEach { dep ->
+            add("compileOnly", project(":axi-$dep"))
+        }
+    }
+}
