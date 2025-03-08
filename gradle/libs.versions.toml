@@ -1,0 +1,32 @@
+[versions]
+kotlin = "2.1.20-RC2"
+kotlinx-serialization-json = "1.7.2"
+kotlinx-coroutines = "1.8.1"
+jetbrains-annotations = "24.0.1"
+caffeine = "3.1.8"
+dokka = "2.0.0"
+shadow = "9.0.0-beta10"
+paper = "1.21.4-R0.1-SNAPSHOT"
+paperweight = "2.0.0-beta.14"
+
+[libraries]
+kotlinx-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization-json" }
+kotlinx-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
+
+plugin-dokka = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "dokka" }
+plugin-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+plugin-ktx-serial = { module = "org.jetbrains.kotlin.plugin.serialization:org.jetbrains.kotlin.plugin.serialization.gradle.plugin", version.ref = "kotlin" }
+plugin-paperweight = { module = "io.papermc.paperweight.userdev:io.papermc.paperweight.userdev.gradle.plugin", version.ref = "paperweight" }
+
+paper-api = { module = "io.papermc.paper:paper-api", version.ref = "paper" }
+
+jetbrains-annotations = { module = "org.jetbrains:annotations", version.ref = "jetbrains-annotations" }
+
+caffeine = { module = "com.github.ben-manes.caffeine:caffeine", version.ref = "caffeine" }
+
+[bundles]
+kotlinx = ["kotlinx-serialization", "kotlinx-coroutines"]
+
+[plugins]
+kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
