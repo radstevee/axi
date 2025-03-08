@@ -6,8 +6,11 @@ import org.bukkit.plugin.java.JavaPlugin
 
 /** An instance of a plugin using axi. */
 public abstract class AxiPlugin : JavaPlugin() {
+    /** Called from [onEnable] */
     public open suspend fun enable() {}
+    /** Called from [onLoad] */
     public open suspend fun load() {}
+    /** Called from [onDisable] */
     public open suspend fun disable() {}
 
     final override fun onEnable() {
