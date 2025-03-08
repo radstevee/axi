@@ -8,6 +8,8 @@ dokka = "2.0.0"
 paper = "1.21.4-R0.1-SNAPSHOT"
 paperweight = "2.0.0-beta.14"
 mccoroutine = "2.21.0"
+cloud = "2.1.0-SNAPSHOT"
+cloud-minecraft = "2.0.0-SNAPSHOT"
 
 [libraries]
 kotlinx-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization-json" }
@@ -28,6 +30,15 @@ caffeine = { module = "com.github.ben-manes.caffeine:caffeine", version.ref = "c
 mccoroutine-bukkit-api = { module = "com.github.shynixn.mccoroutine:mccoroutine-bukkit-api", version.ref = "mccoroutine" }
 mccoroutine-bukkit-core = { module = "com.github.shynixn.mccoroutine:mccoroutine-bukkit-core", version.ref = "mccoroutine" }
 
+cloud-core = { module = "org.incendo:cloud-core", version.ref = "cloud" }
+cloud-kotlin-ext = { module = "org.incendo:cloud-kotlin-extensions", version.ref = "cloud" }
+cloud-kotlin-coroutines = { module = "org.incendo:cloud-kotlin-coroutines", version.ref = "cloud" }
+
+cloud-paper = { module = "org.incendo:cloud-paper", version.ref = "cloud-minecraft" }
+cloud-brig = { module = "org.incendo:cloud-brigadier", version.ref = "cloud-minecraft" }
+cloud-minecraft-extras = { module = "org.incendo:cloud-minecraft-extras", version.ref = "cloud-minecraft" }
+
 [bundles]
 kotlinx = ["kotlinx-serialization", "kotlinx-coroutines"]
 mccoroutine = ["mccoroutine-bukkit-api", "mccoroutine-bukkit-core"]
+cloud = ["cloud-core", "cloud-kotlin-ext", "cloud-kotlin-coroutines", "cloud-paper", "cloud-brig", "cloud-minecraft-extras"]

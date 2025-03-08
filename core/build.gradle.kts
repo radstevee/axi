@@ -6,3 +6,7 @@ plugins {
 axiPaper {
     internals()
 }
+
+dependencies {
+    api(libs.bundles.cloud)
+}
