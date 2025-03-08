@@ -2,10 +2,6 @@ import io.papermc.paperweight.userdev.PaperweightUserDependenciesExtension
 import org.gradle.kotlin.dsl.the
 import org.gradle.accessors.dm.LibrariesForLibs
 
-plugins {
-    java
-}
-
 val libs = the<LibrariesForLibs>()
 
 repositories {
