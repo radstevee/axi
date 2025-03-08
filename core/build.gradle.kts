@@ -3,8 +3,10 @@ plugins {
     id("axi.paper-conventions")
 }
 
-axiPaper {
-    internals()
+axi {
+    paper {
+        internals()
+    }
 }
 
 dependencies {

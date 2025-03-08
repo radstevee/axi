@@ -4,11 +4,17 @@ plugins {
 
 rootProject.name = "axi-parent"
 
+dependencyResolutionManagement {
+    repositories {
+        mavenCentral()
+    }
+}
+
 setOf(
     "core",
     "coroutines",
     "bom",
 ).forEach { mod ->
-    include("axi-$mod")
+    include(":axi-$mod")
     project(":axi-$mod").projectDir = file(mod)
 }

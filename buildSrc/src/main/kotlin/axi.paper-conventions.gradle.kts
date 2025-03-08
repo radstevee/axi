@@ -1,5 +1,5 @@
+import io.papermc.paperweight.userdev.PaperweightUser
 import io.papermc.paperweight.userdev.PaperweightUserDependenciesExtension
-import org.gradle.kotlin.dsl.the
 import org.gradle.accessors.dm.LibrariesForLibs
 
 val libs = the<LibrariesForLibs>()
@@ -15,7 +15,7 @@ fun Project.paperApi() {
 }
 
 fun Project.paper() {
-    apply(plugin = "io.papermc.paperweight.userdev")
+    apply<PaperweightUser>()
 
     dependencies {
         val paperweight = the<PaperweightUserDependenciesExtension>()
@@ -23,19 +23,10 @@ fun Project.paper() {
     }
 }
 
-interface AxiPaperExtension {
-    val internals: Property<Boolean>
-
-    fun internals() {
-        internals = true
-    }
-}
-
-extensions.create("axiPaper", AxiPaperExtension::class)
-
 afterEvaluate {
-    val ext = the<AxiPaperExtension>()
-    if (ext.internals.getOrElse(false)) {
+    val axi = the<AxiExtension>()
+    val paper = axi.paper
+    if (paper.internals.getOrElse(false)) {
         paper()
     } else {
         paperApi()

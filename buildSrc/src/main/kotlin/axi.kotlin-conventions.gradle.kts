@@ -19,10 +19,6 @@ val libs = the<LibrariesForLibs>()
 group = "net.radstevee.axi"
 version = rootProject.property("version") as String
 
-repositories {
-    mavenCentral()
-}
-
 dependencies {
     implementation(libs.bundles.kotlinx)
 }
@@ -31,7 +27,7 @@ kotlin {
     jvmToolchain(21)
 }
 
-tasks.withType<KotlinCompile>().configureEach {
+tasks.withType<KotlinCompile> {
     explicitApiMode = ExplicitApiMode.Strict
     compilerOptions.freeCompilerArgs.addAll(
         "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
@@ -42,7 +38,7 @@ tasks.withType<KotlinCompile>().configureEach {
 
 testing {
     suites {
-        register("jvm-test", JvmTestSuite::class) {
+        register("test", JvmTestSuite::class) {
             useKotlinTest(libs.versions.kotlin.get())
 
             dependencies {
@@ -89,14 +85,6 @@ publishing {
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(21)
-    }
-}
-
-abstract class AxiExtension {
-    internal val deps: MutableList<String> = mutableListOf()
-
-    fun dependencies(vararg modules: String) {
-        deps.addAll(modules)
     }
 }
 

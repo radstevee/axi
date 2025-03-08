@@ -4,6 +4,6 @@ plugins {
 }
 
 dependencies {
-    // Explicitly not exposing MCCoroutine for ease of use.
+    // Explicitly not exposing it because of our wrappers around it.
     implementation(libs.bundles.mccoroutine)
 }
