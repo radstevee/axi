@@ -3,8 +3,8 @@
 A WIP Kotlin Coroutine-based Minecraft game engine.
 
 Plans:
-- [ ] resource pack / UI / text framework
-- [ ] ECS
+- [x] resource pack / UI / text framework
+- [x] ECS
 - [ ] game stuff
 - [ ] argument parser builder
 - [ ] translation API?

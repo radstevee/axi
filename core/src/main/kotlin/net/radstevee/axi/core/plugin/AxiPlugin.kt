@@ -2,6 +2,8 @@ package net.radstevee.axi.core.plugin
 
 import kotlinx.coroutines.runBlocking
 import net.radstevee.axi.core.command.CommandManager
+import net.radstevee.axi.core.coroutines.registerEventListeners
+import net.radstevee.axi.core.ecs.ECSConnectionListener
 import net.radstevee.axi.core.plugin.AxiPluginHolder.gracefully
 import org.bukkit.plugin.java.JavaPlugin
 
@@ -20,6 +22,7 @@ public abstract class AxiPlugin : JavaPlugin() {
     /** Initialises axi functions such as commands. */
     public open suspend fun initAxi() {
         commandManager = CommandManager(this)
+        registerEventListeners(ECSConnectionListener)
     }
 
     final override fun onEnable() {
