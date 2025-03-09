@@ -1,8 +1,8 @@
-package net.radstevee.axi.core
+package net.radstevee.axi.core.plugin
 
 import kotlinx.coroutines.runBlocking
 import net.radstevee.axi.core.command.CommandManager
-import net.radstevee.axi.core.internal.AxiPluginHolder.gracefully
+import net.radstevee.axi.core.plugin.AxiPluginHolder.gracefully
 import org.bukkit.plugin.java.JavaPlugin
 
 /** An instance of a plugin using axi. */
@@ -10,11 +10,11 @@ public abstract class AxiPlugin : JavaPlugin() {
     /** This plugin's command manager. */
     public open lateinit var commandManager: CommandManager
 
-    /** Called from [onEnable] */
+    /** Called from [onEnable]. */
     public open suspend fun enable() {}
-    /** Called from [onLoad] */
+    /** Called from [onLoad]. */
     public open suspend fun load() {}
-    /** Called from [onDisable] */
+    /** Called from [onDisable]. */
     public open suspend fun disable() {}
 
     /** Initialises axi functions such as commands. */
@@ -24,7 +24,7 @@ public abstract class AxiPlugin : JavaPlugin() {
 
     final override fun onEnable() {
         runBlocking {
-            gracefully {
+            gracefully("enable") {
                 initAxi()
                 enable()
             }
@@ -33,7 +33,7 @@ public abstract class AxiPlugin : JavaPlugin() {
 
     final override fun onLoad() {
         runBlocking {
-            gracefully {
+            gracefully("load") {
                 load()
             }
         }
@@ -41,7 +41,7 @@ public abstract class AxiPlugin : JavaPlugin() {
 
     final override fun onDisable() {
         runBlocking {
-            gracefully {
+            gracefully("disable") {
                 disable()
             }
         }

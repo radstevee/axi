@@ -33,12 +33,13 @@ tasks.withType<KotlinCompile> {
         "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
         "-opt-in=kotlinx.coroutines.DelicateCoroutinesApi",
         "-opt-in=kotlin.contracts.ExperimentalContracts",
+        "-Xcontext-receivers",
     )
 }
 
 testing {
     suites {
-        register("test", JvmTestSuite::class) {
+        register("axi-test", JvmTestSuite::class) {
             useKotlinTest(libs.versions.kotlin.get())
 
             dependencies {
@@ -71,7 +72,7 @@ publishing {
 
     repositories {
         maven {
-            name = "rad-public"
+            name = "radPublic"
             url = uri("https://maven.radsteve.net/public")
 
             credentials {
@@ -92,7 +93,7 @@ extensions.create("axi", AxiExtension::class)
 
 afterEvaluate {
     val ext = the<AxiExtension>()
-    if (name != "axi-core") {
+    if (name !in setOf("axi-core", "axi-gradle-plugin", "axi-ksp")) {
         ext.dependencies("core")
     }
 

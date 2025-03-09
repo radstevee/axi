@@ -12,8 +12,9 @@ dependencyResolutionManagement {
 
 setOf(
     "core",
-    "coroutines",
     "bom",
+    "ksp",
+    "example",
 ).forEach { mod ->
     include(":axi-$mod")
     project(":axi-$mod").projectDir = file(mod)

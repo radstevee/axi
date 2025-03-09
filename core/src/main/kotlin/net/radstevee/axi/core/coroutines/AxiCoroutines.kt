@@ -1,9 +1,9 @@
-package net.radstevee.axi.coroutines
+package net.radstevee.axi.core.coroutines
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
-import net.radstevee.axi.core.AxiPlugin
-import net.radstevee.axi.core.internal.AxiPluginHolder
+import net.radstevee.axi.core.plugin.AxiPlugin
+import net.radstevee.axi.core.plugin.AxiPluginHolder
 import kotlin.coroutines.CoroutineContext
 
 /** The [CoroutineScope] of the main [AxiPlugin]. */

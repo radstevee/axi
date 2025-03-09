@@ -1,4 +1,4 @@
-package net.radstevee.axi.coroutines
+package net.radstevee.axi.core.coroutines
 
 import com.github.shynixn.mccoroutine.bukkit.asyncDispatcher
 import com.github.shynixn.mccoroutine.bukkit.launch
@@ -8,7 +8,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.plus
 import kotlinx.coroutines.withContext
-import net.radstevee.axi.core.AxiPlugin
+import net.radstevee.axi.core.plugin.AxiPlugin
 import kotlin.coroutines.CoroutineContext
 
 /** The [CoroutineScope] of this plugin. */

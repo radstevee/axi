@@ -1,9 +1,7 @@
-package net.radstevee.axi.core.internal
+package net.radstevee.axi.core.plugin
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.coroutineScope
-import net.radstevee.axi.core.AxiPlugin
-import net.radstevee.axi.core.internal.AxiPluginHolder.plugin
 
 /** Holds the main axi plugin. */
 public object AxiPluginHolder {
@@ -16,8 +14,8 @@ public object AxiPluginHolder {
         return plugin!!
     }
 
-    /** Sets [plugin] to this plugin if it is unset, gracefully calls [block] and resets [plugin] if [block] threw an exception. */
-    internal suspend fun AxiPlugin.gracefully(block: suspend CoroutineScope.() -> Unit) {
+    /** Sets [plugin] to this plugin if it is unset, calls [block] and resets [plugin] if [block] threw an exception. */
+    internal suspend fun AxiPlugin.gracefully(lifecyclePhase: String, block: suspend CoroutineScope.() -> Unit) {
         if (plugin == null) {
             plugin = this
         }
@@ -26,7 +24,7 @@ public object AxiPluginHolder {
             runCatching {
                 block()
             }.onFailure { exception ->
-                slF4JLogger.error("Failed enabling axi plugin", exception)
+                slF4JLogger.error("Failed to $lifecyclePhase axi plugin", exception)
                 plugin = null
             }
         }

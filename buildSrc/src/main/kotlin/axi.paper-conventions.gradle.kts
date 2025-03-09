@@ -15,7 +15,7 @@ fun Project.paperApi() {
 }
 
 fun Project.paper() {
-    apply<PaperweightUser>()
+    apply(plugin = "io.papermc.paperweight.userdev")
 
     dependencies {
         val paperweight = the<PaperweightUserDependenciesExtension>()

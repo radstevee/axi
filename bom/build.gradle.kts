@@ -27,7 +27,7 @@ publishing {
 
     repositories {
         maven {
-            name = "rad-public"
+            name = "radPublic"
             url = uri("https://maven.radsteve.net/public")
 
             credentials {

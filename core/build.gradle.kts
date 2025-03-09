@@ -11,4 +11,5 @@ axi {
 
 dependencies {
     api(libs.bundles.cloud)
+    api(libs.bundles.mccoroutine)
 }
