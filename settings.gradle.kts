@@ -15,6 +15,7 @@ setOf(
     "bom",
     "ksp",
     "example",
+    "ui",
 ).forEach { mod ->
     include(":axi-$mod")
     project(":axi-$mod").projectDir = file(mod)

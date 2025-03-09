@@ -2,15 +2,15 @@ package net.radstevee.axi.core
 
 import kotlin.random.Random
 
-/** A basic string-object registry. */
-public abstract class Registry<V>(
+/** A basic K-object registry. */
+public abstract class Registry<K : Any, V>(
     /** Whether entries of this registry can be modified. */
-    protected val modifiable: Boolean = false
+    internal val modifiable: Boolean = false
 ) {
-    protected val entries: MutableList<V> = mutableListOf()
-    protected val keys: MutableList<String> = mutableListOf()
-    protected val keyToEntryMap: MutableMap<String, V> = mutableMapOf()
-    protected val entryToKeyMap: MutableMap<V, String> = mutableMapOf()
+    internal open val entries: MutableList<V> = mutableListOf()
+    internal open val keys: MutableList<K> = mutableListOf()
+    internal open val keyToEntryMap: MutableMap<K, V> = mutableMapOf()
+    internal open val entryToKeyMap: MutableMap<V, K> = mutableMapOf()
 
     /**
      * The amount of registered entries in this registry.
@@ -26,7 +26,7 @@ public abstract class Registry<V>(
      * Registers [entry] to the registry under [key].
      * @return the passed [entry].
      */
-    public open fun register(key: String, entry: V): V {
+    public open fun register(key: K, entry: V): V {
         if (keys.contains(key)) {
             if (modifiable) {
                 // remove old entry object
@@ -50,14 +50,14 @@ public abstract class Registry<V>(
     /**
      * @return the value that is assigned [key], or `null` if it is not registered
      */
-    public open operator fun get(key: String): V? {
+    public open operator fun get(key: K): V? {
         return keyToEntryMap[key]
     }
 
     /**
      * @return the key assigned to [entry], or `null` if it is not registered
      */
-    public open fun getKey(entry: V): String? {
+    public open fun getKey(entry: V): K? {
         return entryToKeyMap[entry]
     }
 
@@ -79,11 +79,11 @@ public abstract class Registry<V>(
         return entries.toList()
     }
 
-    public open fun collectKeys(): List<String> {
+    public open fun collectKeys(): List<K> {
         return keys.toList()
     }
 
-    public open fun collect(): Map<String, V> {
+    public open fun collect(): Map<K, V> {
         return keyToEntryMap.toMap()
     }
 
@@ -97,7 +97,7 @@ public abstract class Registry<V>(
     /**
      * Performs [block] on every registered entry.
      */
-    public open fun forEachEntry(block: (String, V) -> Unit) {
+    public open fun forEachEntry(block: (K, V) -> Unit) {
         keyToEntryMap.forEach(block)
     }
 
@@ -121,13 +121,25 @@ public abstract class Registry<V>(
     }
 }
 
+/** A registry that delegates itself to the given [delegate]. */
+public open class DelegatingRegistry<K : Any, V>(private val delegate: Registry<K, V>) : Registry<K, V>(delegate.modifiable) {
+    override val entries: MutableList<V>
+        get() = delegate.entries
+    override val keys: MutableList<K>
+        get() = delegate.keys
+    override val keyToEntryMap: MutableMap<K, V>
+        get() = delegate.keyToEntryMap
+    override val entryToKeyMap: MutableMap<V, K>
+        get() = delegate.entryToKeyMap
+}
+
 /** Creates a new registry of type [V]. */
-public fun <V> Registry(): Registry<V> {
-    return object : Registry<V>() {}
+public fun <K : Any, V> Registry(): Registry<K, V> {
+    return object : Registry<K, V>() {}
 }
 
 /** Creates a new modifiable [Registry] of type [V]. */
 @Suppress("FunctionName")
-public fun <V> ModifiableRegistry(): Registry<V> {
-    return object : Registry<V>(true) {}
+public fun <K : Any, V> ModifiableRegistry(): Registry<K, V> {
+    return object : Registry<K, V>(true) {}
 }

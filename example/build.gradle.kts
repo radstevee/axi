@@ -9,9 +9,17 @@ plugins {
 group = "net.radstevee.axi.example"
 version = "0.0.0"
 
+repositories {
+    mavenCentral()
+    maven("https://maven.radsteve.net/public")
+    maven("https://maven.mcbrawls.net/releases")
+}
+
 dependencies {
     ksp(project(":axi-ksp"))
-    implementation(project(":axi-core"))
+    api(project(":axi-core"))
+    api(project(":axi-ui"))
+    api(libs.bundles.packed)
 }
 
 tasks {

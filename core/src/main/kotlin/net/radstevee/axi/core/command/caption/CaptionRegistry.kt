@@ -9,9 +9,9 @@ import org.incendo.cloud.paper.util.sender.Source
 /** A registry of command captions. */
 public open class CaptionRegistry {
     /** The caption keys. */
-    protected val keys: Registry<Caption> = Registry()
+    protected val keys: Registry<String, Caption> = Registry()
     /** The caption values. */
-    protected val values: Registry<String> = Registry()
+    protected val values: Registry<String, String> = Registry()
 
     /** Registers a caption and returns it. */
     public fun register(key: String, value: String): Caption {

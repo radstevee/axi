@@ -11,6 +11,8 @@ mccoroutine = "2.21.0"
 cloud = "2.1.0-SNAPSHOT"
 cloud-minecraft = "2.0.0-SNAPSHOT"
 ksp = "2.1.10-1.0.31"
+packed = "1.0.3"
+inject = "3.1.2"
 
 [libraries]
 kotlinx-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization-json" }
@@ -42,7 +44,16 @@ cloud-paper = { module = "org.incendo:cloud-paper", version.ref = "cloud-minecra
 cloud-brig = { module = "org.incendo:cloud-brigadier", version.ref = "cloud-minecraft" }
 cloud-minecraft-extras = { module = "org.incendo:cloud-minecraft-extras", version.ref = "cloud-minecraft" }
 
+packed-core = { module = "net.radstevee.packed:packed-core", version.ref = "packed" }
+packed-spaces = { module = "net.radstevee.packed:packed-negative-spaces", version.ref = "packed" }
+
+inject-api = { module = "net.mcbrawls.inject:api", version.ref = "inject" }
+inject-http = { module = "net.mcbrawls.inject:http", version.ref = "inject" }
+inject-spigot = { module = "net.mcbrawls.inject:spigot", version.ref = "inject" }
+
 [bundles]
 kotlinx = ["kotlinx-serialization", "kotlinx-coroutines"]
 mccoroutine = ["mccoroutine-bukkit-api", "mccoroutine-bukkit-core"]
 cloud = ["cloud-core", "cloud-kotlin-ext", "cloud-kotlin-coroutines", "cloud-paper", "cloud-brig", "cloud-minecraft-extras"]
+packed = ["packed-core", "packed-spaces"]
+inject = ["inject-api", "inject-spigot", "inject-http"]
