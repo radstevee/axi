@@ -38,12 +38,14 @@ public class CommandBuilder(
         return arg
     }
 
+    /** Adds an optional argument with a default value to this command. */
     public fun <T : Any> defaultedArg(id: String, parser: ParserDescriptor<Source, T>, default: T): NonNullableCommandArgument<T> {
         val arg = NonNullableCommandArgument<T>(id, parser, default)
         args.add(arg)
         return arg
     }
 
+    /** Adds a required argument to this command. */
     public fun <T : Any> arg(id: String, parser: ParserDescriptor<Source, T>): NonNullableCommandArgument<T> {
         val arg = NonNullableCommandArgument<T>(id, parser, null)
         args.add(arg)
