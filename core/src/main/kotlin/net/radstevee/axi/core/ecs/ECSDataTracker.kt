@@ -10,10 +10,12 @@ public object ECSDataTracker {
     @PublishedApi
     internal val data: MutableMap<Attachable, MutableSet<WrappedComponent<*>>> = mutableMapOf()
 
+    /** Clears non-persistent data from the given [attachable]. */
     public fun clear(attachable: Attachable) {
         data[attachable]?.removeIf { component -> component.value !is Persistent }
     }
 
+    /** Gets a component of the given [klass]. */
     public fun <T : Any> Attachable.get(klass: KClass<T>): T? {
         val components = data.getOrPut(this, ::mutableSetOf)
         val component = components
@@ -22,8 +24,10 @@ public object ECSDataTracker {
         return component?.value
     }
 
+    /** Gets a component of the given type. */
     public inline fun <reified T : Any> Attachable.get(): T? = get(T::class)
 
+    /** Sets a component to [value]. */
     public fun <T : Any> Attachable.set(value: T?, klass: KClass<T>): T? {
         val components = data.getOrPut(this, ::mutableSetOf)
         val component = components
@@ -39,8 +43,18 @@ public object ECSDataTracker {
         return value
     }
 
+    /** Sets a component to [value]. */
     public inline fun <reified T : Any> Attachable.set(value: T?): T? = set(value, T::class)
 
+    /** Gets a component of given [klass], or puts a [value] if it is absent. */
+    public fun <T : Any> Attachable.getOrPut(value: T, klass: KClass<T>): T {
+        return get(klass) ?: set(value, klass)!!
+    }
+
+    /** Gets a component of given type, or puts a [value] if it is absent. */
+    public inline fun <reified T : Any> Attachable.getOrPut(value: T): T = getOrPut(value, T::class)
+
+    /** Gets a read-write property of the given type, useful for delegation. */
     public inline fun <reified T : Any> Attachable.data(): ReadWriteProperty<Any?, T?> = object : ReadWriteProperty<Any?, T?> {
         override fun getValue(thisRef: Any?, property: KProperty<*>): T? {
             return get(T::class)
