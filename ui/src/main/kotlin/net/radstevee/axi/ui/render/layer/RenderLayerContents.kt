@@ -15,16 +15,14 @@ public data class RenderLayerContents(
 ) {
   internal var cachedContent: TextComponent? = null
 
-  internal fun content(redraw: Boolean): TextComponent {
-    return if (redraw) {
+  internal fun content(redraw: Boolean): TextComponent = if (redraw) {
+    cachedContent = contentProvider()
+    cachedContent!!
+  } else {
+    if (cachedContent == null) {
       cachedContent = contentProvider()
-      cachedContent!!
-    } else {
-      if (cachedContent == null) {
-        cachedContent = contentProvider()
-      }
-
-      cachedContent!!
     }
+
+    cachedContent!!
   }
 }

@@ -8,6 +8,5 @@ import org.bukkit.event.Listener
 internal object RenderLayerTicker : Listener {
   @EventHandler
   private fun on(event: ServerTickEndEvent) {
-
   }
 }

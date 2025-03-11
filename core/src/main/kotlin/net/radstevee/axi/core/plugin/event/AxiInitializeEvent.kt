@@ -16,8 +16,6 @@ public class AxiInitializeEvent(
     private val HANDLER_LIST: HandlerList = HandlerList()
 
     @JvmStatic
-    internal fun getHandlerList(): HandlerList {
-      return HANDLER_LIST
-    }
+    internal fun getHandlerList(): HandlerList = HANDLER_LIST
   }
 }

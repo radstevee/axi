@@ -1,7 +1,6 @@
 package net.radstevee.axi.core.plugin
 
 import kotlinx.coroutines.runBlocking
-import net.radstevee.axi.core.plugin.AxiInitializer
 import net.radstevee.axi.core.command.CommandManager
 import net.radstevee.axi.core.plugin.AxiPluginHolder.gracefully
 import org.bukkit.plugin.java.JavaPlugin

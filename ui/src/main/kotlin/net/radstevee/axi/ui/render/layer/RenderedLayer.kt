@@ -16,7 +16,8 @@ public class RenderedLayer(
 
   /** The renderer for this layer. */
   public val renderer: Renderer,
-) : Renderable, Redrawable {
+) : Renderable,
+  Redrawable {
   /** Compiles this render layer to a component. */
   override fun asText(): TextComponent {
     val contents = contents.map { content -> content.content(true) }
