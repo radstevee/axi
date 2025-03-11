@@ -2,7 +2,6 @@
 kotlin = "2.1.10"
 kotlinx-serialization-json = "1.7.2"
 kotlinx-coroutines = "1.8.1"
-jetbrains-annotations = "24.0.1"
 caffeine = "3.1.8"
 dokka = "2.0.0"
 paper = "1.21.4-R0.1-SNAPSHOT"
@@ -13,7 +12,7 @@ cloud-minecraft = "2.0.0-SNAPSHOT"
 ksp = "2.1.10-1.0.31"
 packed = "1.0.3"
 inject = "3.1.2"
-spotless = "7.0.1"
+spotless = "7.0.2"
 ktlint = "1.5.0"
 
 [libraries]
@@ -25,14 +24,11 @@ plugin-dokka = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref
 plugin-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 plugin-ktx-serial = { module = "org.jetbrains.kotlin.plugin.serialization:org.jetbrains.kotlin.plugin.serialization.gradle.plugin", version.ref = "kotlin" }
 plugin-paperweight = { module = "io.papermc.paperweight.userdev:io.papermc.paperweight.userdev.gradle.plugin", version.ref = "paperweight" }
-plugin-ksp = { module = "com.google.devtools.ksp:symbol-processing-gradle-plugin", version.ref = "ksp" }
 plugin-spotless = { module = "com.diffplug.spotless:com.diffplug.spotless.gradle.plugin", version.ref = "spotless" }
 
 ksp = { module = "com.google.devtools.ksp:symbol-processing-api", version.ref = "ksp" }
 
 paper-api = { module = "io.papermc.paper:paper-api", version.ref = "paper" }
-
-jetbrains-annotations = { module = "org.jetbrains:annotations", version.ref = "jetbrains-annotations" }
 
 caffeine = { module = "com.github.ben-manes.caffeine:caffeine", version.ref = "caffeine" }
 
