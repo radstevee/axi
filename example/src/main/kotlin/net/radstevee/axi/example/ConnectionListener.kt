@@ -9,15 +9,15 @@ import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerJoinEvent
 
 public object ConnectionListener : Listener {
-    @EventHandler
-    private fun on(event: PlayerJoinEvent) {
-        val player = event.player
-        player.sendAxiPack(ExampleAxiPack)
+  @EventHandler
+  private fun on(event: PlayerJoinEvent) {
+    val player = event.player
+    player.sendAxiPack(ExampleAxiPack)
 
-        player
-            .onClick {
-                player.sendRichMessage("You clicked a pig called <rainbow>${entity.name}</rainbow>!")
-            }
-            .filtering { entity.type == EntityType.PIG }
-    }
+    player
+      .onClick {
+        player.sendRichMessage("You clicked a pig called <rainbow>${entity.name}</rainbow>!")
+      }
+      .filtering { entity.type == EntityType.PIG }
+  }
 }

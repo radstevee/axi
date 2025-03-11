@@ -21,57 +21,57 @@ private const val CHECKIP_URL = "https://checkip.amazonaws.com"
  * `axi.external_port` JVM properties.
  */
 public fun externalServerAddress(): InetSocketAddress {
-    cachedServerAddress?.let { addr -> return addr }
-    val addrProp = System.getProperty("axi.external_addr")
-    val portProp = System.getProperty("axi.external_port")
-    val port = portProp?.toInt() ?: Bukkit.getPort()
+  cachedServerAddress?.let { addr -> return addr }
+  val addrProp = System.getProperty("axi.external_addr")
+  val portProp = System.getProperty("axi.external_port")
+  val port = portProp?.toInt() ?: Bukkit.getPort()
 
-    if (addrProp != null) {
-        val addr = InetSocketAddress.createUnresolved(addrProp, port)
-        cachedServerAddress = addr
-
-        return addr
-    }
-
-    val response = httpClient.send(
-        HttpRequest.newBuilder(URI.create(CHECKIP_URL)).build(),
-        HttpResponse.BodyHandlers.ofString()
-    )
-    val responseStr = response.body().removeSuffix("\\n")
-    val addr = InetSocketAddress.createUnresolved(responseStr, port)
+  if (addrProp != null) {
+    val addr = InetSocketAddress.createUnresolved(addrProp, port)
     cachedServerAddress = addr
 
-    checkExternalAddr()
+    return addr
+  }
 
-    return cachedServerAddress!!
+  val response = httpClient.send(
+    HttpRequest.newBuilder(URI.create(CHECKIP_URL)).build(),
+    HttpResponse.BodyHandlers.ofString(),
+  )
+  val responseStr = response.body().removeSuffix("\\n")
+  val addr = InetSocketAddress.createUnresolved(responseStr, port)
+  cachedServerAddress = addr
+
+  checkExternalAddr()
+
+  return cachedServerAddress!!
 }
 
 /** Builds an external server URI with the specified [path] and [addr]. */
-public fun buildServerURI(path: String = "", addr: InetSocketAddress = externalServerAddress()): URI {
-    return URI.create("http://" + addr.hostString.removeSuffix("\n") + ":" + addr.port + "/" + path)
-}
+public fun buildServerURI(path: String = "", addr: InetSocketAddress = externalServerAddress()): URI = URI.create("http://" + addr.hostString.removeSuffix("\n") + ":" + addr.port + "/" + path)
 
 /** Checks if the [externalServerAddress] is accessible by sending it an HTTP request. */
 public fun checkExternalAddr(): Boolean {
-    externalAddressAccessible?.let { accessible -> return accessible }
-    val response = runCatching {
-        httpClient.send(
-            HttpRequest.newBuilder(buildServerURI())
-                .timeout(Duration.ofSeconds(2))
-                .build(),
-            HttpResponse.BodyHandlers.ofString()
-        )
-    }
+  externalAddressAccessible?.let { accessible -> return accessible }
+  val response = runCatching {
+    httpClient.send(
+      HttpRequest.newBuilder(buildServerURI())
+        .timeout(Duration.ofSeconds(2))
+        .build(),
+      HttpResponse.BodyHandlers.ofString(),
+    )
+  }
 
-    if (response.isFailure) {
-        externalAddressAccessible = false
-        cachedServerAddress = InetSocketAddress.createUnresolved("localhost", System.getProperty("axi.external_port")?.toInt() ?: Bukkit.getPort())
+  if (response.isFailure) {
+    externalAddressAccessible = false
+    cachedServerAddress = InetSocketAddress.createUnresolved("localhost", System.getProperty("axi.external_port")?.toInt() ?: Bukkit.getPort())
 
-        return false
-    }
-    val res = response.getOrThrow()
+    return false
+  }
+  val res = response.getOrThrow()
 
-    externalAddressAccessible = res.statusCode() == 200 && res.body().isEmpty()
+  // spotless:off - I have no idea why this is happening
+  externalAddressAccessible = (res.statusCode() == 200) && (res.body().isEmpty())
+  // spotless:on
 
-    return externalAddressAccessible!!
+  return externalAddressAccessible!!
 }

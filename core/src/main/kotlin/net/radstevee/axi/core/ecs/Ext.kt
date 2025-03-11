@@ -26,28 +26,28 @@ public inline fun <reified T : Any> Player.data(): ReadWriteProperty<Any?, T?> =
 
 /** Sets an [EntityClickedComponent] for the given [block]. */
 public fun Player.onClick(block: suspend EntityClickedComponent.ClickContext.() -> Unit): EntityClickedComponent {
-    val component = EntityClickedComponent(block)
-    set(component)
-    return component
+  val component = EntityClickedComponent(block)
+  set(component)
+  return component
 }
 
 /** Sets an [EntityClickedComponent] for the given [block]. */
 public fun Attachable.onClick(block: suspend EntityClickedComponent.ClickContext.() -> Unit): EntityClickedComponent {
-    val component = EntityClickedComponent(block)
-    set(component)
-    return component
+  val component = EntityClickedComponent(block)
+  set(component)
+  return component
 }
 
 /** Adds a debounce entry to this attachable's debounce component for the given [klass] and the given [duration]. */
 public fun Attachable.addDebounce(klass: KClass<out Any>, duration: Duration): DebounceComponent.DebounceEntry {
-    val component = getOrPut(DebounceComponent())
-    return component.add(klass, duration)
+  val component = getOrPut(DebounceComponent())
+  return component.add(klass, duration)
 }
 
 /** Checks a debounce entry for this attachable of the given [klass]. */
 public fun Attachable.checkDebounce(klass: KClass<out Any>): Boolean {
-    val component = getOrPut(DebounceComponent())
-    return component.check(klass)
+  val component = getOrPut(DebounceComponent())
+  return component.check(klass)
 }
 
 /** Adds a debounce entry to this player's debounce component for the given [klass] and the given [duration]. */

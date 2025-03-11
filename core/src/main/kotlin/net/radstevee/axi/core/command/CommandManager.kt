@@ -2,8 +2,8 @@ package net.radstevee.axi.core.command
 
 import net.kyori.adventure.text.Component.text
 import net.kyori.adventure.text.format.NamedTextColor.RED
-import net.radstevee.axi.core.plugin.AxiPlugin
 import net.radstevee.axi.core.command.caption.CaptionRegistry
+import net.radstevee.axi.core.plugin.AxiPlugin
 import net.radstevee.axi.core.plugin.AxiPluginHolder
 import org.incendo.cloud.brigadier.BrigadierSetting.FORCE_EXECUTABLE
 import org.incendo.cloud.exception.CommandExecutionException
@@ -17,22 +17,22 @@ public typealias CommandManager = PaperCommandManager<Source>
 
 /** Creates a new command manager for the given [plugin]. */
 public fun CommandManager(plugin: AxiPlugin = AxiPluginHolder.plugin()): CommandManager {
-    val manager = PaperCommandManager.builder(simpleSenderMapper())
-        .executionCoordinator(simpleCoordinator())
-        .buildOnEnable(plugin)
+  val manager = PaperCommandManager.builder(simpleSenderMapper())
+    .executionCoordinator(simpleCoordinator())
+    .buildOnEnable(plugin)
 
-    manager.captionRegistry().registerProvider(CaptionRegistry.provider())
+  manager.captionRegistry().registerProvider(CaptionRegistry.provider())
 
-    manager.exceptionController().registerHandler(CommandExecutionException::class.java) { ctx ->
-        val exception = ctx.exception().cause ?: return@registerHandler
-        ctx.context().sendMessage(text(exception.message ?: "<no message>", RED))
-    }
+  manager.exceptionController().registerHandler(CommandExecutionException::class.java) { ctx ->
+    val exception = ctx.exception().cause ?: return@registerHandler
+    ctx.context().sendMessage(text(exception.message ?: "<no message>", RED))
+  }
 
-    val brig = manager.brigadierManager()
-    brig.settings().set(FORCE_EXECUTABLE, true)
-    brig.setNativeNumberSuggestions(true)
+  val brig = manager.brigadierManager()
+  brig.settings().set(FORCE_EXECUTABLE, true)
+  brig.setNativeNumberSuggestions(true)
 
-    registerAutoRegisteredCommands(plugin, manager)
+  registerAutoRegisteredCommands(plugin, manager)
 
-    return manager
+  return manager
 }

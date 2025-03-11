@@ -15,34 +15,28 @@ import kotlin.coroutines.CoroutineContext
 
 /** The [CoroutineScope] of this plugin. */
 public val AxiPlugin.coroutineScope: CoroutineScope get() = scope + StacktracePrintingCoroutineExceptionHandler
+
 /** The synchronous dispatcher. */
 public val AxiPlugin.syncContext: CoroutineContext get() = minecraftDispatcher + StacktracePrintingCoroutineExceptionHandler
+
 /** The asynchronous dispatcher. */
 public val AxiPlugin.asyncContext: CoroutineContext get() = asyncDispatcher + StacktracePrintingCoroutineExceptionHandler
 
 /** Launches a sync task on the main [org.bukkit.scheduler.BukkitScheduler]. */
-public fun AxiPlugin.sync(block: suspend CoroutineScope.() -> Unit): Job {
-    return launch(context = syncContext, block = block)
-}
+public fun AxiPlugin.sync(block: suspend CoroutineScope.() -> Unit): Job = launch(context = syncContext, block = block)
 
 /** Launches an asynchronous task on the async [org.bukkit.scheduler.BukkitScheduler]. */
-public fun AxiPlugin.async(block: suspend CoroutineScope.() -> Unit): Job {
-    return launch(context = asyncContext, block = block)
-}
+public fun AxiPlugin.async(block: suspend CoroutineScope.() -> Unit): Job = launch(context = asyncContext, block = block)
 
 /** Executes [block] on the [syncContext]. */
-public suspend fun <R> AxiPlugin.syncContext(block: suspend CoroutineScope.() -> R): R {
-    return withContext(syncContext, block = block)
-}
+public suspend fun <R> AxiPlugin.syncContext(block: suspend CoroutineScope.() -> R): R = withContext(syncContext, block = block)
 
 /** Executes [block] on the [asyncContext]. */
-public suspend fun <R> AxiPlugin.asyncContext(block: suspend CoroutineScope.() -> R): R {
-    return withContext(asyncContext, block = block)
-}
+public suspend fun <R> AxiPlugin.asyncContext(block: suspend CoroutineScope.() -> R): R = withContext(asyncContext, block = block)
 
 /** Registers suspending event listeners. */
 public fun AxiPlugin.registerEventListeners(vararg listeners: Listener) {
-    listeners.forEach { listener ->
-        server.pluginManager.registerSuspendingEvents(listener, this)
-    }
+  listeners.forEach { listener ->
+    server.pluginManager.registerSuspendingEvents(listener, this)
+  }
 }

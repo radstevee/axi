@@ -9,27 +9,27 @@ import net.radstevee.packed.core.pack.ResourcePack
 
 /** Saves axi resource pack elements. */
 internal class AxiPackSavingHook(
-    /** The resource pack for this hook. */
-    private val axiPack: AxiPack,
+  /** The resource pack for this hook. */
+  private val axiPack: AxiPack,
 ) : PackedHook {
-    override fun beforeSave(pack: ResourcePack) {
-        SpriteRegistry
-        AxiFontRegistry
+  override fun beforeSave(pack: ResourcePack) {
+    SpriteRegistry
+    AxiFontRegistry
 
-        AxiFontRegistry.Sprites = SpriteFont(
-            axiPack,
-            SpriteRegistry.collectEntries()
-                .filter { sprite -> sprite.pack.name == axiPack.name }
-        )
+    AxiFontRegistry.sprites = SpriteFont(
+      axiPack,
+      SpriteRegistry.collectEntries()
+        .filter { sprite -> sprite.pack.name == axiPack.name },
+    )
+  }
+
+  override fun afterSave(pack: ResourcePack) {
+    SpriteRegistry.forEach { sprite ->
+      // Initialise lazy properties so they don't read files
+      // at runtime, causing potential performance impacts.
+      sprite.width
     }
 
-    override fun afterSave(pack: ResourcePack) {
-        SpriteRegistry.forEach { sprite ->
-            // Initialise lazy properties so they don't read files
-            // at runtime, causing potential performance impacts.
-            sprite.width
-        }
-
-        ResourcePackInjector
-    }
+    ResourcePackInjector
+  }
 }

@@ -5,17 +5,15 @@ import org.incendo.cloud.paper.util.sender.Source
 
 /** Holds thread-local execution contexts. */
 internal object CommandExecutionContext {
-    private val ctx: ThreadLocal<CommandContext<Source>> = ThreadLocal()
+  private val ctx: ThreadLocal<CommandContext<Source>> = ThreadLocal()
 
-    fun ctx(new: CommandContext<Source>) {
-        ctx.set(new)
-    }
+  fun ctx(new: CommandContext<Source>) {
+    ctx.set(new)
+  }
 
-    fun ctx(): CommandContext<Source>? {
-        return ctx.get()
-    }
+  fun ctx(): CommandContext<Source>? = ctx.get()
 
-    fun unset() {
-        ctx.remove()
-    }
+  fun unset() {
+    ctx.remove()
+  }
 }

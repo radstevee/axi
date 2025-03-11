@@ -23,3 +23,4 @@ ktlint_code_style = intellij_idea
 ktlint_experimental = enabled
 ktlint_standard_multiline-expression-wrapping = disabled
 ktlint_standard_property-wrapping = disabled
+ktlint_standard_condition-wrapping = disabled

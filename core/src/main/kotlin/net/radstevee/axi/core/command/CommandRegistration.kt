@@ -11,71 +11,70 @@ import org.incendo.cloud.kotlin.extension.buildAndRegister
 import org.incendo.cloud.paper.util.sender.Source
 import java.util.ServiceLoader
 
-internal fun autoRegisteredCommands(plugin: AxiPlugin): Iterator<Command> =
-    ServiceLoader.load(Command::class.java, plugin.javaClass.classLoader).iterator()
+internal fun autoRegisteredCommands(plugin: AxiPlugin): Iterator<Command> = ServiceLoader.load(Command::class.java, plugin.javaClass.classLoader).iterator()
 
 /** Registers a command to the given [manager]. */
 // God this is a shitshow
 // I will pray for anyone who needs to debug this
 public fun Command.register(manager: CommandManager = AxiPluginHolder.plugin().commandManager) {
-    fun MutableCommandBuilder<Source>.register(command: Command) {
-        permission(command.permission)
+  fun MutableCommandBuilder<Source>.register(command: Command) {
+    permission(command.permission)
 
-        command.args.forEach { arg ->
-            if (arg is NonNullableCommandArgument<*>) {
-                if (arg.default != null) {
-                    optional(arg.id, arg.descriptor)
-                } else {
-                    required(arg.id, arg.descriptor)
-                }
-            } else {
-                optional(arg.id, arg.descriptor)
-            }
-        }
-        val context = if (command.asyncHandler) {
-            asyncContext
+    command.args.forEach { arg ->
+      if (arg is NonNullableCommandArgument<*>) {
+        if (arg.default != null) {
+          optional(arg.id, arg.descriptor)
         } else {
-            syncContext
+          required(arg.id, arg.descriptor)
         }
-
-        suspendingHandler(scope = coroutineScope, context = context) { ctx ->
-            with(command) {
-                try {
-                    CommandExecutionContext.ctx(ctx)
-                    ctx.execute()
-                } finally {
-                    CommandExecutionContext.unset()
-                }
-            }
-        }
+      } else {
+        optional(arg.id, arg.descriptor)
+      }
+    }
+    val context = if (command.asyncHandler) {
+      asyncContext
+    } else {
+      syncContext
     }
 
-    val aliases = aliases.toTypedArray()
+    suspendingHandler(scope = coroutineScope, context = context) { ctx ->
+      with(command) {
+        try {
+          CommandExecutionContext.ctx(ctx)
+          ctx.execute()
+        } finally {
+          CommandExecutionContext.unset()
+        }
+      }
+    }
+  }
 
-    manager.buildAndRegister(name, aliases = aliases) {
-        register(this@register)
+  val aliases = aliases.toTypedArray()
+
+  manager.buildAndRegister(name, aliases = aliases) {
+    register(this@register)
+  }
+
+  fun registerChildren(parentName: String, parentAliases: Array<String>, children: Set<Command>) {
+    fun MutableCommandBuilder<Source>.registerChildren(node: Command) {
+      literal(node.name, aliases = node.aliases.toTypedArray()).build {
+        register(node)
+        node.children.forEach { child ->
+          registerChildren(child)
+        }
+      }
     }
 
-    fun registerChildren(parentName: String, parentAliases: Array<String>, children: Set<Command>) {
-        fun MutableCommandBuilder<Source>.registerChildren(node: Command) {
-            literal(node.name, aliases = node.aliases.toTypedArray()).build {
-                register(node)
-                node.children.forEach { child ->
-                    registerChildren(child)
-                }
-            }
-        }
-
-        children.forEach { child ->
-            manager.buildAndRegister(parentName, aliases = parentAliases) {
-                this.registerChildren(child)
-            }
-        }
+    children.forEach { child ->
+      manager.buildAndRegister(parentName, aliases = parentAliases) {
+        this.registerChildren(child)
+      }
     }
+  }
 
-    registerChildren(name, aliases, children)
+  registerChildren(name, aliases, children)
 }
 
 internal fun registerAutoRegisteredCommands(plugin: AxiPlugin, manager: CommandManager) {
-    autoRegisteredCommands(plugin).forEach { command -> command.register(manager) }
+  autoRegisteredCommands(plugin).forEach { command -> command.register(manager) }
 }

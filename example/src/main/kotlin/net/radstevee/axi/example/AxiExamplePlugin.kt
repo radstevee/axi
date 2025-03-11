@@ -5,9 +5,9 @@ import net.radstevee.axi.core.plugin.AxiPlugin
 import net.radstevee.axi.example.resource.ExampleAxiPack
 
 public class AxiExamplePlugin : AxiPlugin() {
-    override suspend fun enable() {
-        ExampleAxiPack.save()
+  override suspend fun enable() {
+    ExampleAxiPack.save()
 
-        registerEventListeners(ConnectionListener)
-    }
+    registerEventListeners(ConnectionListener)
+  }
 }

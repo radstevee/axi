@@ -6,25 +6,25 @@ import net.kyori.adventure.text.TextComponent
 
 /** Compacts the children of this component. */
 public fun ComponentLike.compactChildren(): List<Component> {
-    val childrenList = mutableListOf<Component>()
+  val childrenList = mutableListOf<Component>()
 
-    fun collectChildren(component: ComponentLike) {
-        val componentChildren = component.asComponent().children()
-        componentChildren.forEach { child ->
-            childrenList.add(child)
-            collectChildren(child)
-        }
+  fun collectChildren(component: ComponentLike) {
+    val componentChildren = component.asComponent().children()
+    componentChildren.forEach { child ->
+      childrenList.add(child)
+      collectChildren(child)
     }
+  }
 
-    if (this is TextComponent && content().isNotBlank()) {
-        childrenList.add(Component.text(content(), style()))
-    }
+  if (this is TextComponent && content().isNotBlank()) {
+    childrenList.add(Component.text(content(), style()))
+  }
 
-    collectChildren(this)
+  collectChildren(this)
 
-    if (childrenList.isEmpty()) {
-        return listOf(asComponent())
-    }
+  if (childrenList.isEmpty()) {
+    return listOf(asComponent())
+  }
 
-    return childrenList
+  return childrenList
 }

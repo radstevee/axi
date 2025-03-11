@@ -4,20 +4,20 @@ import net.radstevee.packed.core.key.Key
 
 /** Provides fallback resources for a resource pack. */
 public interface FallbackResourceProvider {
-    /** Gets the fallback sprite key. */
-    public fun sprite(pack: AxiPack): Key?
+  /** Gets the fallback sprite key. */
+  public fun sprite(pack: AxiPack): Key?
 
-    /** Gets the fallback font key. */
-    public fun font(pack: AxiPack): Key?
+  /** Gets the fallback font key. */
+  public fun font(pack: AxiPack): Key?
 
-    /** Gets the fallback sound key. */
-    public fun sound(pack: AxiPack): Key?
+  /** Gets the fallback sound key. */
+  public fun sound(pack: AxiPack): Key?
 
-    public companion object Empty : FallbackResourceProvider {
-        override fun sprite(pack: AxiPack): Key? = null
+  public companion object Empty : FallbackResourceProvider {
+    override fun sprite(pack: AxiPack): Key? = null
 
-        override fun font(pack: AxiPack): Key? = null
+    override fun font(pack: AxiPack): Key? = null
 
-        override fun sound(pack: AxiPack): Key? = null
-    }
+    override fun sound(pack: AxiPack): Key? = null
+  }
 }

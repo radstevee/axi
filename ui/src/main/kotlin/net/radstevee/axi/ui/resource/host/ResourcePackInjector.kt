@@ -9,22 +9,22 @@ import net.mcbrawls.inject.spigot.InjectSpigot
 import net.radstevee.axi.ui.resource.pack.AxiPackRegistry
 
 internal object ResourcePackInjector : HttpInjector() {
-    override fun intercept(
-        ctx: ChannelHandlerContext,
-        request: HttpRequest,
-    ): HttpByteBuf {
-        val buf = httpBuf(ctx)
-        buf.writeStatusLine("1.1", 200, "OK")
+  override fun intercept(
+    ctx: ChannelHandlerContext,
+    request: HttpRequest,
+  ): HttpByteBuf {
+    val buf = httpBuf(ctx)
+    buf.writeStatusLine("1.1", 200, "OK")
 
-        val pack = AxiPackRegistry[request.requestURI.removePrefix("/packs/")] ?: return buf
+    val pack = AxiPackRegistry[request.requestURI.removePrefix("/packs/")] ?: return buf
 
-        buf.writeHeader("Content-Type", "application/zip")
-        buf.writeBytes(pack.bytes)
+    buf.writeHeader("Content-Type", "application/zip")
+    buf.writeBytes(pack.bytes)
 
-        return buf
-    }
+    return buf
+  }
 
-    init {
-        InjectSpigot.INSTANCE.registerInjector(this)
-    }
+  init {
+    InjectSpigot.INSTANCE.registerInjector(this)
+  }
 }

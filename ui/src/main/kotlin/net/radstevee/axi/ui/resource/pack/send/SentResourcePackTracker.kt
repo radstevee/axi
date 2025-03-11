@@ -9,21 +9,19 @@ import java.util.UUID
 private typealias SentPacksList = MutableList<Pair<ResourcePackRequest, AxiPack>>
 
 internal object SentResourcePackTracker {
-    private val sentPacks: MutableMap<UUID, SentPacksList> = mutableMapOf()
+  private val sentPacks: MutableMap<UUID, SentPacksList> = mutableMapOf()
 
-    fun trackAdd(uuid: UUID, request: ResourcePackRequest, pack: AxiPack) {
-        sentPacks.getOrPut(uuid, ::mutableListOf).add(request to pack)
-    }
+  fun trackAdd(uuid: UUID, request: ResourcePackRequest, pack: AxiPack) {
+    sentPacks.getOrPut(uuid, ::mutableListOf).add(request to pack)
+  }
 
-    fun trackRemovePack(uuid: UUID, pack: AxiPack) {
-        sentPacks.getOrPut(uuid, ::mutableListOf).removeIf { (_, axiPack) -> axiPack == pack }
-    }
+  fun trackRemovePack(uuid: UUID, pack: AxiPack) {
+    sentPacks.getOrPut(uuid, ::mutableListOf).removeIf { (_, axiPack) -> axiPack == pack }
+  }
 
-    fun clear(uuid: UUID) {
-        sentPacks.remove(uuid)
-    }
+  fun clear(uuid: UUID) {
+    sentPacks.remove(uuid)
+  }
 
-    fun Audience.sentPacks(): SentPacksList {
-        return sentPacks[uuid()] ?: mutableListOf()
-    }
+  fun Audience.sentPacks(): SentPacksList = sentPacks[uuid()] ?: mutableListOf()
 }
