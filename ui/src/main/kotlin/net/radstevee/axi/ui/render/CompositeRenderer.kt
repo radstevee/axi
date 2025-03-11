@@ -10,7 +10,7 @@ import org.bukkit.entity.Player
 /** Renders renderables for an audience. */
 public object CompositeRenderer {
   private fun stack(player: Player, renderable: Renderable): TextComponent {
-    val component = player.getOrPut(CurrentlyRenderedComponent())
+    val component = player.getOrPut(PlayerRenderedComponent())
     component.currentlyRenderedRenderables.add(renderable)
 
     return buildLayeredText(component.currentlyRenderedRenderables)

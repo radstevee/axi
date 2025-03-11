@@ -60,4 +60,7 @@ public object ECSDataTracker {
       set(value, T::class)
     }
   }
+
+  /** Gets all components for this attachable. */
+  public fun Attachable.components(): Set<WrappedComponent<*>> = data.getOrPut(this, ::mutableSetOf)
 }

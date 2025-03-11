@@ -12,6 +12,7 @@ plugins {
   `maven-publish`
   `java-library`
 }
+
 val libs = the<LibrariesForLibs>()
 
 group = "net.radstevee.axi"
@@ -32,6 +33,7 @@ tasks.withType<KotlinCompile> {
     "-opt-in=kotlinx.coroutines.DelicateCoroutinesApi",
     "-opt-in=kotlin.contracts.ExperimentalContracts",
     "-Xcontext-receivers",
+    "-Xsuppress-warnings=CONTEXT_RECEIVERS_DEPRECATED",
   )
 }
 
@@ -46,6 +48,7 @@ testing {
     }
   }
 }
+
 val dokkaJar = tasks.register<Jar>("dokkaHtmlJar") {
   dependsOn(tasks.dokkaGeneratePublicationHtml)
   from(tasks.dokkaGeneratePublicationHtml.flatMap(DokkaGeneratePublicationTask::outputDirectory))

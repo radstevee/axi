@@ -1,7 +1,7 @@
 plugins {
-    id("axi.kotlin-conventions")
+  id("axi.kotlin-conventions")
 }
 
 dependencies {
-    implementation(libs.ksp)
+  implementation(libs.ksp)
 }

@@ -6,7 +6,7 @@ import net.radstevee.axi.core.DelegatingRegistry
 import net.radstevee.axi.core.Registry
 
 /** A registry of text colours, delegating to [AxiColors] */
-public class ColorRegistry : DelegatingRegistry<String, TextColor>(AxiColors) {
+public open class ColorRegistry : DelegatingRegistry<String, TextColor>(AxiColors) {
   /** Delegating text color registry. */
   public companion object AxiColors : Registry<String, TextColor>(modifiable = true) {
     init {

@@ -1,15 +1,15 @@
 plugins {
-    id("axi.kotlin-conventions")
-    id("axi.paper-conventions")
+  id("axi.kotlin-conventions")
+  id("axi.paper-conventions")
 }
 
 axi {
-    paper {
-        internals()
-    }
+  paper {
+    internals()
+  }
 }
 
 dependencies {
-    api(libs.bundles.cloud)
-    api(libs.bundles.mccoroutine)
+  api(libs.bundles.cloud)
+  api(libs.bundles.mccoroutine)
 }
