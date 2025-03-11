@@ -9,6 +9,7 @@ plugins {
     kotlin("jvm")
     kotlin("plugin.serialization")
     id("org.jetbrains.dokka")
+    id("com.diffplug.spotless")
 
     `maven-publish`
     `java-library`
@@ -86,6 +87,13 @@ publishing {
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+spotless {
+    kotlin {
+        ktlint(libs.versions.ktlint.get())
+          .setEditorConfigPath(rootProject.projectDir.resolve(".editorconfig"))
     }
 }
 

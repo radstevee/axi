@@ -1,12 +1,14 @@
-private fun delegatingTask(name: String, delegateTask: String) {
+private fun delegatingTask(name: String, vararg delegateTasks: String) {
     tasks.register(name) {
         childProjects.forEach { (_, project ) ->
             runCatching {
-                dependsOn(project.tasks.getByName(delegateTask))
+              delegateTasks.forEach { task -> dependsOn(project.tasks.getByName(task)) }
             }
         }
     }
 }
 
 delegatingTask("buildAll", "build")
-delegatingTask("publishAll", "publish")
+delegatingTask("spotlessCheck", "spotlessCheck")
+delegatingTask("spotless", "spotlessApply")
+delegatingTask("publishAll", "spotlessCheck", "publish")

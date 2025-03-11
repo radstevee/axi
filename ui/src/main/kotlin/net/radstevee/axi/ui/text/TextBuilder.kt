@@ -270,7 +270,7 @@ public class TextBuilder {
     public fun children(): List<Component> = componentBuilder.children()
 
     /** Appends a component with a specified offset using a block. */
-    public inline fun appendWithOffset(offset: Int, block: TextBuilder.() -> Unit = {}) {
+    public inline fun appendWithOffset(offset: Int, block: TextBuilder.() -> Unit) {
         appendWithOffset(offset, buildText(block))
     }
 
