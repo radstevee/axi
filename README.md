@@ -8,3 +8,4 @@ Plans:
 - [ ] game stuff
 - [ ] argument parser builder
 - [ ] translation API?
+- [ ] rendering API
