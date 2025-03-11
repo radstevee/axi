@@ -14,9 +14,9 @@ import org.bukkit.event.player.PlayerInteractEntityEvent
 /** Executes [handler] if [filter] returns true when a player clicks an entity. */
 public data class EntityClickedComponent(
   /** The click handler. */
-  public var handler: suspend ClickContext.() -> Unit,
+  public var handler: suspend (ClickContext) -> Unit,
   /** An entity filter. */
-  public var filter: suspend ClickContext.() -> Boolean = { true },
+  public var filter: suspend (ClickContext) -> Boolean = { true },
 ) {
   /** The context of a click handler. */
   public data class ClickContext(
@@ -59,7 +59,7 @@ public data class EntityClickedComponent(
   }
 
   /** Sets [block] as the [filter]. */
-  public fun filtering(block: suspend ClickContext.() -> Boolean) {
+  public fun filtering(block: suspend (ClickContext) -> Boolean) {
     filter = block
   }
 }

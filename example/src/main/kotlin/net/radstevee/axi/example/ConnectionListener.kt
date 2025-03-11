@@ -1,6 +1,6 @@
 package net.radstevee.axi.example
 
-import net.radstevee.axi.core.ecs.onClick
+import net.radstevee.axi.core.ecs.onClickEntity
 import net.radstevee.axi.example.resource.ExampleAxiPack
 import net.radstevee.axi.ui.resource.pack.send.sendAxiPack
 import org.bukkit.entity.EntityType
@@ -15,9 +15,9 @@ public object ConnectionListener : Listener {
     player.sendAxiPack(ExampleAxiPack)
 
     player
-      .onClick {
+      .onClickEntity { (player, entity) ->
         player.sendRichMessage("You clicked a pig called <rainbow>${entity.name}</rainbow>!")
       }
-      .filtering { entity.type == EntityType.PIG }
+      .filtering { (_, entity) -> entity.type == EntityType.PIG }
   }
 }

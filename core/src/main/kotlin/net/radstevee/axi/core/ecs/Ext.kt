@@ -25,14 +25,14 @@ public inline fun <reified T : Any> Player.set(value: T?): T? = attachable.set(v
 public inline fun <reified T : Any> Player.data(): ReadWriteProperty<Any?, T?> = attachable.data()
 
 /** Sets an [EntityClickedComponent] for the given [block]. */
-public fun Player.onClick(block: suspend EntityClickedComponent.ClickContext.() -> Unit): EntityClickedComponent {
+public fun Player.onClickEntity(block: suspend (EntityClickedComponent.ClickContext) -> Unit): EntityClickedComponent {
   val component = EntityClickedComponent(block)
   set(component)
   return component
 }
 
 /** Sets an [EntityClickedComponent] for the given [block]. */
-public fun Attachable.onClick(block: suspend EntityClickedComponent.ClickContext.() -> Unit): EntityClickedComponent {
+public fun Attachable.onClickEntity(block: suspend (EntityClickedComponent.ClickContext) -> Unit): EntityClickedComponent {
   val component = EntityClickedComponent(block)
   set(component)
   return component
