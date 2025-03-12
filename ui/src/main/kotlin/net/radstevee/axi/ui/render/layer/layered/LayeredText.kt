@@ -5,6 +5,7 @@ import net.kyori.adventure.text.TextComponent
 import net.radstevee.axi.ui.text.TextBuilder
 import net.radstevee.axi.ui.text.buildText
 import net.radstevee.axi.ui.text.width
+import kotlin.math.roundToInt
 
 /** A builder for layered text. */
 public class LayeredTextBuilder {
@@ -28,8 +29,20 @@ public class LayeredTextBuilder {
   public fun append(component: TextComponent): Boolean = layers.add(component)
 }
 
-/** Builds a layered text from the given [layers]. */
+/** Builds a layered text component. */
 public fun buildLayeredText(
+  block: LayeredTextBuilder.() -> Unit,
+): TextComponent {
+  val layeredBuilder = LayeredTextBuilder().apply(block)
+  val layers = layeredBuilder.layers
+
+  return buildLayeredText(layers = layers)
+}
+
+/** Builds a layered text. */
+public fun buildLayeredText(
+  centred: Boolean = true,
+  roundWidthCalculation: Boolean = false,
   layers: List<TextComponent>,
 ): TextComponent {
   if (layers.isEmpty()) {
@@ -39,29 +52,37 @@ public fun buildLayeredText(
     return layers.first()
   }
 
+  val widthCalculation: (Component) -> Int = if (roundWidthCalculation) {
+    { component ->
+      (component.width() / 2.0f).roundToInt()
+    }
+  } else {
+    { component ->
+      component.width() / 2
+    }
+  }
+
   return buildText {
     val text = buildText {
       layers.forEach { layer ->
         appendWithOffset(
-          layer.width() / 2 - width(),
-          layer,
+          if (centred) {
+            -widthCalculation(layer)
+          } else {
+            0
+          } - width(),
+          layer
         )
       }
     }
 
     appendWithOffset(
-      text.width() / 2,
-      text,
+      if (centred) {
+        widthCalculation(text)
+      } else {
+        0
+      },
+      text
     )
   }
-}
-
-/** Builds a layered text component. */
-public fun buildLayeredText(
-  block: LayeredTextBuilder.() -> Unit,
-): TextComponent {
-  val layeredBuilder = LayeredTextBuilder().apply(block)
-  val layers = layeredBuilder.layers
-
-  return buildLayeredText(layers)
 }

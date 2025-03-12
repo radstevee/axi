@@ -242,12 +242,10 @@ public class TextBuilder {
 
   /** Appends a space with the specified width. */
   public fun appendSpace(space: Int) {
-    append(
-      buildText {
-        append(negativeSpaces.getChar(space).toString())
-        font(negativeSpaces.fontKey)
-      },
-    )
+    append {
+      append(negativeSpaces.getChar(space).toString())
+      font(negativeSpaces.fontKey)
+    }
   }
 
   /** Appends a component with a specified offset. */
@@ -326,5 +324,5 @@ public inline fun buildText(block: TextBuilder.() -> Unit = {}): TextComponent {
   builder.block()
   builder.endOffset()
 
-  return builder.build().compact() as TextComponent
+  return builder.build().compactText()
 }

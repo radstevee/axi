@@ -12,7 +12,8 @@ public object ECSDataTracker {
 
   /** Clears non-persistent data from the given [attachable]. */
   public fun clear(attachable: Attachable) {
-    data[attachable]?.removeIf { component -> component.value !is Persistent }
+    // data[attachable]?.removeIf { component -> component.value !is Persistent }
+    data.remove(attachable)
   }
 
   /** Gets a component of the given [klass]. */
@@ -63,4 +64,7 @@ public object ECSDataTracker {
 
   /** Gets all components for this attachable. */
   public fun Attachable.components(): Set<WrappedComponent<*>> = data.getOrPut(this, ::mutableSetOf)
+
+  /** Gets all attachables currently stored. */
+  public fun attachables(): Set<Attachable> = data.keys
 }

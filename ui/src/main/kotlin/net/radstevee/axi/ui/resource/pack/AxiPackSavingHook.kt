@@ -21,6 +21,10 @@ internal class AxiPackSavingHook(
       SpriteRegistry.collectEntries()
         .filter { sprite -> sprite.pack.name == axiPack.name },
     )
+
+    AxiFontRegistry.forEach { font ->
+      font.save(axiPack)
+    }
   }
 
   override fun afterSave(pack: ResourcePack) {

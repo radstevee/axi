@@ -1,5 +1,7 @@
 package net.radstevee.axi.ui.util
 
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import java.io.File
 import java.security.MessageDigest
 import javax.imageio.ImageIO
@@ -12,14 +14,16 @@ public fun File.sha1(): String = readBytes()
   }
   .joinToString("") { byte -> "%02x".format(byte) }
 
+private val LOGGER: Logger = LoggerFactory.getLogger("FileHelpers")
+
 /** Gets the width of this image. */
 public fun File.imageWidth(): Int = runCatching { ImageIO.read(this).width }.getOrElse { throwable ->
-  println("Failed reading image width of file $this")
-  throw throwable
+  LOGGER.error("Failed reading image width of file $this", throwable)
+  0
 }
 
 /** Gets the height of this image. */
 public fun File.imageHeight(): Int = runCatching { ImageIO.read(this).height }.getOrElse { throwable ->
-  println("Failed reading image height of file $this")
-  throw throwable
+  LOGGER.error("Failed reading image height of file $this", throwable)
+  0
 }

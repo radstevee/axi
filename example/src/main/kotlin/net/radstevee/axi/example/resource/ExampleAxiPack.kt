@@ -23,5 +23,6 @@ public object ExampleAxiPack : AxiPack("example") {
 
   init {
     AxiPackRegistry.AxiPacks.register("example", this)
+    ExampleFontRegistry
   }
 }

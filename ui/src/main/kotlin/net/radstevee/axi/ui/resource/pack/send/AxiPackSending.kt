@@ -3,10 +3,10 @@ package net.radstevee.axi.ui.resource.pack.send
 import net.kyori.adventure.audience.Audience
 import net.kyori.adventure.resource.ResourcePackInfo.resourcePackInfo
 import net.kyori.adventure.resource.ResourcePackRequest.addingRequest
-import net.radstevee.axi.core.util.uuid
+import net.radstevee.axi.core.ecs.getOrPut
+import net.radstevee.axi.core.util.forEachPlayer
 import net.radstevee.axi.ui.resource.host.buildServerURI
 import net.radstevee.axi.ui.resource.pack.AxiPack
-import net.radstevee.axi.ui.resource.pack.send.SentResourcePackTracker.sentPacks
 
 /** Sends an [AxiPack] to an audience if it is not applied yet. */
 public fun Audience.sendAxiPack(pack: AxiPack) {
@@ -18,23 +18,26 @@ public fun Audience.sendAxiPack(pack: AxiPack) {
 
   val request = addingRequest(info)
 
-  forEachAudience { audience ->
+  forEachPlayer { player ->
+    val packsComponent = player.getOrPut(AxiPacksComponent())
+
     // Pack is already applied.
-    if (audience.sentPacks().any { (_, axiPack) -> axiPack == pack }) {
-      return@forEachAudience
+    if (packsComponent.packs.any { (_, axiPack) -> axiPack == pack }) {
+      return@forEachPlayer
     }
 
     sendResourcePacks(request)
-    SentResourcePackTracker.trackAdd(audience.uuid(), request, pack)
+    packsComponent.packs[request] = pack
   }
 }
 
 /** Removes an [AxiPack] from an audience. */
 public fun Audience.removeAxiPack(pack: AxiPack) {
-  forEachAudience { audience ->
-    val (sentRequest) = sentPacks().find { (_, axiPack) -> axiPack == pack } ?: return@forEachAudience
+  forEachPlayer { player ->
+    val packsComponent = player.getOrPut(AxiPacksComponent())
+    val (sentRequest) = packsComponent.packs.entries.find { (_, axiPack) -> axiPack == pack } ?: return@forEachPlayer
 
     removeResourcePacks(sentRequest)
-    SentResourcePackTracker.trackRemovePack(uuid(), pack)
+    packsComponent.packs.remove(sentRequest)
   }
 }

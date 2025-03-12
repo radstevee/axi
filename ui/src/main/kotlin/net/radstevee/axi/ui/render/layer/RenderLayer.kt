@@ -3,30 +3,23 @@ package net.radstevee.axi.ui.render.layer
 import net.kyori.adventure.audience.Audience
 import net.kyori.adventure.text.TextComponent
 import net.radstevee.axi.ui.render.CompositeRenderer
-import net.radstevee.axi.ui.render.Renderable
+import net.radstevee.axi.ui.render.RedrawableRenderable
 import net.radstevee.axi.ui.render.Renderer
 import net.radstevee.axi.ui.render.layer.layered.buildLayeredText
 import net.radstevee.axi.ui.render.redraw.RedrawResult
-import net.radstevee.axi.ui.render.redraw.Redrawable
 
 /** A layer of components that can be rendered to an Audience, by using anything that can display text. */
-public class RenderedLayer(
+public class RenderLayer(
   /** The contents of this layer. */
   public var contents: List<RenderLayerContents>,
 
   /** The renderer for this layer. */
-  public val renderer: Renderer,
-) : Renderable,
-  Redrawable {
+  public override val renderer: Renderer,
+) : RedrawableRenderable {
   /** Compiles this render layer to a component. */
   override fun asText(): TextComponent {
-    val contents = contents.map { content -> content.content(true) }
-    return buildLayeredText(contents)
-  }
-
-  /** Renders this layer using the [CompositeRenderer] to the given [audience]. */
-  public fun render(audience: Audience) {
-    CompositeRenderer.render(this, renderer, audience)
+    val contents = contents.map { content -> content.content(false) }
+    return buildLayeredText(layers = contents)
   }
 
   override fun tickRedraw(tick: Int): RedrawResult {
@@ -40,6 +33,7 @@ public class RenderedLayer(
         finalResult = RedrawResult.Redraw
       } else if (result == RedrawResult.Redraw) {
         finalResult = RedrawResult.Redraw
+        contents[idx].content(true)
       }
     }
 

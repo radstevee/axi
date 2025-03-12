@@ -10,7 +10,7 @@ import java.io.File
 public open class AxiFontRegistry : DelegatingRegistry<Key, AxiFont>(AxiFonts) {
   /** Delegating font registry. */
   public companion object AxiFonts : Registry<Key, AxiFont>(modifiable = true) {
-    /** The default offsets */
+    /** The default offsets. */
     public val DEFAULT_OFFSETS: List<Double> = offsets()
 
     /** Finds a font by the given [key]. */
@@ -51,5 +51,21 @@ public open class AxiFontRegistry : DelegatingRegistry<Key, AxiFont>(AxiFonts) {
     register(font.fontKey, font)
 
     return font
+  }
+
+  protected fun registerOffsets(
+    font: AxiFont,
+    pack: AxiPack,
+    offsets: List<Double> = DEFAULT_OFFSETS,
+  ): Map<Double, AxiOffsetFont> {
+    val fonts = buildMap {
+      offsets.forEach { offset ->
+        this[offset] = AxiOffsetFont(font, offset, pack)
+      }
+    }
+
+    fonts.forEach { (_, font) -> register(font.fontKey, font) }
+
+    return fonts
   }
 }
