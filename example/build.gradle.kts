@@ -33,5 +33,6 @@ tasks {
 
   runServer {
     minecraftVersion("1.21.4")
+    jvmArgs("-Dnet.kyori.adventure.text.warnWhenLegacyFormattingDetected=false")
   }
 }

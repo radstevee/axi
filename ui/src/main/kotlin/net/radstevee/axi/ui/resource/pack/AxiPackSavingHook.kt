@@ -21,6 +21,7 @@ internal class AxiPackSavingHook(
       SpriteRegistry.collectEntries()
         .filter { sprite -> sprite.pack.name == axiPack.name },
     )
+    AxiFontRegistry.register(AxiFontRegistry.sprites.font.key, AxiFontRegistry.sprites)
 
     AxiFontRegistry.forEach { font ->
       font.save(axiPack)
