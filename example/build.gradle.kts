@@ -16,9 +16,9 @@ repositories {
 }
 
 dependencies {
-  ksp(project(":axi-ksp"))
-  api(project(":axi-core"))
-  api(project(":axi-ui"))
+  ksp(projects.axiKsp)
+  api(projects.axiCore)
+  api(projects.axiUi)
   api(libs.bundles.packed)
 }
 
