@@ -12,14 +12,12 @@ public class AxiOffsetFont(
   /** The offset. */
   private val offset: Double,
   /** The resource pack. */
-  pack: AxiPack
+  pack: AxiPack,
 ) : AxiFont by other {
   private val otherKey = other.font.key
   public val fontKey: Key = otherKey.copy(value = "${otherKey.value}_offset_$offset")
 
-  private fun FontProvider.Bitmap.applyBitmapOffset(): FontProvider.Bitmap {
-    return copy(ascent = ascent + offset)
-  }
+  private fun FontProvider.Bitmap.applyBitmapOffset(): FontProvider.Bitmap = copy(ascent = ascent + offset)
 
   private fun FontProvider.Truetype.applyTruetypeOffset(): FontProvider.Truetype {
     val newShift = shift.toMutableList().apply {
@@ -28,12 +26,10 @@ public class AxiOffsetFont(
     return copy(shift = newShift)
   }
 
-  private fun FontProvider.applyOffset(): FontProvider {
-    return when (this) {
-      is FontProvider.Bitmap -> applyBitmapOffset()
-      is FontProvider.Truetype -> applyTruetypeOffset()
-      else -> this
-    }
+  private fun FontProvider.applyOffset(): FontProvider = when (this) {
+    is FontProvider.Bitmap -> applyBitmapOffset()
+    is FontProvider.Truetype -> applyTruetypeOffset()
+    else -> this
   }
 
   override val font: Font = pack.pack.addFont {

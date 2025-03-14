@@ -8,7 +8,7 @@ import net.radstevee.packed.core.pack.ResourcePack
 import net.radstevee.packed.core.pack.ResourcePackBuilder.Companion.resourcePack
 import java.io.File
 
-public object ExampleAxiPack : AxiPack("example") {
+public object ExamplePack : AxiPack("example") {
   override val pack: ResourcePack = resourcePack {
     meta {
       outputDir = outputDirectory
@@ -23,6 +23,6 @@ public object ExampleAxiPack : AxiPack("example") {
 
   init {
     AxiPackRegistry.AxiPacks.register("example", this)
-    ExampleFontRegistry
+    Fonts
   }
 }

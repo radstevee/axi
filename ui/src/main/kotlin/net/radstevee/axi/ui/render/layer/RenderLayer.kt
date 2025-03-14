@@ -1,8 +1,6 @@
 package net.radstevee.axi.ui.render.layer
 
-import net.kyori.adventure.audience.Audience
 import net.kyori.adventure.text.TextComponent
-import net.radstevee.axi.ui.render.CompositeRenderer
 import net.radstevee.axi.ui.render.RedrawableRenderable
 import net.radstevee.axi.ui.render.Renderer
 import net.radstevee.axi.ui.render.layer.layered.buildLayeredText

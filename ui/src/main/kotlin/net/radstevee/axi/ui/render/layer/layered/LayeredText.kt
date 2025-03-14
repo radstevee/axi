@@ -71,7 +71,7 @@ public fun buildLayeredText(
           } else {
             0
           } - width(),
-          layer
+          layer,
         )
       }
     }
@@ -82,7 +82,7 @@ public fun buildLayeredText(
       } else {
         0
       },
-      text
+      text,
     )
   }
 }

@@ -5,9 +5,7 @@ import java.util.ServiceLoader
 
 /** Loads axi modules. */
 public object AxiModuleLoader {
-  private fun collectServices(plugin: AxiPlugin): Set<AxiModule> {
-    return ServiceLoader.load(AxiModule::class.java, plugin.javaClass.classLoader).toSet()
-  }
+  private fun collectServices(plugin: AxiPlugin): Set<AxiModule> = ServiceLoader.load(AxiModule::class.java, plugin.javaClass.classLoader).toSet()
 
   /** Loads all axi modules. */
   public suspend fun load(plugin: AxiPlugin) {

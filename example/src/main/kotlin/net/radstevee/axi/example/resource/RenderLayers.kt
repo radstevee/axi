@@ -11,7 +11,7 @@ public fun testRenderLayer(initTick: Int): RenderLayer = buildRenderLayer {
   add {
     content {
       append("Tick: ${Bukkit.getCurrentTick()}")
-      font(ExampleFontRegistry.BeaverOffsets[20.0]!!)
+      font(Fonts.BeaverOffsets[20.0]!!)
     }
 
     redraw { tick ->
@@ -32,7 +32,7 @@ public fun testRenderLayer(initTick: Int): RenderLayer = buildRenderLayer {
   add {
     content {
       append("Hello world!")
-      font(ExampleFontRegistry.Beaver)
+      font(Fonts.Beaver)
     }
   }
 
@@ -40,7 +40,15 @@ public fun testRenderLayer(initTick: Int): RenderLayer = buildRenderLayer {
     content {
       appendSpace((75 * sin(Bukkit.getCurrentTick().toDouble() / 2)).roundToInt())
       append("mmm ah yes cheese")
-      font(ExampleFontRegistry.BeaverOffsets[10.0]!!)
+      font(Fonts.BeaverOffsets[10.0]!!)
+    }
+
+    redraw { tick ->
+      if (tick % 2 == 0) {
+        RedrawResult.Redraw
+      } else {
+        RedrawResult.None
+      }
     }
   }
 }

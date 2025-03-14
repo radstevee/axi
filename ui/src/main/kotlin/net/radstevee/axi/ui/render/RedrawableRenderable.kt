@@ -7,7 +7,9 @@ import net.radstevee.axi.ui.render.redraw.RedrawResult
 import net.radstevee.axi.ui.render.redraw.Redrawable
 
 /** Something that can be rendered and redrawn. */
-public interface RedrawableRenderable : Redrawable, Renderable {
+public interface RedrawableRenderable :
+  Redrawable,
+  Renderable {
   /** Ticks and renders this for the given [audience]. */
   public fun renderTick(tick: Int, audience: Audience) {
     val result = tickRedraw(tick)

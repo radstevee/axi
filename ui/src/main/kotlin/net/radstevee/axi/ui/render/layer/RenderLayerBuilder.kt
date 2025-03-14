@@ -23,7 +23,12 @@ public class RenderedLayerBuilder {
         contentProvider = { buildText(block) }
         return
       }
-      contentProvider = { buildText { appendSpace(offset); apply(block) } }
+      contentProvider = {
+        buildText {
+          appendSpace(offset)
+          apply(block)
+        }
+      }
     }
 
     /** Sets the redraw handler to the given [redrawable]. */
@@ -32,9 +37,7 @@ public class RenderedLayerBuilder {
     }
 
     /** Builds this to [RenderLayerContents]. */
-    public fun build(): RenderLayerContents {
-      return RenderLayerContents(contentProvider, redrawHandler)
-    }
+    public fun build(): RenderLayerContents = RenderLayerContents(contentProvider, redrawHandler)
   }
 
   /** Adds a content entry to this layer, and if applicable, with the given [offset]. */
@@ -50,11 +53,7 @@ public class RenderedLayerBuilder {
   }
 
   /** Builds this to a [RenderLayer]. */
-  public fun build(): RenderLayer {
-    return RenderLayer(contents, renderer)
-  }
+  public fun build(): RenderLayer = RenderLayer(contents, renderer)
 }
 
-public fun buildRenderLayer(block: RenderedLayerBuilder.() -> Unit): RenderLayer {
-  return RenderedLayerBuilder().apply(block).build()
-}
+public fun buildRenderLayer(block: RenderedLayerBuilder.() -> Unit): RenderLayer = RenderedLayerBuilder().apply(block).build()
