@@ -35,6 +35,11 @@ public class RenderLayer(
       }
     }
 
+    // If all contents are being disposed, we dispose ourselves
+    if (results.values.all { result -> result == RedrawResult.Dispose }) {
+      finalResult = RedrawResult.Dispose
+    }
+
     contents = buildList {
       contents.forEachIndexed { idx, contents ->
         if (idx !in indicesToRemove) {

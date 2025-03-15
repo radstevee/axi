@@ -8,8 +8,8 @@ private fun delegatingTask(name: String, vararg delegateTasks: String) {
   }
 }
 
-delegatingTask("buildAll", "build")
+delegatingTask("build", "build")
 delegatingTask("spotlessCheck", "spotlessCheck")
 delegatingTask("spotless", "spotlessApply")
-delegatingTask("publishAll", "spotlessCheck", "publish")
+delegatingTask("publish", "spotlessCheck", "publish")
 delegatingTask("dokka", "dokkaGenerate")

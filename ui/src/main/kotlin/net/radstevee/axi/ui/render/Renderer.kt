@@ -14,5 +14,9 @@ public fun interface Renderer {
     public val Actionbar: Renderer = Renderer { audience, _, stacked ->
       audience.sendActionBar(stacked)
     }
+
+    public val Chat: Renderer = Renderer { audience, _, stacked ->
+      audience.sendMessage(stacked)
+    }
   }
 }

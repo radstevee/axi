@@ -10,7 +10,7 @@ internal object RenderererTicker : Listener {
   @EventHandler
   private fun on(event: ClientTickEndEvent) {
     val player = event.player
-    val renderState = player.get<RenderStateComponent>() ?: return
+    val renderState = player.renderState
 
     renderState.currentlyRenderedRenderables.forEach { renderable ->
       renderable.renderTick(Bukkit.getCurrentTick(), player)

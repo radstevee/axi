@@ -1,7 +1,6 @@
 package net.radstevee.axi.ui.render
 
 import net.kyori.adventure.audience.Audience
-import net.radstevee.axi.core.ecs.getOrPut
 import net.radstevee.axi.core.util.forEachPlayer
 import net.radstevee.axi.ui.render.redraw.RedrawResult
 import net.radstevee.axi.ui.render.redraw.Redrawable
@@ -20,7 +19,7 @@ public interface RedrawableRenderable :
 
     if (result == RedrawResult.Dispose) {
       audience.forEachPlayer { player ->
-        player.getOrPut(RenderStateComponent()).currentlyRenderedRenderables.remove(this)
+        player.renderState.currentlyRenderedRenderables.remove(this)
       }
       return
     }
