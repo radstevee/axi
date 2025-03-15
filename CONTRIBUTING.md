@@ -50,6 +50,8 @@ net.radstevee.axi.mymodule.MyModule
 - Always reformat your code with the `:spotless` task
 - Always document all public API
 - Always test your changes
+- Always make sure that submitted code conforms with GPLv3
+- Do not submit AI-generated code
 
 ## Documentation
 
