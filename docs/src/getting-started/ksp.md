@@ -1,14 +1,10 @@
 # Applying KSP
 
-You'll need to apply Axi's KSP processor for some things, like:
+This guide will teach you how to set up KSP and Axi's KSP
+processor, for automatically registering commands and
+more to come.
 
-- Automatically registering commands
-
-::: warning
-KSP can only be applied to Gradle projects!
-:::
-
-## Applying the Gradle plugin
+## Applying the plugin
 
 Apply the plugin to your buildscript:
 
@@ -34,13 +30,13 @@ Add the processor to your dependencies:
 
 ::: code-group
 
-```kts [build.gradle.kts]
+```kts{2} [build.gradle.kts]
 dependencies {
   ksp("net.radstevee.axi:axi-ksp")
 }
 ```
 
-```groovy [build.gradle]
+```groovy{2} [build.gradle]
 dependencies {
   ksp 'net.radstevee.axi:axi-ksp'
 }
@@ -48,22 +44,25 @@ dependencies {
 
 :::
 
-
 ::: warning
 If you are using shadow, you may have to change
 your shaded archive classifier:
 
 ::: code-group
 
-```kts [build.gradle.kts]
-tasks.shadowJar {
-  archiveClassifier = ""
+```kts{3} [build.gradle.kts]
+tasks {
+  shadowJar {
+    archiveClassifier = ""
+  }
 }
 ```
 
-```groovy [build.gradle]
-tasks.shadowJar {
-  archiveClassifier = ''
+```groovy{3} [build.gradle]
+tasks {
+  shadowJar {
+    archiveClassifier = ''
+  }
 }
 ```
 

@@ -1,10 +1,9 @@
-import {defineConfigWithTheme} from 'vitepress'
-import type {ThemeConfig} from 'vitepress-carbon'
-import baseConfig from 'vitepress-carbon/config'
+import {defineConfig} from 'vitepress'
+// import type {ThemeConfig} from 'vitepress-carbon'
+// import baseConfig from 'vitepress-carbon/config'
 
 // https://vitepress.dev/reference/site-config
-export default defineConfigWithTheme<ThemeConfig>({
-  extends: baseConfig,
+export default defineConfig({
   title: "Axi Documentation",
   description: "A modern Minecraft game engine",
   srcDir: 'src',

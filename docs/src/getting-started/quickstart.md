@@ -1,34 +1,72 @@
 # Quickstart
 
+This guide will teach you how to set up axi for your own project.
+
 ## Adding the repository
 
-This guide assumes you already have set up a Kotlin project.
+This guide assumes you already have set up a Kotlin/PaperMC project.
+
+<details>
+
+<summary>Basic empty project</summary>
+
+::: code-group
+
+```kts [build.gradle.kts]
+plugins {
+  kotlin("jvm") version "2.1.10"
+}
+
+repositories {
+  maven("https://repo.papermc.io/repository/maven-public")
+}
+
+dependencies {
+  compileOnly("io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT")
+}
+
+kotlin {
+  jvmToolchain(21)
+}
+```
+
+```groovy [build.gradle]
+plugins {
+  id 'org.jetbrains.kotlin.jvm' version '2.1.10'
+}
+
+repositories {
+  maven { url 'https://repo.papermc.io/repository/maven-public' }
+}
+
+dependencies {
+  compileOnly 'io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT'
+}
+
+kotlin {
+  jvmToolchain 21
+}
+```
+:::
+
+</details>
 
 First, you will need to add the repository using your build tool:
 
 ::: code-group
 
-```kts [build.gradle.kts]
+```kts{3} [build.gradle.kts]
 repositories {
-    maven("https://maven.radsteve.net/public")
+  maven("https://repo.papermc.io/repository/maven-public")
+  maven("https://maven.radsteve.net/public")
 }
 ```
 
-```groovy [build.gradle]
+```groovy{3} [build.gradle]
 repositories {
-    maven {
-        url 'https://maven.radsteve.net/public'
-    }
+  maven { url 'https://repo.papermc.io/repository/maven-public' }
+  maven { url 'https://maven.radsteve.net/public' }
 }
-```
-
-```xml [pom.xml]
-<repositories>
-    <repository>
-        <id>rad-public</id>
-        <url>https://maven.radsteve.net/public</url>
-    </repository>
-</repositories>
 ```
 
 :::
@@ -43,39 +81,22 @@ Replace `VERSION` with your desired version of Axi.
 
 ::: code-group
 
-```kts [build.gradle.kts]
+```kts{2,3} [build.gradle.kts]
 dependencies {
   implementation(platform("net.radstevee.axi:axi-bom:VERSION"))
   implementation("net.radstevee.axi:axi-core")
+
+  compileOnly("io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT")
 }
 ```
 
-```groovy [build.gradle]
+```groovy{2,3} [build.gradle]
 dependencies {
   implementation platform('net.radstevee.axi:axi-bom:VERSION')
   implementation 'net.radstevee.axi:axi-core'
+
+  compileOnly 'io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT'
 }
-```
-
-```xml [pom.xml]
-<dependencyManagement>
-  <dependencies>
-    <dependency>
-      <groupId>net.radstevee.axi</groupId>
-      <artifactId>axi-bom</artifactId>
-      <version>VERSION</version>
-      <scope>import</scope>
-      <type>pom</type>
-    </dependency>
-  </dependencies>
-</dependencyManagement>
-
-<dependencies>
-  <dependency>
-    <groupId>net.radstevee.axi</groupId>
-    <artifactId>axi-core</artifactId>
-  </dependency>
-</dependencies>
 ```
 
 :::
@@ -87,8 +108,9 @@ do it like this:
 
 ::: code-group
 
-```kts [build.gradle.kts]
+```kts{3,6-18} [build.gradle.kts]
 plugins {
+  kotlin("jvm") version "2.1.10"
   id("com.gradleup.shadow") version "9.0.0-beta6"
 }
 
@@ -98,15 +120,16 @@ tasks {
     relocate("kotlin", "my.axi.plugin.relocated.kotlin")
     relocate("kotlinx", "my.axi.plugin.relocated.kotlinx")
   }
-  
+ 
   assemble {
     dependsOn(shadowJar)
   }
 }
 ```
 
-```groovy [build.gradle]
+```groovy{3,6-18} [build.gradle]
 plugins {
+  id 'org.jetbrains.kotlin.jvm' version '2.1.10'
   id 'com.gradleup.shadow' version '9.0.0-beta6'
 }
 
@@ -121,42 +144,6 @@ tasks {
     dependsOn shadowJar
   }
 }
-```
-
-```xml [pom.xml]
-<build>
-  <plugins>
-    <plugin>
-      <groupId>org.apache.maven.plugins</groupId>
-      <artifactId>maven-shade-plugin</artifactId>
-      <version>3.6.0</version>
-      <executions>
-        <execution>
-          <phase>package</phase>
-          <goals>
-            <goal>shade</goal>
-          </goals>
-          <configuration>
-            <relocations>
-              <relocation>
-                <pattern>net.radstevee.axi</pattern>
-                <shadedPattern>my.axi.plugin.relocated.axi</shadedPattern>
-              </relocation>
-              <relocation>
-                <pattern>kotlin</pattern>
-                <shadedPattern>my.axi.plugin.relocated.kotlin</shadedPattern>
-              </relocation>
-              <relocation>
-                <pattern>kotlinx</pattern>
-                <shadedPattern>my.axi.plugin.relocated.kotlinx</shadedPattern>
-              </relocation>
-            </relocations>
-          </configuration>
-        </execution>
-      </executions>
-    </plugin>
-  </plugins>
-</build>
 ```
 
 :::
@@ -256,102 +243,6 @@ tasks {
 kotlin {
   jvmToolchain 21
 }
-```
-
-```xml [pom.xml]
-
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-
-  <groupId>my.axi.plugin</groupId>
-  <artifactId>my-axi-plugin</artifactId>
-  <version>0.0.0</version>
-  <packaging>jar</packaging>
-  
-  <properties>
-    <java.version>21</java.version>
-    <kotlin.version>2.1.10</kotlin.version>
-  </properties>
-
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>net.radstevee.axi</groupId>
-        <artifactId>axi-bom</artifactId>
-        <version>VERSION</version>
-        <scope>import</scope>
-        <type>pom</type>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
-
-  <dependencies>
-    <dependency>
-      <groupId>net.radstevee.axi</groupId>
-      <artifactId>axi-core</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.papermc.paper</groupId>
-      <artifactId>paper-api</artifactId>
-      <version>1.21.4-R0.1-SNAPSHOT</version>
-      <scope>provided</scope>
-    </dependency>
-  </dependencies>
-
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-shade-plugin</artifactId>
-        <version>3.6.0</version>
-        <executions>
-          <execution>
-            <phase>package</phase>
-            <goals>
-              <goal>shade</goal>
-            </goals>
-            <configuration>
-              <relocations>
-                <relocation>
-                  <pattern>net.radstevee.axi</pattern>
-                  <shadedPattern>my.axi.plugin.relocated.axi</shadedPattern>
-                </relocation>
-                <relocation>
-                  <pattern>kotlin</pattern>
-                  <shadedPattern>my.axi.plugin.relocated.kotlin</shadedPattern>
-                </relocation>
-                <relocation>
-                  <pattern>kotlinx</pattern>
-                  <shadedPattern>my.axi.plugin.relocated.kotlinx</shadedPattern>
-                </relocation>
-              </relocations>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <artifactId>kotlin-maven-plugin</artifactId>
-        <groupId>org.jetbrains.kotlin</groupId>
-        <version>${kotlin.version}</version>
-        <executions>
-          <execution>
-            <id>compile</id>
-            <goals>
-              <goal>compile</goal>
-            </goals>
-            <configuration>
-              <sourceDirs>
-                <sourceDir>${project.basedir}/src/main/kotlin</sourceDir>
-              </sourceDirs>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-  </build>
-</project>
 ```
 
 :::
