@@ -9,13 +9,15 @@ import org.incendo.cloud.parser.standard.StringParser.stringParser
 
 @AutoRegistered
 public val TestCommand: Command = Command("test") {
-  executor { sendMessage(text("Hi!!!")) }
+  executor {
+    ctx.sendMessage(text("Hi!!!"))
+  }
 
   sub("one") {
     val id by arg("id", stringParser())
 
-    playerExecutor { _ ->
-      sendMessage(text("id: $id"))
+    playerExecutor { player ->
+      player.sendMessage(text("id: $id"))
     }
   }
 
@@ -23,16 +25,28 @@ public val TestCommand: Command = Command("test") {
     val num by arg("number", integerParser())
 
     executor {
-      sendMessage(text("number: $num"))
+      ctx.sendMessage(text("number: $num"))
     }
 
     sub("three") {
-      executor { sendMessage(text("omg: $num")) }
+      executor {
+        ctx.sendMessage(text("omg: $num"))
+      }
     }
   }
 }
 
 @AutoRegistered
 public val OtherTestCommand: Command = Command("other_test") {
-  executor { sendMessage(text("Bye!!!")) }
+  val name by arg("name", stringParser())
+
+  executor {
+    ctx.sendMessage(text("Hello, $name!"))
+  }
+
+  sub("bye") {
+    executor {
+      ctx.sendMessage(text("Bye, $name!"))
+    }
+  }
 }

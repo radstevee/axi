@@ -13,9 +13,11 @@ import org.bukkit.event.player.PlayerJoinEvent
 
 public object ConnectionListener : Listener {
   @EventHandler
-  private fun on(event: PlayerJoinEvent) {
+  private suspend fun on(event: PlayerJoinEvent) {
     val player = event.player
+    player.sendRichMessage("You started loading the pack at: ${Bukkit.getCurrentTick()} ticks")
     player.sendAxiPack(ExamplePack)
+    player.sendRichMessage("You loaded the pack at: ${Bukkit.getCurrentTick()} ticks")
 
     player
       .onClickEntity { (player, entity) ->

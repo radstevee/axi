@@ -63,6 +63,10 @@ public class AxiProcessor(
       createCodeFile(newPackage, newClassName, code, property.containingFile!!)
     }
 
+    if (services.isEmpty()) {
+      return
+    }
+
     runCatching {
       gen.createNewFileByPath(
         Dependencies(false),

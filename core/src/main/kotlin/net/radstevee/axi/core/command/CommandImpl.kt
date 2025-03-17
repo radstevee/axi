@@ -1,8 +1,5 @@
 package net.radstevee.axi.core.command
 
-import org.incendo.cloud.context.CommandContext
-import org.incendo.cloud.paper.util.sender.Source
-
 /** A basic implementation of a [Command]. */
 public class CommandImpl(
   override val name: String,
@@ -11,9 +8,9 @@ public class CommandImpl(
   override val children: Set<Command>,
   override val args: Set<CommandArgument<*>>,
   override val asyncHandler: Boolean,
-  private val executor: suspend CommandContext<Source>.() -> Unit,
+  private val executor: suspend CommandExecutionContext.() -> Unit,
 ) : Command {
-  override suspend fun CommandContext<Source>.execute() {
+  override suspend fun CommandExecutionContext.execute() {
     executor()
   }
 }

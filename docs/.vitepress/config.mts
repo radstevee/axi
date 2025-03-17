@@ -28,6 +28,14 @@ export default defineConfig({
           {text: 'Applying KSP', link: '/getting-started/ksp'},
           {text: 'Examples', link: '/getting-started/examples'},
         ]
+      },
+      {
+        text: 'Core APIs',
+        items: [
+          {text: 'Entity Component System', link: '/core-apis/ecs'},
+          {text: 'Commands', link: '/core-apis/commands'},
+          {text: 'Coroutines', link: '/core-apis/coroutines'},
+        ]
       }
     ],
 

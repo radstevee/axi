@@ -2,11 +2,11 @@ package net.radstevee.axi.core.command
 
 import net.radstevee.axi.core.plugin.AxiPlugin
 import org.bukkit.entity.Player
-import org.incendo.cloud.context.CommandContext
 import org.incendo.cloud.paper.util.sender.Source
 import org.incendo.cloud.parser.ParserDescriptor
 
 /** A command builder. */
+@CommandBuilderDsl
 public class CommandBuilder(
   /** The command name. */
   public val name: String,
@@ -17,7 +17,7 @@ public class CommandBuilder(
 ) {
   private var permission: String = "${plugin.name}.command.$name"
   private val children: MutableSet<Command> = mutableSetOf()
-  private var executor: suspend CommandContext<Source>.() -> Unit = {}
+  private var executor: suspend CommandExecutionContext.() -> Unit = {}
   private val args: MutableSet<CommandArgument<*>> = mutableSetOf()
   private var async: Boolean = false
 
@@ -53,7 +53,7 @@ public class CommandBuilder(
   }
 
   /** Sets the executor of this command. */
-  public fun executor(block: suspend CommandContext<Source>.() -> Unit) {
+  public fun executor(block: suspend CommandExecutionContext.() -> Unit) {
     executor = block
   }
 
@@ -61,17 +61,21 @@ public class CommandBuilder(
   public fun build(): Command = CommandImpl(name, aliases, permission, children, args, async, executor)
 
   /** Sets an executor for players only */
-  public fun playerExecutor(block: suspend CommandContext<Source>.(Player) -> Unit) {
+  public fun playerExecutor(block: suspend CommandExecutionContext.(Player) -> Unit) {
     executor {
       block(player)
     }
   }
 
   /** Adds a sub command. */
-  public fun sub(name: String, aliases: Set<String> = setOf(), block: CommandBuilder.() -> Unit) {
+  public fun sub(name: String, aliases: Set<String> = setOf(), block: (@CommandBuilderDsl CommandBuilder).() -> Unit = {}) {
     val builder = CommandBuilder(name, aliases, plugin)
     builder.permission("$permission.$name")
 
     children.add(builder.apply(block).build())
   }
 }
+
+@DslMarker
+@Target(AnnotationTarget.TYPE, AnnotationTarget.CLASS)
+public annotation class CommandBuilderDsl

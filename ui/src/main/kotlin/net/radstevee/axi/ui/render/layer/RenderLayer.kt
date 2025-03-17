@@ -15,12 +15,12 @@ public class RenderLayer(
   public override val renderer: Renderer,
 ) : RedrawableRenderable {
   /** Compiles this render layer to a component. */
-  override fun asText(): TextComponent {
+  override suspend fun render(): TextComponent {
     val contents = contents.map { content -> content.content(false) }
     return buildLayeredText(layers = contents)
   }
 
-  override fun tickRedraw(tick: Int): RedrawResult {
+  override suspend fun tickRedraw(tick: Int): RedrawResult {
     val results = contents.associateWith { contents -> contents.redrawHandler.tickRedraw(tick) }
     var finalResult = RedrawResult.None
     val indicesToRemove = mutableListOf<Int>()
@@ -34,7 +34,6 @@ public class RenderLayer(
         contents[idx].content(true)
       }
     }
-
     // If all contents are being disposed, we dispose ourselves
     if (results.values.all { result -> result == RedrawResult.Dispose }) {
       finalResult = RedrawResult.Dispose

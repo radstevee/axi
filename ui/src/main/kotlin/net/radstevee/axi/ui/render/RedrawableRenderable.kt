@@ -10,7 +10,7 @@ public interface RedrawableRenderable :
   Redrawable,
   Renderable {
   /** Ticks and renders this for the given [audience]. */
-  public fun renderTick(tick: Int, audience: Audience) {
+  public suspend fun renderTick(tick: Int, audience: Audience) {
     val result = tickRedraw(tick)
 
     if (result == RedrawResult.None) {

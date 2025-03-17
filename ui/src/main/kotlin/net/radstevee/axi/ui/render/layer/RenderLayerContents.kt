@@ -10,12 +10,12 @@ public data class RenderLayerContents(
    * The text contents of this layer. If you do not wish to use
    * a text component here, add an empty text component with children.
    */
-  public val contentProvider: () -> TextComponent,
+  public val contentProvider: suspend () -> TextComponent,
   public val redrawHandler: Redrawable = Redrawable { _ -> RedrawResult.Redraw },
 ) {
   internal var cachedContent: TextComponent? = null
 
-  internal fun content(redraw: Boolean): TextComponent = if (redraw) {
+  internal suspend fun content(redraw: Boolean): TextComponent = if (redraw) {
     cachedContent = contentProvider()
     cachedContent!!
   } else {

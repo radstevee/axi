@@ -1,19 +1,22 @@
 package net.radstevee.axi.core.command
 
+import kotlinx.coroutines.CoroutineScope
+import org.bukkit.entity.Player
 import org.incendo.cloud.context.CommandContext
 import org.incendo.cloud.paper.util.sender.Source
+import kotlin.coroutines.CoroutineContext
 
-/** Holds thread-local execution contexts. */
-internal object CommandExecutionContext {
-  private val ctx: ThreadLocal<CommandContext<Source>> = ThreadLocal()
+/** The context of a command execution. */
+public interface CommandExecutionContext : CoroutineScope {
+  public override val coroutineContext: CoroutineContext
 
-  fun ctx(new: CommandContext<Source>) {
-    ctx.set(new)
-  }
+  /** Gets the player of this execution, or throws. */
+  @get:Throws(IllegalStateException::class)
+  public val player: Player
 
-  fun ctx(): CommandContext<Source>? = ctx.get()
+  /** The command source. */
+  public val source: Source
 
-  fun unset() {
-    ctx.remove()
-  }
+  /** The underlying cloud [CommandContext]. */
+  public val ctx: CommandContext<Source>
 }

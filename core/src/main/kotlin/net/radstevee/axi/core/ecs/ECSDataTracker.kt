@@ -12,7 +12,6 @@ public object ECSDataTracker {
 
   /** Clears non-persistent data from the given [attachable]. */
   public fun clear(attachable: Attachable) {
-    // data[attachable]?.removeIf { component -> component.value !is Persistent }
     data.remove(attachable)
   }
 

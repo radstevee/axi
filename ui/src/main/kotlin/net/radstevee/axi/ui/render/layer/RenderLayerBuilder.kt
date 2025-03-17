@@ -13,20 +13,20 @@ public class RenderedLayerBuilder {
   private var renderer: Renderer = Renderer.Actionbar
 
   /** A builder for [RenderLayerContents] */
-  public inner class RenderLayerContentBuilder(private val offset: Int) {
-    private var contentProvider: () -> TextComponent = { buildText() }
+  public inner class RenderLayerContentBuilder {
+    private var contentProvider: suspend () -> TextComponent = { buildText() }
     private var redrawHandler: Redrawable = Redrawable { _ -> RedrawResult.Redraw }
 
     /** Sets the content provider, and if applicable, with the given [offset]. */
-    public fun content(offset: Int = 0, block: TextBuilder.() -> Unit) {
+    public fun content(offset: Int = 0, block: suspend TextBuilder.() -> Unit) {
       if (offset == 0) {
-        contentProvider = { buildText(block) }
+        contentProvider = { buildText { block() } }
         return
       }
       contentProvider = {
         buildText {
           appendSpace(offset)
-          apply(block)
+          block()
         }
       }
     }
@@ -40,9 +40,9 @@ public class RenderedLayerBuilder {
     public fun build(): RenderLayerContents = RenderLayerContents(contentProvider, redrawHandler)
   }
 
-  /** Adds a content entry to this layer, and if applicable, with the given [offset]. */
-  public fun add(offset: Int = 0, block: RenderLayerContentBuilder.() -> Unit): RenderLayerContents {
-    val content = RenderLayerContentBuilder(offset).apply(block).build()
+  /** Adds a content entry to this layer. */
+  public fun add(block: RenderLayerContentBuilder.() -> Unit): RenderLayerContents {
+    val content = RenderLayerContentBuilder().apply(block).build()
     contents.add(content)
     return content
   }

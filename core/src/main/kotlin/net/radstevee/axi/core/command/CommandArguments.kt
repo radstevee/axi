@@ -12,8 +12,8 @@ public open class CommandArgument<T : Any>(
   public open val descriptor: ParserDescriptor<Source, T>,
 ) {
   public open operator fun getValue(thisRef: Any?, property: KProperty<*>): T? {
-    val ctx = CommandExecutionContext.ctx() ?: error("execution ctx is unset")
-    return ctx.get<T>(id)
+    val ctx = ThreadLocalCommandExecutionContextHolder.local.get() ?: error("execution ctx is unset")
+    return ctx.ctx.get<T>(id)
   }
 }
 
@@ -30,12 +30,12 @@ public class NonNullableCommandArgument<T : Any>(
   /** The default value, if this is an optional argument */
   public val default: T? = null,
 ) : CommandArgument<T>(id, descriptor) {
-  override operator fun getValue(thisRef: Any?, property: KProperty<*>): T {
+  public override operator fun getValue(thisRef: Any?, property: KProperty<*>): T {
     if (default == null) {
       return super.getValue(thisRef, property)!!
-    } else {
-      val ctx = CommandExecutionContext.ctx() ?: error("execution ctx is unset")
-      return ctx.getOrDefault<T>(id, default)
     }
+
+    val ctx = ThreadLocalCommandExecutionContextHolder.local.get() ?: error("execution ctx is unset")
+    return ctx.ctx.getOrDefault<T>(id, default)
   }
 }

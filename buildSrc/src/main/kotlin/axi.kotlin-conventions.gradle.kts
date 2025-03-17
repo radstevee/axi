@@ -32,6 +32,7 @@ tasks.withType<KotlinCompile> {
     "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
     "-opt-in=kotlinx.coroutines.DelicateCoroutinesApi",
     "-opt-in=kotlin.contracts.ExperimentalContracts",
+    "-Xsuppress-warning=CONTEXT_RECEIVERS_DEPRECATED",
     "-Xcontext-receivers",
   )
 }

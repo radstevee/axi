@@ -8,7 +8,7 @@ import org.bukkit.event.Listener
 
 internal object RenderererTicker : Listener {
   @EventHandler
-  private fun on(event: ClientTickEndEvent) {
+  private suspend fun on(event: ClientTickEndEvent) {
     val player = event.player
     val renderState = player.renderState
 
