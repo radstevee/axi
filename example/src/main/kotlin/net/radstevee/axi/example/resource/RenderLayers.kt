@@ -42,13 +42,5 @@ public fun testRenderLayer(initTick: Int): RenderLayer = buildRenderLayer {
       append("mmm ah yes cheese")
       font(Fonts.BeaverOffsets[10.0]!!)
     }
-
-    redraw { tick ->
-      if (tick % 2 == 0) {
-        RedrawResult.Redraw
-      } else {
-        RedrawResult.None
-      }
-    }
   }
 }
