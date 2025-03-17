@@ -114,7 +114,7 @@ to greet or say goodbye to:
 val TestCommand = Command("test") {
   aliases("hello")
   
-  val name by arg("name", stringParser())
+  val name by arg("name", stringParser()) // stringParser comes from Cloud's StringParser
   
   executor {
     ctx.sendMesage(text("Hello, $name!"))
