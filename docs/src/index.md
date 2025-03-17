@@ -17,9 +17,6 @@ hero:
     - theme: alt
       text: Examples
       link: /getting-started/examples
-    - theme: alt
-      text: Features
-      link: /getting-started/feature-overview
 
 features:
   - title: Clean
