@@ -10,8 +10,6 @@ import org.incendo.cloud.parser.ParserDescriptor
 public class CommandBuilder(
   /** The command name. */
   public val name: String,
-  /** The aliases of this command. */
-  public val aliases: Set<String>,
   /** The plugin associated with this command. */
   private val plugin: AxiPlugin,
 ) {
@@ -20,6 +18,7 @@ public class CommandBuilder(
   private var executor: suspend CommandExecutionContext.() -> Unit = {}
   private val args: MutableSet<CommandArgument<*>> = mutableSetOf()
   private var async: Boolean = false
+  private val aliases: MutableSet<String> = mutableSetOf()
 
   /** Sets this command to be handled asynchronously. */
   public fun async() {
@@ -69,10 +68,15 @@ public class CommandBuilder(
 
   /** Adds a sub command. */
   public fun sub(name: String, aliases: Set<String> = setOf(), block: (@CommandBuilderDsl CommandBuilder).() -> Unit = {}) {
-    val builder = CommandBuilder(name, aliases, plugin)
+    val builder = CommandBuilder(name, plugin)
     builder.permission("$permission.$name")
 
     children.add(builder.apply(block).build())
+  }
+
+  /** Adds the given [aliases]. */
+  public fun aliases(vararg aliases: String) {
+    this.aliases += aliases
   }
 }
 

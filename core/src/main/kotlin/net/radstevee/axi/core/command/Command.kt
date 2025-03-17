@@ -30,10 +30,9 @@ public interface Command {
 /** Builds and creates a command. */
 public fun Command(
   name: String,
-  aliases: Set<String> = setOf(),
   plugin: AxiPlugin = AxiPluginHolder.plugin(),
   block: @CommandBuilderDsl CommandBuilder.() -> Unit = {},
-): Command = CommandBuilder(name, aliases, plugin).apply(block).build()
+): Command = CommandBuilder(name, plugin).apply(block).build()
 
 /** Marks a command to be registered automatically and have a generated class by the KSP processor. */
 public annotation class AutoRegistered

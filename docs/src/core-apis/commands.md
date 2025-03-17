@@ -69,10 +69,12 @@ This is already much better. This will create a `/test` command that will
 respond to the sender with `Hello, world`.
 
 Now, maybe we would like to add an alias to this command. We can do that by
-providing `aliases` to the `Command` function:
+using the `aliases` function:
 
 ```kt
-val TestCommand = Command("test", aliases = setOf("hello")) {
+val TestCommand = Command("test") {
+  aliases("hello")
+  
   executor {
     ctx.sendMesage(text("Hello, world!"))
   }
@@ -85,7 +87,9 @@ What if we want to add a subcommand? Well, that's easy, we can use the `sub`
 function provided by the `CommandBuilder` DSL:
 
 ```kt
-val TestCommand = Command("test", aliases = setOf("hello")) {
+val TestCommand = Command("test") {
+  aliases("hello")
+  
   executor {
     ctx.sendMesage(text("Hello, world!"))
   }
@@ -107,7 +111,9 @@ Now, we obviously want to have an argument in our command. Let's take in a `name
 to greet or say goodbye to:
 
 ```kt
-val TestCommand = Command("test", aliases = setOf("hello")) {
+val TestCommand = Command("test") {
+  aliases("hello")
+  
   val name by arg("name", stringParser())
   
   executor {
@@ -133,7 +139,9 @@ This happens because we are declaring a command argument to our root command, bu
 to our subcommand. This means we will have to redeclare it in the subcommand's builder:
 
 ```kt
-val TestCommand = Command("test", aliases = setOf("hello")) {
+val TestCommand = Command("test") {
+  aliases("hello")
+  
   val name by arg("name", stringParser())
 
   executor {
@@ -166,7 +174,9 @@ of the command. In our case, it would be:
 We can change this using the `permission` function:
 
 ```kt
-val TestCommand = Command("test", aliases = setOf("hello")) {
+val TestCommand = Command("test") {
+  aliases("hello")
+  
   val name by arg("name", stringParser())
 
   permission("axi.testcommands.hello")
