@@ -196,3 +196,29 @@ permission in our permission plugin in order for them to be able to use it.
 Subcommand permissions append `.<name>` to the parent command permission.
 In our case it would be `axi.testcommands.hello.bye`.
 :::
+
+## Registering your command
+
+Great! We now have our command! But... how do we actually register it?
+
+Well, there's two options:
+
+* Use the [KSP processor](/getting-started/ksp) to register them automatically
+* Register them manually
+
+### Automatic Registration
+
+First, make sure you have set up the [KSP processor](/getting-started/ksp).
+
+Then, all you need to do is to add the `@AutoRegistered` annotation to your
+command field:
+
+```kt
+@AutoRegistered
+val MyCommand = Command("hello")
+```
+
+### Manual Registration
+
+You can simply call `Command#register` in your plugin and it will register
+to the plugin provided to the command builder.
