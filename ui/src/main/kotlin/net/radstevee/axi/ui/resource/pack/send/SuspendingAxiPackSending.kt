@@ -11,7 +11,8 @@ import java.util.UUID
 internal object SuspendingAxiPackSending : Listener {
   private val flow: MutableSharedFlow<Pair<UUID, UUID>> = MutableSharedFlow()
   private val discardedStatuses: Set<Status> = setOf(
-    Status.ACCEPTED, Status.DOWNLOADED
+    Status.ACCEPTED,
+    Status.DOWNLOADED,
   )
 
   suspend fun wait(uuid: UUID, packId: UUID) {
