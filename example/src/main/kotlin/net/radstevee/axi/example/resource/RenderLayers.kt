@@ -19,12 +19,7 @@ public fun testRenderLayer(initTick: Int): RenderLayer = buildRenderLayer {
       if (tick > initTick + 200) {
         RedrawResult.Dispose
       } else {
-        // Only redraw every 10 ticks
-        if (tick % 10 == 0) {
-          RedrawResult.Redraw
-        } else {
-          RedrawResult.None
-        }
+        RedrawResult.Redraw
       }
     }
   }
@@ -41,6 +36,7 @@ public fun testRenderLayer(initTick: Int): RenderLayer = buildRenderLayer {
       appendSpace((75 * sin(Bukkit.getCurrentTick().toDouble() / 2)).roundToInt())
       append("mmm ah yes cheese")
       font(Fonts.BeaverOffsets[10.0]!!)
+      green()
     }
   }
 }

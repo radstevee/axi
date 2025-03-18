@@ -1,5 +1,6 @@
 package net.radstevee.axi.ui.text
 
+import net.kyori.adventure.audience.Audience
 import net.kyori.adventure.key.Key
 import net.kyori.adventure.key.Key.key
 import net.kyori.adventure.text.Component
@@ -7,7 +8,6 @@ import net.kyori.adventure.text.ComponentLike
 import net.kyori.adventure.text.TextComponent
 import net.kyori.adventure.text.event.ClickEvent
 import net.kyori.adventure.text.event.HoverEventSource
-import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.ShadowColor
 import net.kyori.adventure.text.format.TextColor
 import net.kyori.adventure.text.format.TextDecoration
@@ -15,6 +15,7 @@ import net.kyori.adventure.text.format.TextDecoration.BOLD
 import net.kyori.adventure.text.format.TextDecoration.ITALIC
 import net.radstevee.axi.ui.resource.font.AxiFont
 import net.radstevee.axi.ui.resource.pack.AxiPackRegistry.AxiPacks.negativeSpaces
+import net.radstevee.axi.ui.text.color as getColor
 import net.radstevee.packed.core.key.Key as PackedKey
 
 /** A text component builder. */
@@ -22,14 +23,12 @@ public class TextBuilder {
   private val componentBuilder: TextComponent.Builder = Component.text()
   private var offset: Int? = null
 
-  private fun color(colorId: String, ifAbsent: Boolean) {
-    val color = ColorRegistry[colorId] ?: NamedTextColor.NAMES.value(colorId)
-    require(color != null) { "invalid color: $colorId - is it registered?" }
-
+  /** Sets this component color to the given color [id]. */
+  public fun color(id: String, ifAbsent: Boolean) {
     if (ifAbsent) {
-      componentBuilder.colorIfAbsent(color)
+      componentBuilder.colorIfAbsent(getColor(id))
     } else {
-      componentBuilder.color(color)
+      componentBuilder.color(getColor(id))
     }
   }
 
@@ -121,6 +120,14 @@ public class TextBuilder {
   /** Appends text using the given [block]. */
   public inline fun append(block: TextBuilder.() -> Unit) {
     append(buildText(block))
+  }
+
+  /** Appends text using the given [block] and appends the given [content]. */
+  public inline fun append(content: Any, block: TextBuilder.() -> Unit) {
+    append(buildText {
+      append(content.toString())
+      block()
+    })
   }
 
   /** Appends a newline to this component. */
@@ -325,4 +332,11 @@ public inline fun buildText(block: TextBuilder.() -> Unit = {}): TextComponent {
   builder.endOffset()
 
   return builder.build().compactText()
+}
+
+/** Builds a text from the given [block] and sends it. */
+public inline fun Audience.send(block: TextBuilder.() -> Unit): TextComponent {
+  val text = buildText(block)
+  sendMessage(text)
+  return text
 }

@@ -26,3 +26,7 @@ Axi plugin (See `AxiPluginHolder`).
 
 You can register event handlers with suspending handler functions using
 `AxiPlugin.registerEventListeners`.
+
+There is also another utility provided by Axi: `SuspendingListener`, an
+interface that implements `Listener` and is a synchronous `CoroutineScope`
+at the same time. This is useful if you want to launch jobs in your events.
