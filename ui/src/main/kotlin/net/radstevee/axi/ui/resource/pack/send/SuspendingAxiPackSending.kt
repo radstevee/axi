@@ -9,22 +9,24 @@ import org.bukkit.event.player.PlayerResourcePackStatusEvent.Status
 import java.util.UUID
 
 internal object SuspendingAxiPackSending : SuspendingListener {
-  private val flow: MutableSharedFlow<Pair<UUID, UUID>> = MutableSharedFlow()
+  private data class Entry(val player: UUID, val pack: UUID, val loaded: Boolean)
+
+  private val flow: MutableSharedFlow<Entry> = MutableSharedFlow()
   private val discardedStatuses: Set<Status> = setOf(
     Status.ACCEPTED,
     Status.DOWNLOADED,
   )
 
-  suspend fun wait(uuid: UUID, packId: UUID) {
-    flow.first { (player, pack) -> player == uuid && pack == packId }
-  }
+  suspend fun wait(uuid: UUID, packId: UUID): Boolean = flow.first { (player, pack) -> player == uuid && pack == packId }.loaded
 
   @EventHandler
   private suspend fun on(event: PlayerResourcePackStatusEvent) {
-    if (event.status in discardedStatuses) {
+    val status = event.status
+    if (status in discardedStatuses) {
       return
     }
 
-    flow.emit(event.player.uniqueId to event.id)
+    val loaded = status == Status.SUCCESSFULLY_LOADED
+    flow.emit(Entry(event.player.uniqueId, event.id, loaded))
   }
 }

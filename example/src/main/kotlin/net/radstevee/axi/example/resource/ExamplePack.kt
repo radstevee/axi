@@ -11,7 +11,6 @@ import java.io.File
 public object ExamplePack : AxiPack("example") {
   override val pack: ResourcePack = resourcePack {
     meta {
-      outputDir = outputDirectory
       description = "Example axi pack"
       format = PackFormat.V1_21_4
     }

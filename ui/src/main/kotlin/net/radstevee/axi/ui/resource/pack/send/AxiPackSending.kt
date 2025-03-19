@@ -12,33 +12,49 @@ import net.radstevee.axi.ui.resource.host.buildServerURI
 import net.radstevee.axi.ui.resource.pack.AxiPack
 import java.util.UUID
 
-/** Sends an [AxiPack] to an audience if it is not applied yet. */
-public suspend fun Audience.sendAxiPack(pack: AxiPack) {
+/**
+ * Sends an [AxiPack] to an audience if it is not applied yet and
+ * returns whether it loaded successfully for the entire audience.
+ */
+public suspend fun Audience.sendAxiPack(pack: AxiPack): Boolean {
   val uri = buildServerURI("packs/${pack.name}")
   val info = resourcePackInfo()
     .hash(pack.hash)
     .uri(uri)
     .build()
   val request = addingRequest(info)
+  val ignoredIds = mutableListOf<UUID>()
 
   forEachPlayer { player ->
     val packsComponent = player.getOrPut(AxiPacksComponent())
     // Pack is already applied.
     if (packsComponent.packs.any { (_, axiPack) -> axiPack == pack }) {
+      ignoredIds.add(player.uniqueId)
       return@forEachPlayer
     }
 
     sendResourcePacks(request)
   }
 
+  var loaded = true
   coroutineScope {
     forEachPlayer { player ->
+      if (player.uniqueId in ignoredIds) {
+        return@forEachPlayer
+      }
+
       launch {
-        SuspendingAxiPackSending.wait(player.uniqueId, info.id())
-        player.getOrPut(AxiPacksComponent()).packs[request] = pack
+        val hasLoaded = SuspendingAxiPackSending.wait(player.uniqueId, info.id())
+        if (!hasLoaded) {
+          loaded = false
+        } else {
+          player.getOrPut(AxiPacksComponent()).packs[request] = pack
+        }
       }
     }
   }
+
+  return loaded
 }
 
 /** Removes an [AxiPack] from an audience. */
@@ -48,7 +64,6 @@ public suspend fun Audience.removeAxiPack(pack: AxiPack) {
   if (players.isEmpty()) {
     return
   }
-
   var packId: UUID? = null
 
   players.forEach { player ->

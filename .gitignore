@@ -49,3 +49,4 @@ bin/
 **/kls_database.db
 
 docs/.vitepress/cache
+docs/node_modules

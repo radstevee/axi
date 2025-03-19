@@ -19,8 +19,9 @@ public object ConnectionListener : SuspendingListener {
   private suspend fun on(event: PlayerJoinEvent) {
     val player = event.player
     // In case the player has some kind of mod installed to
-    // interact with the server before the pack loads.
-    // Our pig listener is VERY important!
+    // interact with the server before the pack loads, we
+    // launch a job to immediately apply the on click
+    // component. Our pig listener is VERY important!
     launch {
       player
         .onClickEntity { (player, entity) ->

@@ -6,10 +6,6 @@ hero:
   name: "Axi"
   text: "A modern Minecraft game engine"
   tagline: A Kotlin Coroutine-based Minecraft game engine
-  icon: "🎮"
-  image:
-    src: ./bg.svg
-    alt: Banner
   actions:
     - theme: brand
       text: Introduction

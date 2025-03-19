@@ -1,5 +1,6 @@
 package net.radstevee.axi.ui.resource.pack
 
+import net.radstevee.axi.ui.resource.pack.AxiPackRegistry.AxiPacks
 import net.radstevee.axi.ui.resource.pack.AxiPackRegistry.AxiPacks.negativeSpaces
 import net.radstevee.axi.ui.util.sha1
 import net.radstevee.packed.core.pack.ResourcePack
@@ -33,10 +34,22 @@ public abstract class AxiPack(
   protected fun ResourcePackBuilder.applyAxi() {
     install(AxiPackSavingHook(this@AxiPack))
     install(negativeSpaces)
+    meta.outputDir = outputDirectory
+  }
+
+  /** Registers this resource pack. */
+  public fun register() {
+    if (AxiPacks[name] != null) {
+      return
+    }
+
+    AxiPacks.register(name, this)
   }
 
   /** Saves this resource pack. */
   public fun save() {
+    register()
+
     pack.save(deleteOld = true)
     val zip = File.createTempFile("axi-pack-$name-", ".zip")
     pack.createZip(zip)

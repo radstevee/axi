@@ -1,8 +1,8 @@
 package net.radstevee.axi.ui.text
 
 import net.kyori.adventure.audience.Audience
-import net.kyori.adventure.key.Key
 import net.kyori.adventure.key.Key.key
+import net.kyori.adventure.key.Keyed
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.ComponentLike
 import net.kyori.adventure.text.TextComponent
@@ -124,10 +124,12 @@ public class TextBuilder {
 
   /** Appends text using the given [block] and appends the given [content]. */
   public inline fun append(content: Any, block: TextBuilder.() -> Unit) {
-    append(buildText {
-      append(content.toString())
-      block()
-    })
+    append(
+      buildText {
+        append(content.toString())
+        block()
+      },
+    )
   }
 
   /** Appends a newline to this component. */
@@ -202,8 +204,8 @@ public class TextBuilder {
   }
 
   /** Sets the font. */
-  public fun font(key: Key) {
-    componentBuilder.font(key)
+  public fun font(key: Keyed) {
+    componentBuilder.font(key.key())
   }
 
   /** Sets the font using a string key. */

@@ -5,7 +5,6 @@ import net.radstevee.axi.core.ecs.get
 import net.radstevee.axi.core.plugin.event.SuspendingListener
 import org.bukkit.Bukkit
 import org.bukkit.event.EventHandler
-import org.bukkit.event.Listener
 
 internal object RenderererTicker : SuspendingListener {
   @EventHandler

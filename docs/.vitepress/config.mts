@@ -36,6 +36,13 @@ export default defineConfig({
           {text: 'Commands', link: '/core-apis/commands'},
           {text: 'Coroutines', link: '/core-apis/coroutines'},
         ]
+      },
+      {
+        text: 'UI',
+        items: [
+          {text: 'Resource Packs', link: '/ui/resource-packs'},
+          {text: 'Fonts', link: '/ui/fonts'},
+        ]
       }
     ],
 
