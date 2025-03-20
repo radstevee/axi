@@ -50,6 +50,5 @@ and uses the result as a public IP, unless specified otherwise using the
 `axi.external_addr` and `axi.external_port` JVM properties.
 
 To send a resource pack to a player, you can use `Audience#sendAxiPack`.
-This call will suspend until the pack has either loaded or it failed to load,
-it returns whether the pack has loaded for the entire audience, if it has not
-loaded already.
+This call will suspend until the pack has either loaded or it failed to load
+since it returns whether the pack has loaded for each receiving player.
