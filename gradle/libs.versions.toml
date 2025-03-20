@@ -1,7 +1,8 @@
 [versions]
 kotlin = "2.1.10"
 kotlinx-serialization-json = "1.7.2"
-kotlinx-coroutines = "1.8.1"
+kotlinx-coroutines-intellij = "1.10.1-intellij-1"
+kotlinx-coroutines = "1.10.1"
 caffeine = "3.1.8"
 dokka = "2.0.0"
 paper = "1.21.4-R0.1-SNAPSHOT"
@@ -17,7 +18,7 @@ ktlint = "1.5.0"
 
 [libraries]
 kotlinx-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization-json" }
-kotlinx-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
+kotlinx-coroutines = { module = "com.intellij.platform:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines-intellij" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
 
 plugin-dokka = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "dokka" }
@@ -51,7 +52,7 @@ inject-http = { module = "net.mcbrawls.inject:http", version.ref = "inject" }
 inject-spigot = { module = "net.mcbrawls.inject:spigot", version.ref = "inject" }
 
 [bundles]
-kotlinx = ["kotlinx-serialization", "kotlinx-coroutines"]
+kotlinx = ["kotlinx-coroutines"]
 mccoroutine = ["mccoroutine-bukkit-api", "mccoroutine-bukkit-core"]
 cloud = ["cloud-core", "cloud-kotlin-ext", "cloud-kotlin-coroutines", "cloud-paper", "cloud-brig", "cloud-minecraft-extras"]
 packed = ["packed-core", "packed-spaces"]

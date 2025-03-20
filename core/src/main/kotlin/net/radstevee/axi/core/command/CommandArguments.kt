@@ -1,5 +1,9 @@
+@file:OptIn(InternalCoroutinesApi::class)
+
 package net.radstevee.axi.core.command
 
+import kotlinx.coroutines.InternalCoroutinesApi
+import kotlinx.coroutines.internal.intellij.IntellijCoroutines
 import org.incendo.cloud.paper.util.sender.Source
 import org.incendo.cloud.parser.ParserDescriptor
 import kotlin.reflect.KProperty
@@ -12,7 +16,8 @@ public open class CommandArgument<T : Any>(
   public open val descriptor: ParserDescriptor<Source, T>,
 ) {
   public open operator fun getValue(thisRef: Any?, property: KProperty<*>): T? {
-    val ctx = ThreadLocalCommandExecutionContextHolder.local.get() ?: error("execution ctx is unset")
+    val coroutineContext = IntellijCoroutines.currentThreadCoroutineContext() ?: error("not in a coroutine")
+    val ctx = coroutineContext[CloudCommandExecutionContext] ?: error("no execution context found")
     return ctx.ctx.get<T>(id)
   }
 }
@@ -35,7 +40,8 @@ public class NonNullableCommandArgument<T : Any>(
       return super.getValue(thisRef, property)!!
     }
 
-    val ctx = ThreadLocalCommandExecutionContextHolder.local.get() ?: error("execution ctx is unset")
+    val coroutineContext = IntellijCoroutines.currentThreadCoroutineContext() ?: error("not in a coroutine")
+    val ctx = coroutineContext[CloudCommandExecutionContext] ?: error("no execution context found")
     return ctx.ctx.getOrDefault<T>(id, default)
   }
 }

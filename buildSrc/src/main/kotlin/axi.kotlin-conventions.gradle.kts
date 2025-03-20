@@ -22,6 +22,11 @@ dependencies {
   implementation(libs.bundles.kotlinx)
 }
 
+repositories {
+  mavenCentral()
+  maven("https://packages.jetbrains.team/maven/p/ij/intellij-dependencies")
+}
+
 kotlin {
   jvmToolchain(21)
 }

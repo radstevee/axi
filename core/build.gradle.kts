@@ -10,6 +10,8 @@ axi {
 }
 
 dependencies {
-  api(libs.bundles.cloud)
+  api(libs.bundles.cloud) {
+    exclude(group = "org.jetbrains.kotlinx")
+  }
   api(libs.bundles.mccoroutine)
 }

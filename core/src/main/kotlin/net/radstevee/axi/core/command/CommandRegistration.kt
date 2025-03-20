@@ -1,6 +1,8 @@
 package net.radstevee.axi.core.command
 
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 import net.radstevee.axi.core.coroutines.asyncContext
 import net.radstevee.axi.core.coroutines.coroutineScope
 import net.radstevee.axi.core.coroutines.syncContext
@@ -36,17 +38,18 @@ public fun Command.register(manager: CommandManager = AxiPluginHolder.plugin().c
       asyncContext
     } else {
       syncContext
-    }
+    } + SupervisorJob()
 
     suspendingHandler(scope = coroutineScope, context = coroutineContext) { ctx ->
       coroutineScope {
         val executionContext = CloudCommandExecutionContext(ctx, coroutineContext, this)
-        ThreadLocalCommandExecutionContextHolder.local.set(executionContext)
-        with(command) {
-          executionContext.execute()
+        executionContext.coroutineContext += executionContext
+        executionContext.launch(executionContext.coroutineContext) {
+          with(command) {
+            executionContext.execute()
+          }
         }
       }
-      ThreadLocalCommandExecutionContextHolder.local.remove()
     }
   }
 
