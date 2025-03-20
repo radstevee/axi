@@ -1,12 +1,15 @@
 # Fonts
 
-Fonts are an essential part of server-side UI. You can read more about fonts [here](https://minecraft.wiki/w/Font).
+Fonts are an essential part of server-side UI. You can read
+more about fonts [here](https://minecraft.wiki/w/Font).
 
-This page assumes you already have some experience using fonts.
+This page assumes you already have some experience using
+fonts.
 
 ## Creating a font registry
 
-First up, you will need to extend the `AxiFontRegistry` class to register all your fonts:
+First up, you will need to extend the `AxiFontRegistry`
+class to register all your fonts:
 
 ```kt
 object Fonts : AxiFontRegistry()
@@ -20,9 +23,11 @@ Now, we can actually start registering our own fonts:
 
 ### Stored Truetype
 
-A stored truetype font is a TTF file that sits somewhere, usually on the Minecraft server.
+A stored truetype font is a TTF file that sits somewhere,
+usually on the Minecraft server.
 
-You can register it using `AxiFontRegistry#registerStoredTtf`:
+You can register it using
+`AxiFontRegistry#registerStoredTtf`:
 
 ```kt{2}
 object Fonts : AxiFontRegistry() {
@@ -30,10 +35,12 @@ object Fonts : AxiFontRegistry() {
 }
 ```
 
-This registers a basic TTF font with the name `beaver` under the namespace `namespace`, 
-from the `../assets/fonts/beaver.ttf` file. This means you can now set a component's font
-to an `AxiFont`'s key as it implements the `Keyed` interface.
-
+This registers a basic TTF font with the name `beaver` under
+the namespace `namespace`,
+from the `../assets/fonts/beaver.ttf` file. This means you
+can now set a component's font
+to an `AxiFont`'s key as it implements the `Keyed`
+interface.
 
 ### Offset
 
@@ -49,8 +56,10 @@ object Fonts : AxiFontRegistry() {
 
 ## Saving fonts
 
-To save your fonts into your resource pack, you will have to call your
-font registry's initializer in your resource pack's initializer like such:
+To save your fonts into your resource pack, you will have to
+call your
+font registry's initializer in your resource pack's
+initializer like such:
 
 ```kt
 object Fonts : AxiFontRegistry()

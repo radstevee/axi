@@ -1,6 +1,4 @@
 import {defineConfig} from 'vitepress'
-// import type {ThemeConfig} from 'vitepress-carbon'
-// import baseConfig from 'vitepress-carbon/config'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -40,8 +38,11 @@ export default defineConfig({
       {
         text: 'UI',
         items: [
+          {text: 'Text API', link: '/ui/text'},
           {text: 'Resource Packs', link: '/ui/resource-packs'},
           {text: 'Fonts', link: '/ui/fonts'},
+          {text: 'Sprites', link: '/ui/sprites'},
+          {text: 'Rendering API', link: '/ui/rendering'},
         ]
       }
     ],

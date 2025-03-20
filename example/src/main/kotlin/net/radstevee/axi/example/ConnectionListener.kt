@@ -5,7 +5,7 @@ import net.radstevee.axi.core.ecs.onClickEntity
 import net.radstevee.axi.core.plugin.event.SuspendingListener
 import net.radstevee.axi.example.resource.ExamplePack
 import net.radstevee.axi.example.resource.testRenderLayer
-import net.radstevee.axi.ui.render.layer.addRenderLayer
+import net.radstevee.axi.ui.render.layer.addRenderable
 import net.radstevee.axi.ui.resource.pack.send.sendAxiPack
 import net.radstevee.axi.ui.text.TextBuilder
 import net.radstevee.axi.ui.text.send
@@ -44,6 +44,6 @@ public object ConnectionListener : SuspendingListener {
       green()
     }
 
-    player.addRenderLayer(testRenderLayer(Bukkit.getCurrentTick()))
+    player.addRenderable(testRenderLayer(Bukkit.getCurrentTick()))
   }
 }

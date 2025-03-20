@@ -34,6 +34,7 @@ public class RenderLayer(
         contents[idx].content(true)
       }
     }
+
     // If all contents are being disposed, we dispose ourselves
     if (results.values.all { result -> result == RedrawResult.Dispose }) {
       finalResult = RedrawResult.Dispose

@@ -1,10 +1,12 @@
 # Quickstart
 
-This guide will teach you how to set up axi for your own project.
+This guide will teach you how to set up axi for your own
+project.
 
 ## Adding the repository
 
-This guide assumes you already have set up a Kotlin/PaperMC project.
+This guide assumes you already have set up a Kotlin/PaperMC
+project.
 
 <details>
 
@@ -52,7 +54,8 @@ kotlin {
 
 </details>
 
-First, you will need to add the repository using your build tool:
+First, you will need to add the repository using your build
+tool:
 
 ::: code-group
 
@@ -197,7 +200,10 @@ dependencies {
 
 tasks {
   shadowJar {
-    relocate("net.radstevee.axi", "my.axi.plugin.relocated.axi")
+    relocate(
+      "net.radstevee.axi",
+      "my.axi.plugin.relocated.axi"
+    )
     relocate("kotlin", "my.axi.plugin.relocated.kotlin")
     relocate("kotlinx", "my.axi.plugin.relocated.kotlinx")
   }

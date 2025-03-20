@@ -2,6 +2,7 @@ package net.radstevee.axi.ui.render
 
 import net.kyori.adventure.audience.Audience
 import net.kyori.adventure.text.TextComponent
+import net.radstevee.axi.ui.text.send
 
 /** Renders a renderable. */
 public fun interface Renderer {
@@ -16,6 +17,9 @@ public fun interface Renderer {
     }
 
     public val Chat: Renderer = Renderer { audience, _, stacked ->
+      audience.send {
+        repeat(16) { appendNewline() }
+      }
       audience.sendMessage(stacked)
     }
   }

@@ -26,7 +26,7 @@ import java.util.function.UnaryOperator
 import java.util.stream.Stream
 
 /** Represents something that can be converted to a component. */
-public interface TextConvertible : TextComponent {
+public fun interface TextConvertible : TextComponent {
   /** Converts this to a component. */
   public fun asText(): TextComponent
 
