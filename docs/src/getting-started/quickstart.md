@@ -16,7 +16,7 @@ project.
 
 ```kts [build.gradle.kts]
 plugins {
-  kotlin("jvm") version "2.1.10"
+  kotlin("jvm") version "2.1.20"
 }
 
 repositories {
@@ -34,7 +34,7 @@ kotlin {
 
 ```groovy [build.gradle]
 plugins {
-  id 'org.jetbrains.kotlin.jvm' version '2.1.10'
+  id 'org.jetbrains.kotlin.jvm' version '2.1.20'
 }
 
 repositories {
@@ -114,7 +114,7 @@ do it like this:
 
 ```kts{3,6-18} [build.gradle.kts]
 plugins {
-  kotlin("jvm") version "2.1.10"
+  kotlin("jvm") version "2.1.20"
   id("com.gradleup.shadow") version "9.0.0-beta6"
 }
 
@@ -133,7 +133,7 @@ tasks {
 
 ```groovy{3,6-18} [build.gradle]
 plugins {
-  id 'org.jetbrains.kotlin.jvm' version '2.1.10'
+  id 'org.jetbrains.kotlin.jvm' version '2.1.20'
   id 'com.gradleup.shadow' version '9.0.0-beta6'
 }
 
@@ -183,7 +183,7 @@ Now you're good to go!
 
 ```kts [build.gradle.kts]
 plugins {
-  kotlin("jvm") version "2.1.10"
+  kotlin("jvm") version "2.1.20"
   id("com.gradleup.shadow") version "9.0.0-beta6"
 }
 
@@ -220,7 +220,7 @@ kotlin {
 
 ```groovy [build.gradle]
 plugins {
-  id 'org.jetbrains.kotlin.jvm' version '2.1.10'
+  id 'org.jetbrains.kotlin.jvm' version '2.1.20'
   id 'com.gradleup.shadow' version '9.0.0-beta6'
 }
 

@@ -12,13 +12,13 @@ Apply the plugin to your buildscript:
 
 ```kts [build.gradle.kts]
 plugins {
-  id("com.google.devtools.ksp") version "2.1.10-1.0.31"
+  id("com.google.devtools.ksp") version "2.1.20-1.0.31"
 }
 ```
 
 ```groovy [build.gradle]
 plugins {
-  id 'com.google.devtools.ksp' version '2.1.10-1.0.31'
+  id 'com.google.devtools.ksp' version '2.1.20-1.0.31'
 }
 ```
 

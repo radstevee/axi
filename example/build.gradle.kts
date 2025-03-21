@@ -1,7 +1,7 @@
 plugins {
   id("axi.kotlin-conventions")
   id("axi.paper-conventions")
-  id("com.google.devtools.ksp") version "2.1.10-1.0.31"
+  id("com.google.devtools.ksp") version "2.1.20-1.0.31"
   id("com.gradleup.shadow") version "9.0.0-beta6"
   id("xyz.jpenilla.run-paper") version "2.3.1"
 }
