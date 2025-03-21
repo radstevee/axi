@@ -25,6 +25,12 @@ dependencies {
 tasks {
   shadowJar {
     archiveClassifier = ""
+
+    dependencies {
+      // We do not want fastutil being shaded at 25mb
+      exclude(dependency("it.unimi.dsi:fastutil"))
+      exclude(dependency("com.mojang:datafixerupper"))
+    }
   }
 
   assemble {
