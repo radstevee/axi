@@ -27,9 +27,13 @@ tasks {
     archiveClassifier = ""
 
     dependencies {
-      // We do not want fastutil being shaded at 25mb
-      exclude(dependency("it.unimi.dsi:fastutil"))
-      exclude(dependency("com.mojang:datafixerupper"))
+      // Dependencies we know are contained in the Minecraft server that we do not need
+      // nor want to shade. fastutil is a big one at 25mb compressed
+      val excluded = setOf("com.google", "org.apache", "it.unimi", "com.mojang", "org.jetbrains.annotations", "org.slf4j")
+
+      exclude { dep ->
+        excluded.any { excluded -> excluded in dep.name.replace(":", ".") }
+      }
     }
   }
 
