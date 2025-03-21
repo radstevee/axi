@@ -106,7 +106,7 @@ extensions.create("axi", AxiExtension::class)
 
 afterEvaluate {
   val ext = the<AxiExtension>()
-  if (name !in setOf("axi-core", "axi-example", "axi-ksp")) {
+  if (name !in setOf("axi-core", "axi-example", "axi-docs", "axi-ksp")) {
     ext.dependencies("core")
   }
 
