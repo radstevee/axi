@@ -1,7 +1,7 @@
 package net.radstevee.axi.ui.resource.pack
 
-import net.radstevee.axi.core.DelegatingRegistry
-import net.radstevee.axi.core.Registry
+import net.radstevee.axi.DelegatingRegistry
+import net.radstevee.axi.Registry
 import net.radstevee.packed.core.key.Key
 import net.radstevee.packed.negativespaces.NegativeSpaces
 

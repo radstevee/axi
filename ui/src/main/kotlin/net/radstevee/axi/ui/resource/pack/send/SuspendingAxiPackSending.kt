@@ -2,7 +2,7 @@ package net.radstevee.axi.ui.resource.pack.send
 
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.first
-import net.radstevee.axi.core.plugin.event.SuspendingListener
+import net.radstevee.axi.plugin.event.SuspendingListener
 import org.bukkit.event.EventHandler
 import org.bukkit.event.player.PlayerQuitEvent
 import org.bukkit.event.player.PlayerResourcePackStatusEvent

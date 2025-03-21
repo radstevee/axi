@@ -1,9 +1,9 @@
 package net.radstevee.axi.example
 
 import net.kyori.adventure.text.Component.text
-import net.radstevee.axi.core.command.AutoRegistered
-import net.radstevee.axi.core.command.Command
-import net.radstevee.axi.core.command.sendMessage
+import net.radstevee.axi.command.AutoRegistered
+import net.radstevee.axi.command.Command
+import net.radstevee.axi.command.sendMessage
 import org.incendo.cloud.parser.standard.IntegerParser.integerParser
 import org.incendo.cloud.parser.standard.StringParser.stringParser
 

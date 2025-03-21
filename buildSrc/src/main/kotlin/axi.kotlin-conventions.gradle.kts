@@ -98,7 +98,7 @@ spotless {
     targetExclude("build/generated/**/*")
     toggleOffOn()
     ktlint(libs.versions.ktlint.get())
-      .setEditorConfigPath(rootProject.projectDir.resolve(".editorconfig"))
+      .setEditorConfigPath(rootProject.file(".editorconfig"))
   }
 }
 
@@ -106,7 +106,7 @@ extensions.create("axi", AxiExtension::class)
 
 afterEvaluate {
   val ext = the<AxiExtension>()
-  if (name !in setOf("axi-core", "axi-gradle-plugin", "axi-ksp")) {
+  if (name !in setOf("axi-core", "axi-example", "axi-ksp")) {
     ext.dependencies("core")
   }
 

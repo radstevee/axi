@@ -1,8 +1,8 @@
 package net.radstevee.axi.ui
 
-import net.radstevee.axi.core.coroutines.registerEventListeners
-import net.radstevee.axi.core.mod.AxiModule
-import net.radstevee.axi.core.plugin.AxiPlugin
+import net.radstevee.axi.coroutines.registerEventListeners
+import net.radstevee.axi.mod.AxiModule
+import net.radstevee.axi.plugin.AxiPlugin
 import net.radstevee.axi.ui.render.RenderererTicker
 import net.radstevee.axi.ui.resource.pack.send.SuspendingAxiPackSending
 

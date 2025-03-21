@@ -1,8 +1,8 @@
 package net.radstevee.axi.ui.render
 
 import io.papermc.paper.event.packet.ClientTickEndEvent
-import net.radstevee.axi.core.ecs.get
-import net.radstevee.axi.core.plugin.event.SuspendingListener
+import net.radstevee.axi.ecs.get
+import net.radstevee.axi.plugin.event.SuspendingListener
 import org.bukkit.Bukkit
 import org.bukkit.event.EventHandler
 

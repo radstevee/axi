@@ -32,7 +32,13 @@ export default defineConfig({
         items: [
           {text: 'Entity Component System', link: '/core-apis/ecs'},
           {text: 'Commands', link: '/core-apis/commands'},
-          {text: 'Coroutines', link: '/core-apis/coroutines'},
+          {
+            text: 'Integrations',
+            items: [
+              {text: 'Coroutines', link: '/core-apis/integrations/coroutines'},
+              {text: 'Koin', link: '/core-apis/integrations/koin'},
+            ]
+          },
         ]
       },
       {

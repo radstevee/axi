@@ -1,10 +1,10 @@
 package net.radstevee.axi.example
 
 import kotlinx.coroutines.launch
-import net.radstevee.axi.core.ecs.onClickEntity
-import net.radstevee.axi.core.plugin.event.SuspendingListener
+import net.radstevee.axi.ecs.onClickEntity
 import net.radstevee.axi.example.resource.ExamplePack
 import net.radstevee.axi.example.resource.testRenderLayer
+import net.radstevee.axi.plugin.event.SuspendingListener
 import net.radstevee.axi.ui.render.layer.addRenderable
 import net.radstevee.axi.ui.resource.pack.send.sendAxiPack
 import net.radstevee.axi.ui.text.TextBuilder

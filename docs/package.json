@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "description": "Documentation for axi",
   "scripts": {
-    ":dev": "vitepress dev",
-    ":build": "vitepress build",
-    ":preview": "vitepress preview"
+    "dev": "vitepress dev",
+    "build": "vitepress build",
+    "preview": "vitepress preview"
   },
   "dependencies": {
     "vitepress": "^1.4.0"

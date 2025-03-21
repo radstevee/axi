@@ -6,11 +6,11 @@ import kotlinx.coroutines.supervisorScope
 import net.kyori.adventure.audience.Audience
 import net.kyori.adventure.resource.ResourcePackInfo.resourcePackInfo
 import net.kyori.adventure.resource.ResourcePackRequest.addingRequest
-import net.radstevee.axi.core.ecs.getOrPut
-import net.radstevee.axi.core.util.forEachPlayer
-import net.radstevee.axi.core.util.players
+import net.radstevee.axi.ecs.getOrPut
 import net.radstevee.axi.ui.resource.host.buildServerURI
 import net.radstevee.axi.ui.resource.pack.AxiPack
+import net.radstevee.axi.util.forEachPlayer
+import net.radstevee.axi.util.players
 import java.util.UUID
 
 /**
@@ -28,7 +28,7 @@ public suspend fun Audience.sendAxiPack(pack: AxiPack): Map<UUID, Boolean> {
   val ignoredUuids = mutableListOf<UUID>()
 
   forEachPlayer { player ->
-    val packsComponent = player.getOrPut(AxiPacksComponent())
+    val packsComponent = player.getOrPut(::AxiPacksComponent)
     // Pack is already applied.
     if (packsComponent.packs.any { (_, axiPack) -> axiPack == pack }) {
       ignoredUuids.add(player.uniqueId)
@@ -50,7 +50,7 @@ public suspend fun Audience.sendAxiPack(pack: AxiPack): Map<UUID, Boolean> {
           val hasLoaded = SuspendingAxiPackSending.wait(uuid, info.id())
           put(uuid, hasLoaded)
           if (hasLoaded) {
-            player.getOrPut(AxiPacksComponent()).packs[request] = pack
+            player.getOrPut(::AxiPacksComponent).packs[request] = pack
           }
         }
       }
@@ -68,7 +68,7 @@ public suspend fun Audience.removeAxiPack(pack: AxiPack) {
   var packId: UUID? = null
 
   players.forEach { player ->
-    val packsComponent = player.getOrPut(AxiPacksComponent())
+    val packsComponent = player.getOrPut(::AxiPacksComponent)
     val (sentRequest) = packsComponent.packs.entries.find { (_, axiPack) -> axiPack == pack } ?: return@forEach
 
     removeResourcePacks(sentRequest)

@@ -3,8 +3,8 @@ package net.radstevee.axi.ui.text
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextColor
 import net.kyori.adventure.text.format.TextColor.color
-import net.radstevee.axi.core.DelegatingRegistry
-import net.radstevee.axi.core.Registry
+import net.radstevee.axi.DelegatingRegistry
+import net.radstevee.axi.Registry
 
 /** A registry of text colours, delegating to [AxiColors] */
 public open class ColorRegistry : DelegatingRegistry<String, TextColor>(AxiColors) {

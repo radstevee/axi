@@ -14,4 +14,5 @@ dependencies {
     exclude(group = "org.jetbrains.kotlinx")
   }
   api(libs.bundles.mccoroutine)
+  api(libs.bundles.koin)
 }
