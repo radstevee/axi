@@ -32,7 +32,7 @@ internal class AxiPackSendingServiceImpl :
   )
   private val loadingPacks: MutableMap<UUID, MutableList<UUID>> = mutableMapOf()
 
-  suspend fun wait(uuid: UUID, packId: UUID): Boolean {
+  private suspend fun wait(uuid: UUID, packId: UUID): Boolean {
     loadingPacks.getOrPut(uuid, ::mutableListOf).add(packId)
     return flow.first { (player, pack) -> player == uuid && pack == packId }.loaded
   }
