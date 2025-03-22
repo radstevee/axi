@@ -44,6 +44,7 @@ export default defineConfig({
       {
         text: 'UI',
         items: [
+          {text: 'Installation', link: '/ui/installation'},
           {text: 'Text API', link: '/ui/text'},
           {text: 'Resource Packs', link: '/ui/resource-packs'},
           {text: 'Fonts', link: '/ui/fonts'},
