@@ -46,10 +46,12 @@ public inline fun <reified T : Any> Attachable.getOrPut(noinline valueSupplier: 
 }
 
 /** Gets a read-write property of the given type, useful for delegation. */
-public inline fun <reified T : Any> Attachable.data(): ReadWriteProperty<Any?, T?> = object : ReadWriteProperty<Any?, T?> {
-  override fun getValue(thisRef: Any?, property: KProperty<*>): T? = get(T::class)
+public inline fun <reified T : Any> Attachable.data(): ReadWriteProperty<Any?, T?> {
+  return object : ReadWriteProperty<Any?, T?> {
+    override fun getValue(thisRef: Any?, property: KProperty<*>): T? = get(T::class)
 
-  override fun setValue(thisRef: Any?, property: KProperty<*>, value: T?) {
-    set(value, T::class)
+    override fun setValue(thisRef: Any?, property: KProperty<*>, value: T?) {
+      set(value, T::class)
+    }
   }
 }

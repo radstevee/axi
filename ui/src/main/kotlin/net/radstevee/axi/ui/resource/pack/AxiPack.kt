@@ -1,9 +1,6 @@
 package net.radstevee.axi.ui.resource.pack
 
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import net.radstevee.axi.coroutines.AxiCoroutines.ioContext
-import net.radstevee.axi.coroutines.LoggingExceptionHandler
 import net.radstevee.axi.ui.resource.pack.AxiPackRegistry.AxiPacks
 import net.radstevee.axi.ui.resource.pack.AxiPackRegistry.AxiPacks.negativeSpaces
 import net.radstevee.axi.ui.util.sha1
