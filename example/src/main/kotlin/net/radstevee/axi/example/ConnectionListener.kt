@@ -1,10 +1,12 @@
 package net.radstevee.axi.example
 
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import net.radstevee.axi.ecs.addDebounce
 import net.radstevee.axi.ecs.onClickEntity
 import net.radstevee.axi.ecs.waitUntilDebounced
 import net.radstevee.axi.example.resource.ExamplePack
+import net.radstevee.axi.example.resource.OtherLayer
 import net.radstevee.axi.example.resource.testRenderLayer
 import net.radstevee.axi.plugin.event.SuspendingListener
 import net.radstevee.axi.ui.render.layer.addRenderable
@@ -48,6 +50,8 @@ public object ConnectionListener : SuspendingListener {
     }
 
     player.addRenderable(testRenderLayer(Bukkit.getCurrentTick()))
+    delay(1.seconds)
+    player.addRenderable(OtherLayer)
 
     player.send {
       append("Started waiting at: ")

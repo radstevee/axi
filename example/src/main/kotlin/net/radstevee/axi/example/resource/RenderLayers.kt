@@ -32,11 +32,28 @@ public fun testRenderLayer(initTick: Int): RenderLayer = buildRenderLayer {
   }
 
   add {
+    redraw { tick ->
+      if (tick % 2 == 0) {
+        RedrawResult.Redraw
+      } else {
+        RedrawResult.None
+      }
+    }
+
     content {
       appendSpace((75 * sin(Bukkit.getCurrentTick().toDouble() / 2)).roundToInt())
       append("mmm ah yes cheese")
       font(Fonts.BeaverOffsets[10.0]!!)
       green()
+    }
+  }
+}
+
+public val OtherLayer: RenderLayer = buildRenderLayer {
+  add {
+    content(-50) {
+      append("bye, world!")
+      font(Fonts.BeaverOffsets[-10.0]!!)
     }
   }
 }
