@@ -1,28 +1,51 @@
 package net.radstevee.axi.coroutines
 
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Job
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import net.radstevee.axi.coroutines.AxiCoroutines.asyncContext
+import net.radstevee.axi.coroutines.AxiCoroutines.syncContext
 import net.radstevee.axi.plugin.AxiPlugin
-import net.radstevee.axi.plugin.AxiPluginHolder
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import kotlin.coroutines.CoroutineContext
 
-/** The [CoroutineScope] of the main [AxiPlugin]. */
-public val coroutineScope: CoroutineScope get() = AxiPluginHolder.plugin().coroutineScope
+/** Coroutine extensions for the main axi plugin. */
+public object AxiCoroutines : KoinComponent {
+  private val plugin: AxiPlugin by inject()
 
-/** The synchronous dispatcher. */
-public val syncContext: CoroutineContext get() = AxiPluginHolder.plugin().syncContext
+  /** The [CoroutineScope] of the main [AxiPlugin]. */
+  public val coroutineScope: CoroutineScope get() = plugin.coroutineScope
 
-/** The asynchronous dispatcher. */
-public val asyncContext: CoroutineContext get() = AxiPluginHolder.plugin().asyncContext
+  /** The synchronous dispatcher. */
+  public val syncContext: CoroutineContext get() = plugin.syncContext
 
-/** Launches a sync task on the main [org.bukkit.scheduler.BukkitScheduler]. */
-public fun sync(block: suspend CoroutineScope.() -> Unit): Job = AxiPluginHolder.plugin().sync(block)
+  /** The asynchronous dispatcher. */
+  public val asyncContext: CoroutineContext get() = plugin.asyncContext
 
-/** Launches an asynchronous task on the async [org.bukkit.scheduler.BukkitScheduler]. */
-public fun async(block: suspend CoroutineScope.() -> Unit): Job = AxiPluginHolder.plugin().async(block)
+  /** Launches a sync task on the main [org.bukkit.scheduler.BukkitScheduler]. */
+  public fun <R> sync(block: suspend CoroutineScope.() -> R): Deferred<R> {
+    return plugin.sync(block)
+  }
 
-/** Executes [block] on the [syncContext]. */
-public suspend fun <R> syncContext(block: suspend CoroutineScope.() -> R): R = AxiPluginHolder.plugin().syncContext(block)
+  /** Launches an asynchronous task on the async [org.bukkit.scheduler.BukkitScheduler]. */
+  public fun <R> async(block: suspend CoroutineScope.() -> R): Deferred<R> {
+    return plugin.async(block)
+  }
 
-/** Executes [block] on the [asyncContext]. */
-public suspend fun <R> asyncContext(block: suspend CoroutineScope.() -> R): R = AxiPluginHolder.plugin().asyncContext(block)
+  /** Executes [block] on the [syncContext]. */
+  public suspend fun <R> syncContext(block: suspend CoroutineScope.() -> R): R {
+    return plugin.syncContext(block)
+  }
+
+  /** Executes [block] on the [asyncContext]. */
+  public suspend fun <R> asyncContext(block: suspend CoroutineScope.() -> R): R {
+    return plugin.asyncContext(block)
+  }
+
+  /** Executes [block] on the I/O dispatcher. */
+  public suspend fun <R> ioContext(block: suspend CoroutineScope.() -> R): R {
+    return withContext(Dispatchers.IO + LoggingExceptionHandler, block = block)
+  }
+}

@@ -7,6 +7,7 @@ import net.radstevee.axi.ecs.ECSConnectionListener
 import net.radstevee.axi.ecs.ECSDataTracker
 import net.radstevee.axi.ecs.component.EntityClickedComponent
 import net.radstevee.axi.ecs.internal.BasicECSDataTracker
+import net.radstevee.axi.mod.AxiModuleLoader
 import net.radstevee.axi.plugin.event.AxiInitializeEvent
 import org.koin.core.context.startKoin
 import org.koin.core.module.dsl.bind
@@ -25,6 +26,10 @@ internal object AxiInitializer {
       with(plugin) {
         // We're still in the initializer so this is fine.
         runBlocking {
+          with(AxiModuleLoader) {
+            module(plugin)
+          }
+
           module()
         }
       }

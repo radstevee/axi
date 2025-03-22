@@ -5,10 +5,9 @@ using [MCCoroutine ↗](https://github.com/Shynixn/MCCoroutine).
 
 ::: warning
 Do not shade your own version of `kotlinx.coroutines`. This
-may
-break Axi as it relies on IntelliJ's internal fork of
-`kotlinx.coroutines`
-and leverages some of its internal coroutine API.
+may break Axi as it relies on IntelliJ's internal fork of
+`kotlinx.coroutines` and leverages some of its internal
+coroutine API.
 :::
 
 ## Extensions
@@ -34,8 +33,8 @@ Axi adds the following extensions:
 - `AxiPlugin.asyncContext()`: Switches to the
   `AxiPlugin.asyncContext`
 
-All of these exist on the top-level as well, for the main
-Axi plugin (See `AxiPluginHolder`).
+All of these exist for the main plugin as well with the 
+`AxiCoroutines` object.
 
 ## Suspending Events
 
@@ -44,8 +43,6 @@ functions using
 `AxiPlugin.registerEventListeners`.
 
 There is also another utility provided by Axi:
-`SuspendingListener`, an
-interface that implements `Listener` and is a synchronous
-`CoroutineScope`
-at the same time. This is useful if you want to launch jobs
-in your events.
+`SuspendingListener`, an interface that implements `Listener` 
+and is a synchronous `CoroutineScope`. This is useful if you 
+want to launch jobs in your events.

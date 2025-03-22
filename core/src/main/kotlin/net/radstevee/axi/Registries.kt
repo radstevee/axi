@@ -50,28 +50,42 @@ public abstract class Registry<K : Any, V>(
   /**
    * @return the value that is assigned [key], or `null` if it is not registered
    */
-  public open operator fun get(key: K): V? = keyToEntryMap[key]
+  public open operator fun get(key: K): V? {
+    return keyToEntryMap[key]
+  }
 
   /**
    * @return the key assigned to [entry], or `null` if it is not registered
    */
-  public open fun getKey(entry: V): K? = entryToKeyMap[entry]
+  public open fun getKey(entry: V): K? {
+    return entryToKeyMap[entry]
+  }
 
   /**
    * @return the value that is assigned to the index [index], or null if one is not present
    */
-  public open operator fun get(index: Int): V? = entries.getOrNull(index)
+  public open operator fun get(index: Int): V? {
+    return entries.getOrNull(index)
+  }
 
   /**
    * @return the index of the entry
    */
-  public open fun indexOf(entry: V): Int = entries.indexOf(entry)
+  public open fun indexOf(entry: V): Int {
+    return entries.indexOf(entry)
+  }
 
-  public open fun collectEntries(): List<V> = entries.toList()
+  public open fun collectEntries(): List<V> {
+    return entries.toList()
+  }
 
-  public open fun collectKeys(): List<K> = keys.toList()
+  public open fun collectKeys(): List<K> {
+    return keys.toList()
+  }
 
-  public open fun collect(): Map<K, V> = keyToEntryMap.toMap()
+  public open fun collect(): Map<K, V> {
+    return keyToEntryMap.toMap()
+  }
 
   /**
    * Performs [block] on every registered entry.
@@ -91,18 +105,22 @@ public abstract class Registry<K : Any, V>(
    * Filters the entries list to the given [predicate].
    * @return a new list
    */
-  public open fun firstOrNull(predicate: (V) -> Boolean): V? = entries.firstOrNull(predicate)
+  public open fun firstOrNull(predicate: (V) -> Boolean): V? {
+    return entries.firstOrNull(predicate)
+  }
 
   /**
    * Returns a random entry of the registry.
    */
-  public open fun random(random: Random = Random, filter: ((V) -> Boolean)? = null): V? = (
-    if (filter != null) {
+  public open fun random(random: Random = Random, filter: ((V) -> Boolean)? = null): V? {
+    val entries = if (filter != null) {
       entries.filter(filter)
     } else {
       entries
     }
-    ).randomOrNull(random)
+
+    return entries.randomOrNull(random)
+  }
 }
 
 /** A registry that delegates itself to the given [delegate]. */
@@ -118,8 +136,12 @@ public open class DelegatingRegistry<K : Any, V>(private val delegate: Registry<
 }
 
 /** Creates a new registry of type [V]. */
-public fun <K : Any, V> Registry(): Registry<K, V> = object : Registry<K, V>() {}
+public fun <K : Any, V> Registry(): Registry<K, V> {
+  return object : Registry<K, V>() {}
+}
 
 /** Creates a new modifiable [Registry] of type [V]. */
 @Suppress("FunctionName")
-public fun <K : Any, V> ModifiableRegistry(): Registry<K, V> = object : Registry<K, V>(true) {}
+public fun <K : Any, V> ModifiableRegistry(): Registry<K, V> {
+  return object : Registry<K, V>(true) {}
+}

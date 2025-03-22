@@ -3,9 +3,9 @@ package net.radstevee.axi.command
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
-import net.radstevee.axi.coroutines.asyncContext
-import net.radstevee.axi.coroutines.coroutineScope
-import net.radstevee.axi.coroutines.syncContext
+import net.radstevee.axi.coroutines.AxiCoroutines.asyncContext
+import net.radstevee.axi.coroutines.AxiCoroutines.coroutineScope
+import net.radstevee.axi.coroutines.AxiCoroutines.syncContext
 import net.radstevee.axi.plugin.AxiPlugin
 import net.radstevee.axi.plugin.AxiPluginHolder
 import org.incendo.cloud.kotlin.MutableCommandBuilder
@@ -14,7 +14,9 @@ import org.incendo.cloud.kotlin.extension.buildAndRegister
 import org.incendo.cloud.paper.util.sender.Source
 import java.util.ServiceLoader
 
-internal fun autoRegisteredCommands(plugin: AxiPlugin): Iterator<Command> = ServiceLoader.load(Command::class.java, plugin.javaClass.classLoader).iterator()
+internal fun autoRegisteredCommands(plugin: AxiPlugin): Iterator<Command> {
+  return ServiceLoader.load(Command::class.java, plugin.javaClass.classLoader).iterator()
+}
 
 /** Registers a command to the given [manager]. */
 // God this is a shitshow

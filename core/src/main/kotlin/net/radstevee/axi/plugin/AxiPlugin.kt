@@ -38,8 +38,8 @@ public abstract class AxiPlugin :
   final override fun onEnable() {
     runBlocking {
       gracefully("enable") {
-        AxiModuleLoader.enable(this@AxiPlugin)
         initAxi()
+        AxiModuleLoader.enable(this@AxiPlugin)
         enable()
       }
     }

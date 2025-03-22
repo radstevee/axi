@@ -57,7 +57,9 @@ public class CommandBuilder(
   }
 
   /** Builds this command. */
-  public fun build(): Command = CommandImpl(name, aliases, permission, children, args, async, executor)
+  public fun build(): Command {
+    return CommandImpl(name, aliases, permission, children, args, async, executor)
+  }
 
   /** Sets an executor for players only */
   public fun playerExecutor(block: suspend CommandExecutionContext.(Player) -> Unit) {

@@ -11,10 +11,14 @@ import java.util.UUID
 import kotlin.jvm.optionals.getOrNull
 
 /** Gets the UUID of this audience, or null. */
-public fun Audience.uuidOrNull(): UUID? = get(Identity.UUID).getOrNull()
+public fun Audience.uuidOrNull(): UUID? {
+  return get(Identity.UUID).getOrNull()
+}
 
 /** Gets the UUID of this audience, or throws. */
-public fun Audience.uuid(): UUID = uuidOrNull() ?: error("audience does not have a UUID")
+public fun Audience.uuid(): UUID {
+  return uuidOrNull() ?: error("audience does not have a UUID")
+}
 
 /** Executes [block] for each player in this audience. */
 // Implementation note: This is so utterly complex just because
@@ -59,4 +63,6 @@ public fun <R> Audience.mapPlayers(transform: (Player) -> R): Set<R> = buildSet 
 }
 
 /** Gets all attachables in this audience. */
-public fun Audience.attachables(): Set<Attachable> = mapPlayers(Player::attachable)
+public fun Audience.attachables(): Set<Attachable> {
+  return mapPlayers(Player::attachable)
+}

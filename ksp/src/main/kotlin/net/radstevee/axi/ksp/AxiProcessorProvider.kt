@@ -5,5 +5,7 @@ import com.google.devtools.ksp.processing.SymbolProcessorEnvironment
 import com.google.devtools.ksp.processing.SymbolProcessorProvider
 
 public class AxiProcessorProvider : SymbolProcessorProvider {
-  override fun create(environment: SymbolProcessorEnvironment): SymbolProcessor = AxiProcessor(environment)
+  override fun create(environment: SymbolProcessorEnvironment): SymbolProcessor {
+    return AxiProcessor(environment)
+  }
 }

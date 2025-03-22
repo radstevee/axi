@@ -1,7 +1,9 @@
 package net.radstevee.axi.example
 
 import kotlinx.coroutines.launch
+import net.radstevee.axi.ecs.addDebounce
 import net.radstevee.axi.ecs.onClickEntity
+import net.radstevee.axi.ecs.waitUntilDebounced
 import net.radstevee.axi.example.resource.ExamplePack
 import net.radstevee.axi.example.resource.testRenderLayer
 import net.radstevee.axi.plugin.event.SuspendingListener
@@ -13,6 +15,7 @@ import org.bukkit.Bukkit
 import org.bukkit.entity.EntityType
 import org.bukkit.event.EventHandler
 import org.bukkit.event.player.PlayerJoinEvent
+import kotlin.time.Duration.Companion.seconds
 
 public object ConnectionListener : SuspendingListener {
   @EventHandler
@@ -45,5 +48,20 @@ public object ConnectionListener : SuspendingListener {
     }
 
     player.addRenderable(testRenderLayer(Bukkit.getCurrentTick()))
+
+    player.send {
+      append("Started waiting at: ")
+      append(Bukkit.getCurrentTick(), TextBuilder::yellow)
+      append(" ticks")
+      green()
+    }
+    player.addDebounce(ConnectionListener::class, 5.seconds) // 100 ticks
+    player.waitUntilDebounced(ConnectionListener::class)
+    player.send {
+      append("Debounce finished at: ")
+      append(Bukkit.getCurrentTick(), TextBuilder::green)
+      append(" ticks")
+      yellow()
+    }
   }
 }

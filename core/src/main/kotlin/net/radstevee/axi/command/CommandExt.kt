@@ -11,7 +11,9 @@ public fun CommandContext<Source>.sendMessage(component: Component) {
 }
 
 /** Throws an [IllegalArgumentException] for the given [arg]. */
-public fun CommandContext<Source>.illegalArg(arg: String, message: String): Nothing = throw IllegalArgumentException("Invalid argument $arg: $message")
+public fun CommandContext<Source>.illegalArg(arg: String, message: String): Nothing {
+  throw IllegalArgumentException("Invalid argument $arg: $message")
+}
 
 /** Gets the player source, or throws an [IllegalStateException]. */
 @get:Throws(IllegalStateException::class)

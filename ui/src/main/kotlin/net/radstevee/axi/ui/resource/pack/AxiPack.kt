@@ -1,5 +1,9 @@
 package net.radstevee.axi.ui.resource.pack
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import net.radstevee.axi.coroutines.AxiCoroutines.ioContext
+import net.radstevee.axi.coroutines.LoggingExceptionHandler
 import net.radstevee.axi.ui.resource.pack.AxiPackRegistry.AxiPacks
 import net.radstevee.axi.ui.resource.pack.AxiPackRegistry.AxiPacks.negativeSpaces
 import net.radstevee.axi.ui.util.sha1
@@ -47,7 +51,7 @@ public abstract class AxiPack(
   }
 
   /** Saves this resource pack. */
-  public fun save() {
+  public suspend fun save(): Unit = ioContext {
     register()
 
     pack.save(deleteOld = true)
@@ -59,7 +63,7 @@ public abstract class AxiPack(
   }
 
   override fun equals(other: Any?): Boolean {
-    other as AxiPack
+    other as? AxiPack ?: return false
 
     return other.name == name
   }

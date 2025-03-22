@@ -14,7 +14,9 @@ public open class AxiFontRegistry : DelegatingRegistry<Key, AxiFont>(AxiFonts) {
     public val DEFAULT_OFFSETS: List<Double> = offsets()
 
     /** Finds a font by the given [key]. */
-    public fun findByKey(key: Key): AxiFont? = collectEntries().find { font -> font.font.key == key }
+    public fun findByKey(key: Key): AxiFont? {
+      return collectEntries().find { font -> font.font.key == key }
+    }
 
     private fun offsets(min: Double = -30.0, max: Double = 30.0, steps: Double = 1.0) = buildList {
       var value = min

@@ -53,7 +53,9 @@ public class StoredTruetypeFont(
   }
 
   /** Gets the bounds of a text string. */
-  public fun boundsOf(text: String): Rectangle2D = awtFont.getStringBounds(text, FRC)
+  public fun boundsOf(text: String): Rectangle2D {
+    return awtFont.getStringBounds(text, FRC)
+  }
 
   override fun widthOf(text: String): Int = boundsOf(text).width.roundToInt()
   override fun heightOf(text: String): Int = boundsOf(text).height.roundToInt()

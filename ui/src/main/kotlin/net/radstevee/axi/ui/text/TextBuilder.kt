@@ -270,13 +270,19 @@ public class TextBuilder {
   }
 
   /** Converts the builder into a Component. */
-  public fun asComponent(): Component = componentBuilder.asComponent()
+  public fun asComponent(): Component {
+    return componentBuilder.asComponent()
+  }
 
   /** Builds and returns this componentComponent. */
-  public fun build(): TextComponent = componentBuilder.build()
+  public fun build(): TextComponent {
+    return componentBuilder.build()
+  }
 
   /** Returns the list of child components. */
-  public fun children(): List<Component> = componentBuilder.children()
+  public fun children(): List<Component> {
+    return componentBuilder.children()
+  }
 
   /** Appends a component with a specified offset using a block. */
   public inline fun appendWithOffset(offset: Int, block: TextBuilder.() -> Unit) {
@@ -284,7 +290,9 @@ public class TextBuilder {
   }
 
   /** Returns the width of this component. */
-  public fun width(): Int = componentBuilder.width()
+  public fun width(): Int {
+    return componentBuilder.width()
+  }
 
   /** Removes the shadow effect from this component. */
   public fun removeShadow() {

@@ -22,20 +22,28 @@ public interface ECSDataTracker : KoinComponent {
   public fun <T : Any> Attachable.set(value: T?, klass: KClass<T>): T?
 
   /** Gets a component of given [klass], or calls and puts the result of the given [valueSupplier] if it is absent. */
-  public fun <T : Any> Attachable.getOrPut(klass: KClass<T>, valueSupplier: () -> T): T = get(klass) ?: set(valueSupplier(), klass)!!
+  public fun <T : Any> Attachable.getOrPut(klass: KClass<T>, valueSupplier: () -> T): T {
+    return get(klass) ?: set(valueSupplier(), klass)!!
+  }
 
   /** The basic ECS tracker implementation. */
   public companion object Basic : ECSDataTracker by AxiPluginHolder.plugin().get()
 }
 
 /** Gets a component of the given type. */
-public inline fun <reified T : Any> Attachable.get(): T? = get(T::class)
+public inline fun <reified T : Any> Attachable.get(): T? {
+  return get(T::class)
+}
 
 /** Sets a component to [value]. */
-public inline fun <reified T : Any> Attachable.set(value: T?): T? = set(value, T::class)
+public inline fun <reified T : Any> Attachable.set(value: T?): T? {
+  return set(value, T::class)
+}
 
 /** Gets a component of given type, or calls and puts the return value of [valueSupplier] if it is absent. */
-public inline fun <reified T : Any> Attachable.getOrPut(noinline valueSupplier: () -> T): T = getOrPut(T::class, valueSupplier)
+public inline fun <reified T : Any> Attachable.getOrPut(noinline valueSupplier: () -> T): T {
+  return getOrPut(T::class, valueSupplier)
+}
 
 /** Gets a read-write property of the given type, useful for delegation. */
 public inline fun <reified T : Any> Attachable.data(): ReadWriteProperty<Any?, T?> = object : ReadWriteProperty<Any?, T?> {

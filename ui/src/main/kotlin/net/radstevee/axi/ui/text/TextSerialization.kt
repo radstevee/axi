@@ -6,4 +6,7 @@ import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer
 
 private val GSON: Gson = Gson()
 
-public fun ComponentLike.json(): String = GSON.toJson(GsonComponentSerializer.gson().serializeToTree(asComponent()))
+/** Converts a component to a JSON string. */
+public fun ComponentLike.json(): String {
+  return GSON.toJson(GsonComponentSerializer.gson().serializeToTree(asComponent()))
+}

@@ -9,13 +9,19 @@ import net.radstevee.axi.Registry
 /** A registry of text colours, delegating to [AxiColors] */
 public open class ColorRegistry : DelegatingRegistry<String, TextColor>(AxiColors) {
   /** Registers the given [color] for the given [named] color. */
-  protected fun register(named: NamedTextColor, color: Int): TextColor = register(named.toString(), color)
+  protected fun register(named: NamedTextColor, color: Int): TextColor {
+    return register(named.toString(), color)
+  }
 
   /** Registers the given [color] for the given [named] color. */
-  protected fun register(named: NamedTextColor, color: TextColor): TextColor = register(named.toString(), color)
+  protected fun register(named: NamedTextColor, color: TextColor): TextColor {
+    return register(named.toString(), color)
+  }
 
   /** Registers the given [color] under the given [id]. */
-  protected fun register(id: String, color: Int): TextColor = register(id, color(color))
+  protected fun register(id: String, color: Int): TextColor {
+    return register(id, color(color))
+  }
 
   /** Delegating text color registry. */
   public companion object AxiColors : Registry<String, TextColor>(modifiable = true) {

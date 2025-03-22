@@ -14,10 +14,16 @@ public interface FallbackResourceProvider {
   public fun sound(pack: AxiPack): Key?
 
   public companion object Empty : FallbackResourceProvider {
-    override fun sprite(pack: AxiPack): Key? = null
+    override fun sprite(pack: AxiPack): Key? {
+      return null
+    }
 
-    override fun font(pack: AxiPack): Key? = null
+    override fun font(pack: AxiPack): Key? {
+      return null
+    }
 
-    override fun sound(pack: AxiPack): Key? = null
+    override fun sound(pack: AxiPack): Key? {
+      return null
+    }
   }
 }

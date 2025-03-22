@@ -20,5 +20,7 @@ public interface AxiFont : Keyed {
   /** Extra logic for saving to a resource pack. */
   public fun save(pack: AxiPack) {}
 
-  override fun key(): Key = font.key.adventure()
+  override fun key(): Key {
+    return font.key.adventure()
+  }
 }
