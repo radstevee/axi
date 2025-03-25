@@ -1,13 +1,13 @@
 package net.radstevee.axi.ecs.internal
 
 import net.radstevee.axi.ecs.Attachable
-import net.radstevee.axi.ecs.ECSDataTracker
+import net.radstevee.axi.ecs.ECS
 import net.radstevee.axi.ecs.WrappedComponent
 import kotlin.reflect.KClass
 
 @Suppress("UNCHECKED_CAST")
 @PublishedApi
-internal class BasicECSDataTracker : ECSDataTracker {
+internal class ECSImpl : ECS {
   internal val data: MutableMap<Attachable, MutableSet<WrappedComponent<*>>> = mutableMapOf()
 
   override fun remove(attachable: Attachable) {
@@ -35,5 +35,9 @@ internal class BasicECSDataTracker : ECSDataTracker {
     component?.value = value
 
     return value
+  }
+
+  override fun entities(): Set<Attachable> {
+    return data.keys
   }
 }

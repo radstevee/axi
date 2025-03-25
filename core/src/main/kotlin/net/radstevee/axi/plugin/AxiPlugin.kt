@@ -2,6 +2,7 @@ package net.radstevee.axi.plugin
 
 import kotlinx.coroutines.runBlocking
 import net.radstevee.axi.command.CommandManager
+import net.radstevee.axi.ecs.Attachable
 import net.radstevee.axi.mod.AxiModuleLoader
 import net.radstevee.axi.plugin.AxiPluginHolder.gracefully
 import org.bukkit.plugin.java.JavaPlugin
@@ -11,7 +12,8 @@ import org.koin.core.module.Module
 /** An instance of a plugin using axi. */
 public abstract class AxiPlugin :
   JavaPlugin(),
-  KoinComponent {
+  KoinComponent,
+  Attachable {
   /** This plugin's command manager. */
   public open lateinit var commandManager: CommandManager
 

@@ -24,6 +24,8 @@ dependencies {
 
 repositories {
   mavenCentral()
+  maven("https://maven.radsteve.net/public")
+  maven("https://maven.mcbrawls.net/releases")
   maven("https://packages.jetbrains.team/maven/p/ij/intellij-dependencies")
 }
 
@@ -106,9 +108,6 @@ extensions.create("axi", AxiExtension::class)
 
 afterEvaluate {
   val ext = the<AxiExtension>()
-  if (name !in setOf("axi-core", "axi-example", "axi-docs", "axi-ksp")) {
-    ext.dependencies("core")
-  }
 
   dependencies {
     ext.deps.forEach { dep ->

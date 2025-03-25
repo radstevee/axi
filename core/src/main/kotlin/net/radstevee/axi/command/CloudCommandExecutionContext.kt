@@ -14,8 +14,8 @@ internal class CloudCommandExecutionContext(
 ) : AbstractCoroutineContextElement(CloudCommandExecutionContext),
   CommandExecutionContext,
   CoroutineScope by scope {
-  override val player: Player get() = ctx.player
-  override val source: Source get() = ctx.sender()
+  override val player: Player by lazy { ctx.player }
+  override val source: Source by lazy { ctx.sender() }
 
   companion object : CoroutineContext.Key<CloudCommandExecutionContext>
 }

@@ -27,6 +27,7 @@ plugin-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.
 plugin-ktx-serial = { module = "org.jetbrains.kotlin.plugin.serialization:org.jetbrains.kotlin.plugin.serialization.gradle.plugin", version.ref = "kotlin" }
 plugin-paperweight = { module = "io.papermc.paperweight.userdev:io.papermc.paperweight.userdev.gradle.plugin", version.ref = "paperweight" }
 plugin-spotless = { module = "com.diffplug.spotless:com.diffplug.spotless.gradle.plugin", version.ref = "spotless" }
+plugin-ksp = { module = "com.google.devtools.ksp:symbol-processing-gradle-plugin", version.ref = "ksp" }
 
 ksp = { module = "com.google.devtools.ksp:symbol-processing-api", version.ref = "ksp" }
 
@@ -56,6 +57,9 @@ koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 koin-core-coroutines = { module = "io.insert-koin:koin-core-coroutines", version.ref = "koin" }
 koin-logger-slf4j = { module = "io.insert-koin:koin-logger-slf4j", version.ref = "koin" }
 
+kgp = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+kgp-api = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin-api", version.ref = "kotlin" }
+
 [bundles]
 kotlinx = ["kotlinx-coroutines"]
 mccoroutine = ["mccoroutine-bukkit-api", "mccoroutine-bukkit-core"]
@@ -63,3 +67,4 @@ cloud = ["cloud-core", "cloud-kotlin-ext", "cloud-kotlin-coroutines", "cloud-pap
 packed = ["packed-core", "packed-spaces"]
 inject = ["inject-api", "inject-spigot", "inject-http"]
 koin = ["koin-core", "koin-core-coroutines", "koin-logger-slf4j"]
+kgp = ["kgp", "kgp-api"]

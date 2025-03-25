@@ -2,6 +2,8 @@ package net.radstevee.axi.ecs
 
 import net.radstevee.axi.ecs.component.DebounceComponent
 import net.radstevee.axi.ecs.component.EntityClickedComponent
+import net.radstevee.axi.ecs.component.identity
+import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KClass
@@ -9,6 +11,9 @@ import kotlin.time.Duration
 
 /** This player's attachable. */
 public val Player.attachable: Attachable get() = PlayerTracker[uniqueId]
+
+/** Gets the player of this attachable, if they are online. */
+public val Attachable.player: Player? get() = identity?.let(Bukkit::getPlayer)
 
 /** Gets the component of [T] on this player. */
 public inline fun <reified T : Any> Player.get(): T? = attachable.get()

@@ -9,7 +9,7 @@ internal object ECSConnectionListener : Listener {
   private fun on(event: PlayerQuitEvent) {
     val player = event.player
 
-    ECSDataTracker.remove(player.attachable)
+    ECS.remove(player.attachable)
     PlayerTracker.unset(player.uniqueId)
   }
 }

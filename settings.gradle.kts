@@ -17,3 +17,5 @@ setOf(
   include(":axi-$mod")
   project(":axi-$mod").projectDir = file(mod)
 }
+
+includeBuild("gradle-plugin")

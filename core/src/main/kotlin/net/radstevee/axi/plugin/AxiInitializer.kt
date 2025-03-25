@@ -4,9 +4,10 @@ import kotlinx.coroutines.runBlocking
 import net.radstevee.axi.command.CommandManager
 import net.radstevee.axi.coroutines.registerEventListeners
 import net.radstevee.axi.ecs.ECSConnectionListener
-import net.radstevee.axi.ecs.ECSDataTracker
+import net.radstevee.axi.ecs.ECS
 import net.radstevee.axi.ecs.component.EntityClickedComponent
-import net.radstevee.axi.ecs.internal.BasicECSDataTracker
+import net.radstevee.axi.ecs.internal.ECSImpl
+import net.radstevee.axi.ecs.internal.SystemTicker
 import net.radstevee.axi.mod.AxiModuleLoader
 import net.radstevee.axi.plugin.event.AxiInitializeEvent
 import org.koin.core.context.startKoin
@@ -21,7 +22,7 @@ internal object AxiInitializer {
   operator fun invoke(plugin: AxiPlugin) {
     plugin.module = module {
       single<AxiPlugin> { plugin }
-      singleOf(::BasicECSDataTracker) { bind<ECSDataTracker>() }
+      singleOf(::ECSImpl) { bind<ECS>() }
 
       with(plugin) {
         // We're still in the initializer so this is fine.
@@ -44,6 +45,7 @@ internal object AxiInitializer {
     plugin.commandManager = CommandManager(plugin)
     plugin.registerEventListeners(ECSConnectionListener)
     plugin.registerEventListeners(EntityClickedComponent.Handler)
+    plugin.registerEventListeners(SystemTicker)
 
     plugin.server.pluginManager.callEvent(AxiInitializeEvent(plugin))
   }
