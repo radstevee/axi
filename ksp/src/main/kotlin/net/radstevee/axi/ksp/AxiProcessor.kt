@@ -27,7 +27,7 @@ public class AxiProcessor(
     name: String,
     content: String,
     vararg deps: KSFile,
-  ) {
+  ) = runCatching {
     gen.createNewFile(
       Dependencies(false, *deps),
       pkg,
@@ -35,6 +35,18 @@ public class AxiProcessor(
     ).use { out ->
       OutputStreamWriter(out, StandardCharsets.UTF_8).use { writer ->
         writer.write(content)
+      }
+    }
+  }
+
+  private fun createLoader() = runCatching {
+    gen.createNewFileByPath(
+      Dependencies(false),
+      "net/radstevee/axi/plugin/loader/AxiPluginLoader",
+      "java",
+    ).use { out ->
+      OutputStreamWriter(out, StandardCharsets.UTF_8).use { writer ->
+        writer.write(PluginLoader.CONTENT)
       }
     }
   }
@@ -85,6 +97,7 @@ public class AxiProcessor(
 
   override fun process(resolver: Resolver): List<KSAnnotated> {
     processCommands(resolver)
+    createLoader()
     return emptyList()
   }
 }

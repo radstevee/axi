@@ -3,23 +3,20 @@ package net.radstevee.axi.gradle
 import com.google.devtools.ksp.gradle.KspGradleSubplugin
 import io.papermc.paperweight.userdev.PaperweightUser
 import io.papermc.paperweight.userdev.PaperweightUserDependenciesExtension
-import net.radstevee.axi.gradle.AxiDependencies.Dependencies.PAPER_API
-import net.radstevee.axi.gradle.AxiDependencies.Dependencies.axi
-import net.radstevee.axi.gradle.AxiDependencies.Versions.AXI
+import net.radstevee.axi.gradle.AxiDependencies.Coordinates.PAPER_API
+import net.radstevee.axi.gradle.AxiDependencies.Coordinates.axi
 import net.radstevee.axi.gradle.ext.AxiExtension
 import org.gradle.api.Project
+import org.gradle.kotlin.dsl.add
+import org.gradle.kotlin.dsl.create
+import org.gradle.kotlin.dsl.get
 import org.gradle.kotlin.dsl.the
 
 public object AxiDependencies {
-  private object Versions {
-    const val MINECRAFT: String = "1.21.4"
-    const val AXI: String = "0.0.0-SNAPSHOT"
-  }
+  public object Coordinates {
+    public const val PAPER_API: String = "io.papermc.paper:paper-api"
 
-  private object Dependencies {
-    const val PAPER_API: String = "io.papermc.paper:paper-api"
-
-    fun axi(module: String): String = "net.radstevee.axi:axi-$module"
+    public fun axi(module: String): String = "net.radstevee.axi:axi-$module"
   }
 
   public fun applyTo(project: Project, axi: AxiExtension) {
@@ -29,27 +26,33 @@ public object AxiDependencies {
   }
 
   private fun applyPaper(project: Project, axi: AxiExtension) {
-    val version = axi.versions.minecraft.getOrElse(Versions.MINECRAFT) + "-R0.1-SNAPSHOT"
+    val version = axi.versions.minecraft.getOrElse(AxiVersions.MINECRAFT) + "-R0.1-SNAPSHOT"
 
     if (axi.paper.internals.getOrElse(false)) {
       project.plugins.apply(PaperweightUser::class.java)
-      val pw = project.dependencies.the<PaperweightUserDependenciesExtension>()
-      pw.paperDevBundle(version)
+
+      val devBundleCoordinates = axi.paper.devBundleCoordinates.orNull
+
+      if (devBundleCoordinates == null) {
+        // Default dev bundle
+        val paperweight = project.dependencies.the<PaperweightUserDependenciesExtension>()
+        paperweight.paperDevBundle(version)
+      } else {
+        // Fork dev bundle
+        val dependency = project.dependencies.create("$devBundleCoordinates:$version")
+        project.dependencies.add("paperweightDevelopmentBundle", dependency)
+      }
     } else {
-      project.dependencies.add("compileOnly", "$PAPER_API:$version")
+      project.dependencies.add("compileOnly", "${axi.paper.apiCoordinates.getOrElse(PAPER_API)}:$version")
     }
   }
 
   private fun applyAxi(project: Project, axi: AxiExtension) {
-    val version = axi.versions.axi.getOrElse(AXI)
+    val version = axi.versions.axi.getOrElse(AxiVersions.AXI)
 
     fun add(dependencyNotation: Any) {
       project.dependencies.add("axiRuntime", dependencyNotation)
       project.dependencies.add("implementation", dependencyNotation)
-    }
-
-    if (axi.moduleDeps.isEmpty()) {
-      axi.modules("core")
     }
 
     axi.moduleDeps.forEach { mod ->
@@ -59,8 +62,7 @@ public object AxiDependencies {
 
   private fun applyKsp(project: Project, axi: AxiExtension) {
     project.plugins.apply(KspGradleSubplugin::class.java)
-
-    val axiVersion = axi.versions.axi.getOrElse(AXI)
+    val axiVersion = axi.versions.axi.getOrElse(AxiVersions.AXI)
     project.dependencies.add("ksp", "${axi("ksp")}:$axiVersion")
   }
 }

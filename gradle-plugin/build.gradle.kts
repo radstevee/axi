@@ -1,6 +1,7 @@
 plugins {
   id("com.gradleup.shadow") version "9.0.0-beta6"
   id("com.gradle.plugin-publish") version "1.2.1"
+  id("net.kyori.blossom") version "2.1.0"
 
   `kotlin-dsl`
   `embedded-kotlin`
@@ -19,6 +20,7 @@ dependencies {
   compileOnly(libs.bundles.kgp)
   implementation(libs.plugin.paperweight)
   implementation(libs.plugin.ksp)
+  implementation("org.yaml:snakeyaml:2.4")
 }
 
 kotlin {
@@ -33,6 +35,12 @@ tasks {
   build {
     dependsOn(shadowJar)
   }
+
+  jar {
+    manifest {
+      attributes("Implementation-Version" to version)
+    }
+  }
 }
 
 gradlePlugin {
@@ -45,12 +53,6 @@ gradlePlugin {
 }
 
 publishing {
-//  publications {
-//    create<MavenPublication>("mavenJava") {
-//      from(components["java"])
-//    }
-//  }
-
   repositories {
     maven {
       name = "radPublic"
@@ -61,5 +63,12 @@ publishing {
         password = System.getenv("RAD_MAVEN_TOKEN")
       }
     }
+  }
+}
+
+sourceSets.main {
+  blossom.kotlinSources {
+    property("axiVersion", version.toString())
+    property("minecraftVersion", libs.versions.paper.get().removeSuffix("-R0.1-SNAPSHOT"))
   }
 }

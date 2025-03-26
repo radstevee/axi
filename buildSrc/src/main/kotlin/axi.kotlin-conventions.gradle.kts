@@ -43,6 +43,12 @@ tasks.withType<KotlinCompile> {
   )
 }
 
+tasks.jar {
+  manifest {
+    attributes("Implementation-Version" to version)
+  }
+}
+
 testing {
   suites {
     register("axi-test", JvmTestSuite::class) {

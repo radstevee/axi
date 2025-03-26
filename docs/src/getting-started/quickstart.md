@@ -1,156 +1,69 @@
 # Quickstart
 
-This guide will teach you how to set up axi for your own
-project.
+This guide will teach you how to set up an axi gradle project.
 
-## Adding the repository
-
-This guide assumes you already have set up a Kotlin/PaperMC
-project.
-
-<details>
-
-<summary>Basic empty project</summary>
+## Adding the plugins
 
 ::: code-group
-
 ```kts [build.gradle.kts]
 plugins {
   kotlin("jvm") version "2.1.20"
-}
-
-repositories {
-  maven("https://repo.papermc.io/repository/maven-public")
-}
-
-dependencies {
-  compileOnly("io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT")
-}
-
-kotlin {
-  jvmToolchain(21)
+  id("net.radstevee.axi") version "AXI-VERSION"
+  // Optional, if you want to use a gradle task to run
+  // the paper server.
+  id("xyz.jpenilla.run-task") version "2.3.1"
 }
 ```
-
-```groovy [build.gradle]
-plugins {
-  id 'org.jetbrains.kotlin.jvm' version '2.1.20'
-}
-
-repositories {
-  maven { url 'https://repo.papermc.io/repository/maven-public' }
-}
-
-dependencies {
-  compileOnly 'io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT'
-}
-
-kotlin {
-  jvmToolchain 21
-}
-```
-
 :::
 
-</details>
-
-First, you will need to add the repository using your build
-tool:
-
-::: code-group
-
-```kts{3} [build.gradle.kts]
-repositories {
-  maven("https://repo.papermc.io/repository/maven-public")
-  maven("https://maven.radsteve.net/public")
-}
-```
-
-```groovy{3} [build.gradle]
-repositories {
-  maven { url 'https://repo.papermc.io/repository/maven-public' }
-  maven { url 'https://maven.radsteve.net/public' }
-}
-```
-
-:::
-
-## Adding the dependency
-
-Then, you are going to add the BOM and dependencies:
+Replace `AXI-VERSION` with the latest version of axi.
 
 ::: info
-Replace `VERSION` with your desired version of Axi.
-:::
+If you're using `run-task`, you may have to set the server
+version of the `runServer` task:
 
-::: code-group
-
-```kts{2,3} [build.gradle.kts]
-dependencies {
-  implementation(platform("net.radstevee.axi:axi-bom:VERSION"))
-  implementation("net.radstevee.axi:axi-core")
-
-  compileOnly("io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT")
+```kt
+tasks.runServer {
+  minecraftVersion("1.21.4")
 }
 ```
-
-```groovy{2,3} [build.gradle]
-dependencies {
-  implementation platform('net.radstevee.axi:axi-bom:VERSION')
-  implementation 'net.radstevee.axi:axi-core'
-
-  compileOnly 'io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT'
-}
-```
-
 :::
 
-## Applying Shadow
+## Adding modules
 
-If you would like to shade Axi (bundle it into your jar),
-do it like this:
+In this guide, we'll only be adding the `core` module of axi.
+To do this, we can use the `axi` gradle extension:
 
 ::: code-group
-
-```kts{3,6-18} [build.gradle.kts]
+```kts [build.gradle.kts]
 plugins {
   kotlin("jvm") version "2.1.20"
-  id("com.gradleup.shadow") version "9.0.0-beta6"
+  id("net.radstevee.axi") version "AXI-VERSION"
+  // Optional, if you want to use a gradle task to run
+  // the paper server.
+  id("xyz.jpenilla.run-task") version "2.3.1"
 }
 
-tasks {
-  shadowJar {
-    relocate("net.radstevee.axi", "my.axi.plugin.relocated.axi")
-    relocate("kotlin", "my.axi.plugin.relocated.kotlin")
-    relocate("kotlinx", "my.axi.plugin.relocated.kotlinx")
-  }
- 
-  assemble {
-    dependsOn(shadowJar)
-  }
+axi {
+  modules("core")
 }
 ```
-
-```groovy{3,6-18} [build.gradle]
-plugins {
-  id 'org.jetbrains.kotlin.jvm' version '2.1.20'
-  id 'com.gradleup.shadow' version '9.0.0-beta6'
-}
-
-tasks {
-  shadowJar {
-    relocate 'net.radstevee.axi', 'my.axi.plugin.relocated.axi'
-    relocate 'kotlin', 'my.axi.plugin.relocated.kotlin'
-    relocate 'kotlinx', 'my.axi.plugin.relocated.kotlinx'
-  }
-
-  assemble {
-    dependsOn shadowJar
-  }
-}
-```
-
 :::
+
+## Using internals
+
+If you wish to use Paper internals, you can use the `internals`
+function in the `axi.paper` extension. You can either use
+`internals()` to use the regular Paper dev bundle or you can
+pass in the coordinates to your own dev bundle with the
+`internals(String)` function. Note that you do not need to
+supply a version.
+
+## Using a fork
+
+If you are using a fork of paper, you can use its API instead
+using the `api` function in the `axi.paper` extension. It
+takes in the coordinates to the API, without the version.
 
 ## Creating an axi plugin
 
@@ -177,79 +90,36 @@ main: my.axi.plugin.MyPlugin
 
 Now you're good to go!
 
-## Complete build setups
+## Dependencies
+
+If you need a dependency in your plugin, you can use paper's
+library loading feature by adding the dependency using the
+`axiDependency` function:
+
+```kt
+dependencies {
+  axiDependency("...")
+}
+```
+
+## Complete buildscript
 
 ::: code-group
-
 ```kts [build.gradle.kts]
 plugins {
   kotlin("jvm") version "2.1.20"
-  id("com.gradleup.shadow") version "9.0.0-beta6"
+  id("net.radstevee.axi") version "AXI-VERSION"
+  // Optional, if you want to use a gradle task to run
+  // the paper server.
+  id("xyz.jpenilla.run-task") version "2.3.1"
 }
 
-repositories {
-  maven("https://maven.radsteve.net/public")
-  maven("https://repo.papermc.io/repository/maven-public")
+axi {
+  modules("core")
 }
 
-dependencies {
-  implementation(platform("net.radstevee.axi:axi-bom:VERSION"))
-  implementation("net.radstevee.axi:axi-core")
-  compileOnly("io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT")
-}
-
-tasks {
-  shadowJar {
-    relocate(
-      "net.radstevee.axi",
-      "my.axi.plugin.relocated.axi"
-    )
-    relocate("kotlin", "my.axi.plugin.relocated.kotlin")
-    relocate("kotlinx", "my.axi.plugin.relocated.kotlinx")
-  }
-
-  assemble {
-    dependsOn(shadowJar)
-  }
-}
-
-kotlin {
-  jvmToolchain(21)
+tasks.runServer {
+  minecraftVersion("1.21.4")
 }
 ```
-
-```groovy [build.gradle]
-plugins {
-  id 'org.jetbrains.kotlin.jvm' version '2.1.20'
-  id 'com.gradleup.shadow' version '9.0.0-beta6'
-}
-
-repositories {
-  maven { url 'https://maven.radsteve.net/public' }
-  maven { url 'https://repo.papermc.io/repository/maven-public' }
-}
-
-dependencies {
-  implementation platform('net.radstevee.axi:axi-bom:VERSION')
-  implementation 'net.radstevee.axi:axi-core'
-  compileOnly 'io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT'
-}
-
-tasks {
-  shadowJar {
-    relocate 'net.radstevee.axi', 'my.axi.plugin.relocated.axi'
-    relocate 'kotlin', 'my.axi.plugin.relocated.kotlin'
-    relocate 'kotlinx', 'my.axi.plugin.relocated.kotlinx'
-  }
-
-  assemble {
-    dependsOn shadowJar
-  }
-}
-
-kotlin {
-  jvmToolchain 21
-}
-```
-
 :::

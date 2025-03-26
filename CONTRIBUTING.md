@@ -74,3 +74,8 @@ If it is necessary, you can use full documentation comments:
  */
 public fun externalServerAddress(): InetSocketAddress
 ```
+
+## Bumping the version
+
+To bump the current version of axi, change the `version` property
+in the root and the `gradle-plugin`'s `gradle.properties`.

@@ -4,7 +4,7 @@ import org.gradle.api.Action
 import org.gradle.api.tasks.Nested
 
 public abstract class AxiExtension {
-  internal val moduleDeps: MutableList<String> = mutableListOf("core")
+  public val moduleDeps: MutableList<String> = mutableListOf("core")
 
   public fun modules(vararg modules: String) {
     moduleDeps.addAll(modules)

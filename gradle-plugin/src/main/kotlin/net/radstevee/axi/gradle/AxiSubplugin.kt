@@ -20,11 +20,11 @@ public class AxiSubplugin : KotlinCompilerPluginSupportPlugin {
   }
 
   override fun getPluginArtifact(): SubpluginArtifact {
-    return SubpluginArtifact("net.radstevee.axi", "gradle-plugin", "0.0.0-SNAPSHOT")
+    return SubpluginArtifact("net.radstevee.axi", "gradle-plugin", javaClass.`package`.implementationVersion)
   }
 
-  override fun apply(project: Project) {
-    AxiApplicator.applyTo(project)
+  override fun apply(target: Project) {
+    AxiApplicator.applyTo(target)
   }
 
   // Only apply to compilations which have a main source set

@@ -1,3 +1,5 @@
+// Doing this here since the plugin is already
+// on the classpath
 apply(plugin = "org.jetbrains.kotlin.jvm")
 
 plugins {
@@ -9,7 +11,7 @@ group = "net.radstevee.axi.example"
 version = "0.0.0"
 
 axi {
-  modules("ui")
+  modules("core", "ui")
 }
 
 tasks {

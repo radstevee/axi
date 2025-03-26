@@ -18,3 +18,7 @@ spotless {
     target("src")
   }
 }
+
+tasks {
+  delete("publish")
+}
