@@ -23,7 +23,6 @@ export default defineConfig({
         items: [
           {text: 'Introduction', link: '/getting-started/introduction'},
           {text: 'Quickstart', link: '/getting-started/quickstart'},
-          {text: 'Applying KSP', link: '/getting-started/ksp'},
           {text: 'Examples', link: '/getting-started/examples'},
         ]
       },

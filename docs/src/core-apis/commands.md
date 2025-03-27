@@ -53,7 +53,7 @@ We could also make the executor run asynchronously:
 ```kt
 val TestCommand = Command("test") {
   async()
-  
+
   executor {
     ctx.sendMesage(text("Hello, world!"))
   }
@@ -81,7 +81,7 @@ using the `aliases` function:
 ```kt
 val TestCommand = Command("test") {
   aliases("hello")
-  
+
   executor {
     ctx.sendMesage(text("Hello, world!"))
   }
@@ -97,11 +97,11 @@ function provided by the `CommandBuilder` DSL:
 ```kt
 val TestCommand = Command("test") {
   aliases("hello")
-  
+
   executor {
     ctx.sendMesage(text("Hello, world!"))
-  }
-  
+}
+
   sub("bye") {
     executor {
       ctx.sendMessage(text("Bye, world!"))
@@ -123,9 +123,9 @@ to greet or say goodbye to:
 ```kt
 val TestCommand = Command("test") {
   aliases("hello")
-  
+
   val name by arg("name", stringParser()) // stringParser comes from Cloud's StringParser
-  
+
   executor {
     ctx.sendMesage(text("Hello, $name!"))
   }
@@ -141,9 +141,9 @@ val TestCommand = Command("test") {
 This will work for `/hello rad`: `Hello, rad!`. But when we
 try to do `/hello bye rad`
 or `/hello rad bye`, we will either get a syntax exception
-or this:
+or this cloud exception:
 
-```
+```txt
 There is no object in the registry identified by the key 'name'
 ```
 
@@ -155,7 +155,7 @@ in the subcommand's builder:
 ```kt
 val TestCommand = Command("test") {
   aliases("hello")
-  
+ 
   val name by arg("name", stringParser())
 
   executor {
@@ -164,7 +164,7 @@ val TestCommand = Command("test") {
 
   sub("bye") {
     val name by arg("name", stringParser())
-    
+
     executor {
       ctx.sendMessage(text("Bye, $name!"))
     }
@@ -194,15 +194,15 @@ We can change this using the `permission` function:
 ```kt
 val TestCommand = Command("test") {
   aliases("hello")
-  
+ 
   val name by arg("name", stringParser())
 
   permission("axi.testcommands.hello")
-  
+ 
   executor {
     ctx.sendMesage(text("Hello, $name!"))
   }
-  
+ 
   // ...
 }
 ```
@@ -225,14 +225,14 @@ register it?
 
 Well, there's two options:
 
-* Use the [KSP processor](/getting-started/ksp) to register
-  them automatically
-* Register them manually
+- Use the KSP processor to register them automatically
+- Register them manually
 
 ### Automatic Registration
 
-First, make sure you have set up
-the [KSP processor](/getting-started/ksp).
+First, make sure you are using the
+Axi gradle plugin, as specified in the
+[Quickstart](/getting-started/quickstart) page.
 
 Then, all you need to do is to add the `@AutoRegistered`
 annotation to your
@@ -242,6 +242,13 @@ command field:
 @AutoRegistered
 val MyCommand = Command("hello")
 ```
+
+::: warning
+If you are making an Axi module used
+by other people, this will not work
+due to library loading and classloaders.
+See the manual section below.
+:::
 
 ### Manual Registration
 
