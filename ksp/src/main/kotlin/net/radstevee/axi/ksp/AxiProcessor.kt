@@ -66,6 +66,7 @@ public class AxiProcessor(
                 // spotless:off
                 package $newPackage
                 
+                @Deprecated("generated class", level = DeprecationLevel.HIDDEN)
                 public class $newClassName : $COMMAND by $declQualified
                 // spotless:on
       """.trimIndent()

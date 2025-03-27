@@ -9,7 +9,7 @@ import net.radstevee.packed.core.pack.ResourcePack
 import net.radstevee.packed.core.pack.ResourcePackBuilder.Companion.resourcePack
 import java.io.File
 
-object ExamplePack : AxiPack("example") {
+public object ExamplePack : AxiPack("example") {
   override val pack: ResourcePack = resourcePack {
     meta {
       description = "Example axi pack"

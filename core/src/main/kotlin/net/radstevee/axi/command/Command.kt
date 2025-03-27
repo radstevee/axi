@@ -2,6 +2,7 @@ package net.radstevee.axi.command
 
 import net.radstevee.axi.plugin.AxiPlugin
 import net.radstevee.axi.plugin.AxiPluginHolder
+import org.jetbrains.annotations.ApiStatus
 
 /** Represents a wrapped cloud command. */
 public interface Command {
@@ -12,7 +13,8 @@ public interface Command {
   public val aliases: Set<String>
 
   /** The permission required to use this command, defaults to `pluginName.command.commandName`. */
-  public val permission: String
+  @set:ApiStatus.Internal
+  public var permission: String
 
   /** The children of this command. */
   public val children: Set<Command>

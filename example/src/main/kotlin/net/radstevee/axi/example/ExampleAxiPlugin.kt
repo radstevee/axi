@@ -5,7 +5,7 @@ import net.radstevee.axi.example.resource.Colors
 import net.radstevee.axi.example.resource.ExamplePack
 import net.radstevee.axi.plugin.AxiPlugin
 
-class ExampleAxiPlugin : AxiPlugin() {
+public class ExampleAxiPlugin : AxiPlugin() {
   override suspend fun enable() {
     ExamplePack.save()
 

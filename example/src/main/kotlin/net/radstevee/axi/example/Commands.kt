@@ -10,6 +10,20 @@ import net.radstevee.axi.ui.text.mm
 import org.incendo.cloud.parser.standard.IntegerParser.integerParser
 import org.incendo.cloud.parser.standard.StringParser.stringParser
 
+private val TestTwoCommand = Command("two") {
+  val num by arg("number", integerParser())
+
+  executor {
+    ctx.sendMessage(text("number: $num"))
+  }
+
+  sub("three") {
+    executor {
+      ctx.sendMessage(text("omg: $num"))
+    }
+  }
+}
+
 @AutoRegistered
 val TestCommand: Command = Command("test") {
   executor {
@@ -24,19 +38,7 @@ val TestCommand: Command = Command("test") {
     }
   }
 
-  sub("two") {
-    val num by arg("number", integerParser())
-
-    executor {
-      ctx.sendMessage(text("number: $num"))
-    }
-
-    sub("three") {
-      executor {
-        ctx.sendMessage(text("omg: $num"))
-      }
-    }
-  }
+  sub(TestTwoCommand)
 }
 
 @AutoRegistered

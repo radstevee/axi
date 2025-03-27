@@ -6,7 +6,7 @@ import net.radstevee.axi.ecs.player
 import net.radstevee.axi.ecs.system.System
 import kotlin.reflect.KClass
 
-object ExampleSystem : System {
+public object ExampleSystem : System {
   override val archetypes: Sequence<KClass<out Any>> = sequenceOf(TestComponent::class)
 
   override suspend fun tick(tick: Int, attachable: Attachable) {

@@ -71,9 +71,19 @@ public class CommandBuilder(
   /** Adds a sub command. */
   public fun sub(name: String, aliases: Set<String> = setOf(), block: (@CommandBuilderDsl CommandBuilder).() -> Unit = {}) {
     val builder = CommandBuilder(name, plugin)
+    builder.aliases(*aliases.toTypedArray())
     builder.permission("$permission.$name")
 
     children.add(builder.apply(block).build())
+  }
+
+  /** Adds a command with its permission as long as [useSubPermission] is set to true. */
+  public fun sub(command: Command, useSubPermission: Boolean = true) {
+    if (!useSubPermission) {
+      command.permission = "$permission.${command.name}"
+    }
+
+    children.add(command)
   }
 
   /** Adds the given [aliases]. */

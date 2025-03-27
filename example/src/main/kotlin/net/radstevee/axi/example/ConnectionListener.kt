@@ -19,7 +19,7 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.player.PlayerJoinEvent
 import kotlin.time.Duration.Companion.seconds
 
-object ConnectionListener : SuspendingListener {
+public object ConnectionListener : SuspendingListener {
   @EventHandler
   private suspend fun on(event: PlayerJoinEvent) {
     val player = event.player

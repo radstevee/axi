@@ -1,17 +1,19 @@
-// Doing this here since the plugin is already
-// on the classpath
-apply(plugin = "org.jetbrains.kotlin.jvm")
-
 plugins {
   id("net.radstevee.axi")
   id("xyz.jpenilla.run-paper") version "2.3.1"
+  kotlin("jvm")
 }
 
 group = "net.radstevee.axi.example"
 version = "0.0.0"
 
-axi {
-  modules("core", "ui")
+dependencies {
+  axi.modules("core", "ui")
+}
+
+kotlin {
+  jvmToolchain(21)
+  explicitApi()
 }
 
 tasks {

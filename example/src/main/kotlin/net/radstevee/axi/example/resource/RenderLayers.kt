@@ -7,7 +7,7 @@ import org.bukkit.Bukkit
 import kotlin.math.roundToInt
 import kotlin.math.sin
 
-fun testRenderLayer(initTick: Int): RenderLayer = buildRenderLayer {
+public fun testRenderLayer(initTick: Int): RenderLayer = buildRenderLayer {
   add {
     content {
       append("Tick: ${Bukkit.getCurrentTick()}")
@@ -49,7 +49,7 @@ fun testRenderLayer(initTick: Int): RenderLayer = buildRenderLayer {
   }
 }
 
-val OtherLayer: RenderLayer = buildRenderLayer {
+public val OtherLayer: RenderLayer = buildRenderLayer {
   add {
     content(-50) {
       append("bye, world!")

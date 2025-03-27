@@ -2,6 +2,7 @@ package net.radstevee.axi.gradle
 
 import net.radstevee.axi.gradle.ext.AxiDependenciesExtension
 import net.radstevee.axi.gradle.ext.AxiExtension
+import net.radstevee.axi.gradle.ext.AxiExtension.Companion.axi
 import net.radstevee.axi.gradle.task.DependenciesJson
 import net.radstevee.axi.gradle.task.ProcessPluginYaml
 import org.gradle.api.Project
@@ -10,14 +11,13 @@ import org.gradle.api.tasks.bundling.Jar
 import org.gradle.internal.extensions.stdlib.capitalized
 import org.gradle.kotlin.dsl.get
 import org.gradle.kotlin.dsl.maven
-import org.gradle.kotlin.dsl.the
 import org.gradle.language.jvm.tasks.ProcessResources
 import org.jetbrains.kotlin.gradle.plugin.KotlinCompilation
 
 public object AxiApplicator {
   public fun applyTo(project: Project): Unit = with(project) {
     extensions.create("axi", AxiExtension::class.java)
-    dependencies.extensions.create("axiDependency", AxiDependenciesExtension::class.java, project)
+    dependencies.extensions.create("axi", AxiDependenciesExtension::class.java, project)
 
     configurations.create("axiRuntime")
 
@@ -36,7 +36,6 @@ public object AxiApplicator {
       .extendsFrom(configurations["compileClasspath"])
       .extendsFrom(configurations["runtimeClasspath"])
 
-    val axi = the<AxiExtension>()
     AxiDependencies.applyTo(project, axi)
   }
 

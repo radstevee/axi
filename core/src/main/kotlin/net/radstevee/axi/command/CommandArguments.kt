@@ -16,14 +16,14 @@ public open class CommandArgument<T : Any>(
   public open val descriptor: ParserDescriptor<Source, T>,
 ) {
   public open operator fun getValue(thisRef: Any?, property: KProperty<*>): T? {
-    val coroutineContext = IntellijCoroutines.currentThreadCoroutineContext() ?: error("not in a coroutine")
-    val ctx = coroutineContext[CloudCommandExecutionContext] ?: error("no execution context found")
+    val ctx = CloudCommandExecutionContext.Holder.get() ?: error("thread local unset")
     return ctx.ctx.get<T>(id)
   }
 }
 
 /**
  * An instance of a command argument that cannot be null, by either providing
+ *
  * a) providing a default
  * b) using a required argument
  */
@@ -40,8 +40,7 @@ public class NonNullableCommandArgument<T : Any>(
       return super.getValue(thisRef, property)!!
     }
 
-    val coroutineContext = IntellijCoroutines.currentThreadCoroutineContext() ?: error("not in a coroutine")
-    val ctx = coroutineContext[CloudCommandExecutionContext] ?: error("no execution context found")
+    val ctx = CloudCommandExecutionContext.Holder.get() ?: error("thread local unset")
     return ctx.ctx.getOrDefault<T>(id, default)
   }
 }

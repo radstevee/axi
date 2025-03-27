@@ -44,8 +44,8 @@ plugins {
   id("xyz.jpenilla.run-task") version "2.3.1"
 }
 
-axi {
-  modules("core")
+dependencies {
+  axi.modules("core")
 }
 ```
 :::
@@ -94,11 +94,11 @@ Now you're good to go!
 
 If you need a dependency in your plugin, you can use paper's
 library loading feature by adding the dependency using the
-`axiDependency` function:
+`axi.runtime` function:
 
 ```kt
 dependencies {
-  axiDependency("...")
+  axi.runtime("...")
 }
 ```
 
@@ -114,8 +114,8 @@ plugins {
   id("xyz.jpenilla.run-task") version "2.3.1"
 }
 
-axi {
-  modules("core")
+dependencies {
+  axi.modules("core")
 }
 
 tasks.runServer {
