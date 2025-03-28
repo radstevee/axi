@@ -1,6 +1,6 @@
 plugins {
+  id("axi.publishing-repo-conventions")
   `java-platform`
-  `maven-publish`
 }
 
 group = "net.radstevee.axi"
@@ -22,18 +22,6 @@ publishing {
   publications {
     create<MavenPublication>("mavenJava") {
       from(components["javaPlatform"])
-    }
-  }
-
-  repositories {
-    maven {
-      name = "radPublic"
-      url = uri("https://maven.radsteve.net/public")
-
-      credentials {
-        username = System.getenv("RAD_MAVEN_USER")
-        password = System.getenv("RAD_MAVEN_TOKEN")
-      }
     }
   }
 }

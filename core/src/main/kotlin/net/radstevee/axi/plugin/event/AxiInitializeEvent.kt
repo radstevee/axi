@@ -1,5 +1,6 @@
 package net.radstevee.axi.plugin.event
 
+import net.radstevee.axi.mod.AxiModule
 import net.radstevee.axi.plugin.AxiPlugin
 import org.bukkit.event.Event
 import org.bukkit.event.HandlerList
@@ -8,6 +9,8 @@ import org.bukkit.event.HandlerList
 public class AxiInitializeEvent(
   /** The plugin. */
   public val plugin: AxiPlugin,
+  /** The modules that were loaded. */
+  public val loadedModules: Set<AxiModule>,
 ) : Event() {
   override fun getHandlers(): HandlerList = HANDLER_LIST
 

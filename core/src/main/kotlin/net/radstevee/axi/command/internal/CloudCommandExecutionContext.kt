@@ -1,6 +1,8 @@
-package net.radstevee.axi.command
+package net.radstevee.axi.command.internal
 
 import kotlinx.coroutines.CoroutineScope
+import net.radstevee.axi.command.CommandExecutionContext
+import net.radstevee.axi.command.player
 import org.bukkit.entity.Player
 import org.incendo.cloud.context.CommandContext
 import org.incendo.cloud.paper.util.sender.Source

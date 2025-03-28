@@ -25,7 +25,7 @@ private val TestTwoCommand = Command("two") {
 }
 
 @AutoRegistered
-val TestCommand: Command = Command("test") {
+public val TestCommand: Command = Command("test") {
   executor {
     ctx.sendMessage(text("Hi!!!"))
   }
@@ -42,7 +42,7 @@ val TestCommand: Command = Command("test") {
 }
 
 @AutoRegistered
-val OtherTestCommand: Command = Command("other_test") {
+public val OtherTestCommand: Command = Command("other_test") {
   val name by arg("name", stringParser())
 
   executor {

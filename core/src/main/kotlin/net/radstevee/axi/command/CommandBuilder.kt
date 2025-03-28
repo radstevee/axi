@@ -1,5 +1,6 @@
 package net.radstevee.axi.command
 
+import net.radstevee.axi.command.internal.CommandImpl
 import net.radstevee.axi.plugin.AxiPlugin
 import org.bukkit.entity.Player
 import org.incendo.cloud.paper.util.sender.Source
@@ -51,6 +52,12 @@ public class CommandBuilder(
     return arg
   }
 
+  /** Adds the given [arg] to this command. */
+  public fun <T : Any> arg(arg: CommandArgument<T>): CommandArgument<T> {
+    args.add(arg)
+    return arg
+  }
+
   /** Sets the executor of this command. */
   public fun executor(block: suspend CommandExecutionContext.() -> Unit) {
     executor = block
@@ -94,4 +101,4 @@ public class CommandBuilder(
 
 @DslMarker
 @Target(AnnotationTarget.TYPE, AnnotationTarget.CLASS)
-public annotation class CommandBuilderDsl
+internal annotation class CommandBuilderDsl

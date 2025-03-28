@@ -59,7 +59,7 @@ public data class EntityClickedComponent(
   }
 
   /** Sets [block] as the [filter]. */
-  public fun filtering(block: suspend (ClickContext) -> Boolean) {
+  public fun withFilter(block: suspend (ClickContext) -> Boolean) {
     filter = block
   }
 }

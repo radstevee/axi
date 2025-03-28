@@ -2,13 +2,16 @@ package net.radstevee.axi.ecs.internal
 
 import net.radstevee.axi.ecs.Attachable
 import net.radstevee.axi.ecs.ECS
-import net.radstevee.axi.ecs.WrappedComponent
+import net.radstevee.axi.ecs.component.WrappedComponent
 import kotlin.reflect.KClass
 
 @Suppress("UNCHECKED_CAST")
 @PublishedApi
 internal class ECSImpl : ECS {
   internal val data: MutableMap<Attachable, MutableSet<WrappedComponent<*>>> = mutableMapOf()
+  private val ids: MutableMap<KClass<out Any>, Int> = mutableMapOf()
+
+  private fun assignId(): Int = ids.size
 
   override fun remove(attachable: Attachable) {
     data.remove(attachable)
@@ -39,5 +42,9 @@ internal class ECSImpl : ECS {
 
   override fun entities(): Set<Attachable> {
     return data.keys
+  }
+
+  override fun id(componentKlass: KClass<out Any>): Int {
+    return ids.getOrPut(componentKlass) { assignId() }
   }
 }

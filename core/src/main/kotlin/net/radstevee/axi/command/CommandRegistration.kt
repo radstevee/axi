@@ -1,6 +1,7 @@
 package net.radstevee.axi.command
 
 import kotlinx.coroutines.coroutineScope
+import net.radstevee.axi.command.internal.CloudCommandExecutionContext
 import net.radstevee.axi.coroutines.AxiCoroutines.asyncContext
 import net.radstevee.axi.coroutines.AxiCoroutines.coroutineScope
 import net.radstevee.axi.coroutines.AxiCoroutines.syncContext
@@ -43,13 +44,13 @@ public fun Command.register(manager: CommandManager = AxiPluginHolder.plugin().c
     suspendingHandler(scope = coroutineScope, context = coroutineContext) { ctx ->
       coroutineScope {
         val executionContext = CloudCommandExecutionContext(ctx, coroutineContext, this)
-        CloudCommandExecutionContext.Holder.set(executionContext)
+        CloudCommandExecutionContext.Companion.Holder.set(executionContext)
         try {
           with(command) {
             executionContext.execute()
           }
         } finally {
-          CloudCommandExecutionContext.Holder.remove()
+          CloudCommandExecutionContext.Companion.Holder.remove()
         }
       }
     }

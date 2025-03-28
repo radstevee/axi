@@ -7,7 +7,7 @@ import org.bukkit.Bukkit
 import kotlin.reflect.KClass
 import kotlin.time.Duration
 
-/** Holds debounce information for players. */
+/** Holds debounce information for attachables. */
 public data class DebounceComponent(
   /** The debounce entries. */
   public val entries: MutableMap<KClass<out Any>, DebounceEntry> = mutableMapOf(),

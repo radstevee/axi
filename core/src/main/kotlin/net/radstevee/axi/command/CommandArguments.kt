@@ -3,7 +3,7 @@
 package net.radstevee.axi.command
 
 import kotlinx.coroutines.InternalCoroutinesApi
-import kotlinx.coroutines.internal.intellij.IntellijCoroutines
+import net.radstevee.axi.command.internal.CloudCommandExecutionContext
 import org.incendo.cloud.paper.util.sender.Source
 import org.incendo.cloud.parser.ParserDescriptor
 import kotlin.reflect.KProperty

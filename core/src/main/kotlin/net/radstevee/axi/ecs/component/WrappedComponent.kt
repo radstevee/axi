@@ -1,4 +1,4 @@
-package net.radstevee.axi.ecs
+package net.radstevee.axi.ecs.component
 
 import kotlin.reflect.KClass
 

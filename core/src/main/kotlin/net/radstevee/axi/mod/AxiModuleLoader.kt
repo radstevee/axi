@@ -6,7 +6,9 @@ import java.util.ServiceLoader
 
 /** Loads axi modules. */
 public object AxiModuleLoader {
-  private fun collectServices(plugin: AxiPlugin): Set<AxiModule> = ServiceLoader.load(AxiModule::class.java, plugin.javaClass.classLoader).toSet()
+  internal fun collectServices(plugin: AxiPlugin): Set<AxiModule> {
+    return ServiceLoader.load(AxiModule::class.java, plugin.javaClass.classLoader).toSet()
+  }
 
   /** Sets up the koin module for all axi modules. */
   public suspend fun Module.module(plugin: AxiPlugin) {

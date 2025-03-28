@@ -1,6 +1,10 @@
-package net.radstevee.axi.command
+package net.radstevee.axi.command.internal
 
-/** A basic implementation of a [Command]. */
+import net.radstevee.axi.command.Command
+import net.radstevee.axi.command.CommandArgument
+import net.radstevee.axi.command.CommandExecutionContext
+
+/** A basic implementation of a [net.radstevee.axi.command.Command]. */
 public class CommandImpl(
   override val name: String,
   override val aliases: Set<String>,

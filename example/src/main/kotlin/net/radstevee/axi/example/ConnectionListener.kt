@@ -32,7 +32,7 @@ public object ConnectionListener : SuspendingListener {
         .onClickEntity { (player, entity) ->
           player.sendRichMessage("You clicked a pig called <rainbow>${entity.name}</rainbow>!")
         }
-        .filtering { (_, entity) -> entity.type == EntityType.PIG }
+        .withFilter { (_, entity) -> entity.type == EntityType.PIG }
     }
 
     player.send {
@@ -62,7 +62,7 @@ public object ConnectionListener : SuspendingListener {
     player.addDebounce(ConnectionListener::class, 5.seconds) // 100 ticks
     player.waitUntilDebounced(ConnectionListener::class)
     player.send {
-      append("Debounce finished at: ")
+      append("Finished waiting at: ")
       append(Bukkit.getCurrentTick(), TextBuilder::green)
       append(" ticks")
       yellow()

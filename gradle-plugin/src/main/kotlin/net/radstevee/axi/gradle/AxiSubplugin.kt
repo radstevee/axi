@@ -6,13 +6,14 @@ import org.jetbrains.kotlin.gradle.plugin.KotlinCompilation
 import org.jetbrains.kotlin.gradle.plugin.KotlinCompilerPluginSupportPlugin
 import org.jetbrains.kotlin.gradle.plugin.SubpluginArtifact
 import org.jetbrains.kotlin.gradle.plugin.SubpluginOption
+import org.jetbrains.kotlin.gradle.targets.jvm.KotlinJvmTarget
 
 public class AxiSubplugin : KotlinCompilerPluginSupportPlugin {
   override fun applyToCompilation(kotlinCompilation: KotlinCompilation<*>): Provider<List<SubpluginOption>> {
     AxiApplicator.applyTo(kotlinCompilation)
 
     // We do not want any CLI options
-    return kotlinCompilation.project.provider { emptyList() }
+    return kotlinCompilation.project.provider(::emptyList)
   }
 
   override fun getCompilerPluginId(): String {
@@ -27,8 +28,9 @@ public class AxiSubplugin : KotlinCompilerPluginSupportPlugin {
     AxiApplicator.applyTo(target)
   }
 
-  // Only apply to compilations which have a main source set
+  // Only apply to JVM compilations which have a main source set
   override fun isApplicable(kotlinCompilation: KotlinCompilation<*>): Boolean {
     return kotlinCompilation.allKotlinSourceSets.any { set -> set.name == "main" }
+      && kotlinCompilation.target is KotlinJvmTarget
   }
 }

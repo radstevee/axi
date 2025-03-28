@@ -1,8 +1,12 @@
+@file:JvmName("ECSExtensions")
+@file:JvmMultifileClass
+
 package net.radstevee.axi.ecs
 
 import net.radstevee.axi.ecs.component.DebounceComponent
 import net.radstevee.axi.ecs.component.EntityClickedComponent
 import net.radstevee.axi.ecs.component.identity
+import net.radstevee.axi.ecs.internal.PlayerTracker
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import kotlin.properties.ReadWriteProperty

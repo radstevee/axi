@@ -29,6 +29,9 @@ public interface ECS : KoinComponent {
   /** Gets all entities in the ECS. */
   public fun entities(): Set<Attachable>
 
+  /** Retrieves the id of the given [componentKlass], or assigns one. */
+  public fun id(componentKlass: KClass<out Any>): Int
+
   /** The ECS implementation. */
   public companion object : ECS by AxiPluginHolder.plugin().get()
 }

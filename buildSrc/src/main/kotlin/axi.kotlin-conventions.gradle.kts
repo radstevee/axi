@@ -8,6 +8,7 @@ plugins {
   kotlin("plugin.serialization")
   id("org.jetbrains.dokka")
   id("com.diffplug.spotless")
+  id("axi.publishing-repo-conventions")
 
   `maven-publish`
   `java-library`
@@ -78,18 +79,6 @@ publishing {
 
       artifact(dokkaJar) {
         classifier = "javadoc"
-      }
-    }
-  }
-
-  repositories {
-    maven {
-      name = "radPublic"
-      url = uri("https://maven.radsteve.net/public")
-
-      credentials {
-        username = System.getenv("RAD_MAVEN_USER")
-        password = System.getenv("RAD_MAVEN_TOKEN")
       }
     }
   }

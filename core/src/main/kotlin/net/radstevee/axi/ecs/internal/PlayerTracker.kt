@@ -1,6 +1,8 @@
-package net.radstevee.axi.ecs
+package net.radstevee.axi.ecs.internal
 
+import net.radstevee.axi.ecs.WrappedAttachable
 import net.radstevee.axi.ecs.component.IdentityComponent
+import net.radstevee.axi.ecs.set
 import java.util.UUID
 
 /** Tracks an online player's attachable. */

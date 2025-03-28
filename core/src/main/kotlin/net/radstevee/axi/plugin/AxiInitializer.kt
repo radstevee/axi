@@ -3,9 +3,9 @@ package net.radstevee.axi.plugin
 import kotlinx.coroutines.runBlocking
 import net.radstevee.axi.command.CommandManager
 import net.radstevee.axi.coroutines.registerEventListeners
-import net.radstevee.axi.ecs.ECSConnectionListener
 import net.radstevee.axi.ecs.ECS
 import net.radstevee.axi.ecs.component.EntityClickedComponent
+import net.radstevee.axi.ecs.internal.ECSConnectionListener
 import net.radstevee.axi.ecs.internal.ECSImpl
 import net.radstevee.axi.ecs.internal.SystemTicker
 import net.radstevee.axi.mod.AxiModuleLoader
@@ -24,15 +24,9 @@ internal object AxiInitializer {
       single<AxiPlugin> { plugin }
       singleOf(::ECSImpl) { bind<ECS>() }
 
-      with(plugin) {
-        // We're still in the initializer so this is fine.
-        runBlocking {
-          with(AxiModuleLoader) {
-            module(plugin)
-          }
-
-          module()
-        }
+      runBlocking {
+        with(plugin) { module() }
+        with(AxiModuleLoader) { module(plugin) }
       }
     }
 
@@ -47,6 +41,6 @@ internal object AxiInitializer {
     plugin.registerEventListeners(EntityClickedComponent.Handler)
     plugin.registerEventListeners(SystemTicker)
 
-    plugin.server.pluginManager.callEvent(AxiInitializeEvent(plugin))
+    plugin.server.pluginManager.callEvent(AxiInitializeEvent(plugin, AxiModuleLoader.collectServices(plugin)))
   }
 }

@@ -7,7 +7,7 @@ import java.util.UUID
 /** Represents the identity of something, as UUID. */
 public data class IdentityComponent(
   /** The identity. */
-  public val identity: UUID
+  public val identity: UUID,
 )
 
 /** The identity of this attachable. */
