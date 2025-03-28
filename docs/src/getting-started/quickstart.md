@@ -45,7 +45,7 @@ plugins {
 }
 
 dependencies {
-  axi.modules("core")
+  axi.modules("core") // [!code focus]
 }
 ```
 :::
@@ -83,7 +83,7 @@ And of course don't forget to add your `plugin.yml`:
 
 ```yml
 name: my-plugin
-version: 0.0.0
+version: 0.1.0
 api-version: 1.21.4
 main: my.axi.plugin.MyPlugin
 ```
@@ -96,9 +96,9 @@ If you need a dependency in your plugin, you can use paper's
 library loading feature by adding the dependency using the
 `axi.runtime` function:
 
-```kt
+```kts
 dependencies {
-  axi.runtime("...")
+  axi.runtime("...") // [!code focus]
 }
 ```
 

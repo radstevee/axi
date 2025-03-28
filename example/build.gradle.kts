@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "net.radstevee.axi.example"
-version = "0.0.0"
+version = rootProject.version
 
 dependencies {
   // We're not using the axi plugin here because

@@ -96,3 +96,32 @@ we can:
 - Get the component, or put it if it does not exist
 - Set the component
 - Obtain a delegating property to the component
+
+## Creating a system
+
+To create a system, you will need to implement the `System`
+interface and provide component archetypes this system filters:
+
+```kt
+object ExampleSystem : System {
+  override val archetypes: Sequence<KClass<out Any>> = sequenceOf(Position::class)
+  
+  override suspend fun tick(tick: Int, attachable: Attachable) {
+    // This will not be null because of our [archetypes] filter.
+    val position = attachable.get<Position>()!!
+    println("Attachable ${attachable.identity} is at position $position!")
+  }
+}
+```
+
+Now, we can start and stop ticking this system using the
+`System#start` and `System#stop` functions:
+
+```kt
+class ExamplePlugin : AxiPlugin() {
+  override suspend fun enable() {
+    // ...
+    ExampleSystem.start()
+  }
+}
+```

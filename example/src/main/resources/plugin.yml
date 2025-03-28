@@ -1,4 +1,4 @@
 name: axi-example
-version: 0.0.0
+version: 0.1.0
 main: net.radstevee.axi.example.ExampleAxiPlugin
 api-version: 1.21.4
