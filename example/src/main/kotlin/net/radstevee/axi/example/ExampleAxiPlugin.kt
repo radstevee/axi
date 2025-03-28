@@ -12,6 +12,6 @@ public class ExampleAxiPlugin : AxiPlugin() {
     registerEventListeners(ConnectionListener)
     Colors
 
-    ExampleSystem.start()
+    ExampleSystem.startTicking()
   }
 }

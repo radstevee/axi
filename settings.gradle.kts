@@ -11,6 +11,7 @@ setOf(
   "example",
   "ui",
   "docs",
+  "game",
 ).forEach { mod ->
   include(":axi-$mod")
   project(":axi-$mod").projectDir = file(mod)

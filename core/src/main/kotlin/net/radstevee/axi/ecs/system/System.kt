@@ -15,13 +15,13 @@ public interface System : KoinComponent {
     get() = emptySequence()
 
   /** Adds this system to the tick loop. */
-  public fun start() {
+  public fun startTicking() {
     val plugin by inject<AxiPlugin>()
     plugin.getOrPut(::SystemsComponent).systems.add(this)
   }
 
   /** Removes this system from the tick loop. */
-  public fun stop() {
+  public fun stopTicking() {
     val plugin by inject<AxiPlugin>()
     plugin.getOrPut(::SystemsComponent).systems.remove(this)
   }

@@ -1,4 +1,4 @@
-package net.radstevee.axi.util
+package net.radstevee.axi.utility
 
 import net.kyori.adventure.audience.Audience
 import net.kyori.adventure.audience.ForwardingAudience

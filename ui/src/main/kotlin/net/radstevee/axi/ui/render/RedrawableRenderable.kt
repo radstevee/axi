@@ -3,7 +3,7 @@ package net.radstevee.axi.ui.render
 import net.kyori.adventure.audience.Audience
 import net.radstevee.axi.ui.render.redraw.RedrawResult
 import net.radstevee.axi.ui.render.redraw.Redrawable
-import net.radstevee.axi.util.forEachPlayer
+import net.radstevee.axi.utility.forEachPlayer
 
 /** Something that can be rendered and redrawn. */
 public interface RedrawableRenderable :

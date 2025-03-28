@@ -12,8 +12,8 @@ import net.radstevee.axi.ecs.getOrPut
 import net.radstevee.axi.plugin.event.SuspendingListener
 import net.radstevee.axi.ui.resource.host.buildServerURI
 import net.radstevee.axi.ui.resource.pack.AxiPack
-import net.radstevee.axi.util.forEachPlayer
-import net.radstevee.axi.util.players
+import net.radstevee.axi.utility.forEachPlayer
+import net.radstevee.axi.utility.players
 import org.bukkit.event.EventHandler
 import org.bukkit.event.player.PlayerQuitEvent
 import org.bukkit.event.player.PlayerResourcePackStatusEvent

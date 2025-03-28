@@ -3,7 +3,7 @@ package net.radstevee.axi.ui.render
 import net.kyori.adventure.audience.Audience
 import net.kyori.adventure.text.TextComponent
 import net.radstevee.axi.ui.render.layer.layered.buildLayeredText
-import net.radstevee.axi.util.players
+import net.radstevee.axi.utility.players
 import org.bukkit.entity.Player
 
 /** Renders renderables for an audience. */

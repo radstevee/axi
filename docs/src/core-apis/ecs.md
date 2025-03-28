@@ -115,13 +115,13 @@ object ExampleSystem : System {
 ```
 
 Now, we can start and stop ticking this system using the
-`System#start` and `System#stop` functions:
+`System#startTicking` and `System#stopTicking` functions:
 
 ```kt
 class ExamplePlugin : AxiPlugin() {
   override suspend fun enable() {
     // ...
-    ExampleSystem.start()
+    ExampleSystem.startTicking()
   }
 }
 ```
