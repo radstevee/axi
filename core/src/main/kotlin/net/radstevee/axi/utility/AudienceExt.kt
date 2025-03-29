@@ -11,13 +11,13 @@ import java.util.UUID
 import kotlin.jvm.optionals.getOrNull
 
 /** Gets the UUID of this audience, or null. */
-public fun Audience.uuidOrNull(): UUID? {
+public val Audience.uuidOrNull: UUID? get() {
   return get(Identity.UUID).getOrNull()
 }
 
 /** Gets the UUID of this audience, or throws. */
-public fun Audience.uuid(): UUID {
-  return uuidOrNull() ?: error("audience does not have a UUID")
+public val Audience.uuid: UUID get() {
+  return uuidOrNull ?: error("audience does not have a UUID")
 }
 
 /** Executes [block] for each player in this audience. */
@@ -41,7 +41,7 @@ public fun Audience.forEachPlayer(block: (Player) -> Unit) {
     if (current is Player) {
       block(current)
     } else {
-      current.uuidOrNull()?.let(Bukkit::getPlayer)?.let(block)
+      current.uuidOrNull?.let(Bukkit::getPlayer)?.let(block)
 
       if (current is ForwardingAudience) {
         current.forEachAudience { child ->
@@ -55,7 +55,7 @@ public fun Audience.forEachPlayer(block: (Player) -> Unit) {
 }
 
 /** Gets the players contained in this audience. */
-public fun Audience.players(): Set<Player> = buildSet { forEachPlayer(::add) }
+public val Audience.players: Set<Player> get() = buildSet { forEachPlayer(::add) }
 
 /** Applies [transform] on each player and returns the result. */
 public fun <R> Audience.mapPlayers(transform: (Player) -> R): Set<R> = buildSet {
@@ -63,6 +63,6 @@ public fun <R> Audience.mapPlayers(transform: (Player) -> R): Set<R> = buildSet 
 }
 
 /** Gets all attachables in this audience. */
-public fun Audience.attachables(): Set<Attachable> {
+public val Audience.attachables: Set<Attachable> get() {
   return mapPlayers(Player::attachable)
 }

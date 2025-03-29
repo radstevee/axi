@@ -6,7 +6,6 @@ import net.radstevee.axi.ecs.component.WrappedComponent
 import kotlin.reflect.KClass
 
 @Suppress("UNCHECKED_CAST")
-@PublishedApi
 internal class ECSImpl : ECS {
   internal val data: MutableMap<Attachable, MutableSet<WrappedComponent<*>>> = mutableMapOf()
   private val ids: MutableMap<KClass<out Any>, Int> = mutableMapOf()

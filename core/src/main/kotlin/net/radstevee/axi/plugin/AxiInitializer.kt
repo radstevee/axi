@@ -12,7 +12,7 @@ import net.radstevee.axi.mod.AxiModuleLoader
 import net.radstevee.axi.plugin.event.AxiInitializeEvent
 import org.koin.core.context.startKoin
 import org.koin.core.module.dsl.bind
-import org.koin.core.module.dsl.singleOf
+import org.koin.dsl.bind
 import org.koin.dsl.module
 import org.koin.logger.slf4jLogger
 
@@ -22,7 +22,7 @@ internal object AxiInitializer {
   operator fun invoke(plugin: AxiPlugin) {
     plugin.module = module {
       single<AxiPlugin> { plugin }
-      singleOf(::ECSImpl) { bind<ECS>() }
+      single { ECSImpl() }.bind<ECS>()
 
       runBlocking {
         with(plugin) { module() }

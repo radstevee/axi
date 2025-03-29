@@ -7,7 +7,7 @@ import net.kyori.adventure.key.Key
 import net.kyori.adventure.key.Key.key
 import net.kyori.adventure.key.Keyed
 import net.radstevee.axi.game.type.GameType
-import net.radstevee.axi.game.utility.IdentificationAware
+import net.radstevee.axi.game.utility.Identified
 import net.radstevee.axi.tick.TickDuration.ticks
 import java.util.UUID
 import kotlin.time.Clock.System.now
@@ -28,7 +28,7 @@ public data class GameContext(
 
   /** The list of players in this instance. */
   public val members: MutableList<UUID>,
-) : IdentificationAware,
+) : Identified,
   Keyed {
   /** When this instance started. */
   public val start: Instant = now()
@@ -40,7 +40,7 @@ public data class GameContext(
   public val duration: Duration get() = start - now()
 
   /** The id of this game context. */
-  public override val id: String = "${type.metadata.id}-$uuid"
+  public override val id: String = "${type.key().value()}-$uuid"
 
   override fun key(): Key {
     return key(type.key().namespace(), id)

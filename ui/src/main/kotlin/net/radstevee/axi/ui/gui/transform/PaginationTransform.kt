@@ -21,29 +21,40 @@ import org.bukkit.inventory.ItemStack
 public class PaginationTransform<P : Pane, T>(
   /** The interface property of the items. */
   itemsProp: InterfaceProperty<List<T>>,
+
   /** Maps an item to a drawable. */
   private val mapper: (T) -> Drawable,
+
   /** Handles clicks. */
   private val clickHandler: CompletableClickHandler.(ctx: ClickContext, item: T) -> Unit,
+
   /** The width of the pagination grid. */
   private val width: Int = 7,
+
   /** The height of the pagination grid. */
   private val height: Int = 3,
+
   /** A horizontal and vertical offset to item positioning. */
   private val offset: Int = 0,
+
   /** The position for the previous page button. */
   private val previousPagePosition: GridPoint = GridPoint.at(height - 1, 0),
+
   /** The position for the next page button. */
   private val nextPagePosition: GridPoint = GridPoint.at(height - 1, width + 1),
+
   /** The drawable for the previous page button. */
   previousPageDrawable: Drawable = drawable(ItemStack.of(Material.ARROW)),
+
   /** The drawable for the next page button. */
   nextPageDrawable: Drawable = drawable(ItemStack.of(Material.ARROW)),
 ) : Transform<P> {
   public var items: List<T> by itemsProp
   public val pageProp: InterfaceProperty<Int> = interfaceProperty(0)
+
   private var page: Int by pageProp
   private val maxPage: Int get() = items.size / (width * height)
+
   private val pages: Map<Int, List<T>> get() = buildMap {
     var startIdx = 0
     for (idx in 0 until maxPage + 1) {
@@ -52,12 +63,15 @@ public class PaginationTransform<P : Pane, T>(
       startIdx = endIdx
     }
   }
+
   private val itemsOnPage: List<T> get() = pages[page] ?: emptyList()
+
   private val previousPage: Element = StaticElement(previousPageDrawable) {
     if (page > 0) {
       page--
     }
   }
+
   private val nextPage: Element = StaticElement(nextPageDrawable) {
     if (page < maxPage) {
       page++

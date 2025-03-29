@@ -3,7 +3,7 @@ package net.radstevee.axi.game.utility
 import java.util.UUID
 
 /** Represents something that has a string and UUID identification. */
-public interface IdentificationAware {
+public interface Identified {
   /** The UUID identification. */
   public val uuid: UUID
 

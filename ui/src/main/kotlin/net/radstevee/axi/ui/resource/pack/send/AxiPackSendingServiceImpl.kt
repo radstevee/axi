@@ -100,7 +100,7 @@ internal class AxiPackSendingServiceImpl :
   }
 
   override suspend fun Audience.removeAxiPack(pack: AxiPack) {
-    val players = players()
+    val players = players
 
     if (players.isEmpty()) {
       return

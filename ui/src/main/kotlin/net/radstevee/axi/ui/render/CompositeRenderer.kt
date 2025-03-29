@@ -17,7 +17,7 @@ public object CompositeRenderer {
 
   /** Renders the given [renderable] to the given [audience] using the given [renderer]. */
   public suspend fun render(renderable: RedrawableRenderable, renderer: Renderer, audience: Audience) {
-    audience.players().forEach { player ->
+    audience.players.forEach { player ->
       renderer.render(player, renderable, stack(player, renderable))
     }
   }

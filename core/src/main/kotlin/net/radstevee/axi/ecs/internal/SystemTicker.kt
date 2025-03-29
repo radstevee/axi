@@ -12,6 +12,7 @@ import org.koin.core.component.inject
 
 internal object SystemTicker : SuspendingListener, KoinComponent {
   private val plugin: AxiPlugin by inject()
+  private val ecs: ECSImpl by inject()
 
   @EventHandler
   private suspend fun on(event: ServerTickEndEvent) {
@@ -21,7 +22,7 @@ internal object SystemTicker : SuspendingListener, KoinComponent {
     entities.forEach { entity ->
       systems.systems.forEach { system ->
         val applicable = system.archetypes.all { klass ->
-          entity.get(klass) != null
+          ecs.data[entity]?.any { component -> component.klass == klass } == true
         }
 
         if (!applicable) {

@@ -9,7 +9,7 @@ import org.bukkit.WorldType
 /** A provider for [GameWorld]s. */
 public fun interface GameWorldProvider<T : GameInstance<T>> {
   /** Gets the [GameWorld] for a given [instance]. */
-  public fun gameWorld(instance: GameInstance<T>): GameWorld<T>
+  public suspend fun gameWorld(instance: GameInstance<T>): GameWorld<T>
 
   public companion object {
     /** Creates a void world. */

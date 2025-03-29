@@ -13,11 +13,16 @@ internal object GameInstanceTicker : System {
 
     instances.forEach { instance ->
       try {
-        instance.tickInternal(instance.context.startTick, tick - instance.context.startTick)
+        instance.controller.tick(tick - instance.context.startTick)
       } catch (exception: GameInstanceException) {
         instance.stop()
         instance.remove()
         exception.printStackTrace()
+      }
+
+      if (instance.finishing()) {
+        instance.stop()
+        instance.remove()
       }
     }
   }

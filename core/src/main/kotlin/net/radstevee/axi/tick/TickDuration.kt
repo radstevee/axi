@@ -1,5 +1,6 @@
 package net.radstevee.axi.tick
 
+import kotlin.time.Clock
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.nanoseconds
 import kotlin.time.ExperimentalTime
@@ -21,4 +22,9 @@ public object TickDuration {
 
   /** The tick number of this instant. */
   public val Instant.ticks: Long get() = toEpochMilliseconds() * 1_000_000L / NANOS_PER_TICK
+
+  /** Gets the current server tick. */
+  public fun currentTick(): Int {
+    return Clock.System.now().ticks.toInt()
+  }
 }

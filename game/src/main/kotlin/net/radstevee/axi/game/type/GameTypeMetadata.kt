@@ -6,8 +6,6 @@ import net.kyori.adventure.text.Component
 
 /** Metadata about [GameType]s. */
 public data class GameTypeMetadata(
-  /** The id of this [GameType]. */
-  public val id: String,
   /** The key of this game type. */
   public val key: Key,
   /** The name displayed to players. */

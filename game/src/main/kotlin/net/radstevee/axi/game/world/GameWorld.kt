@@ -1,6 +1,7 @@
 package net.radstevee.axi.game.world
 
 import net.radstevee.axi.game.instance.GameInstance
+import org.bukkit.Bukkit
 import org.bukkit.World
 
 /** A world used by a game instance. */
@@ -14,5 +15,11 @@ public class GameWorld<T : GameInstance<T>>(
     if (isTemporary) {
       world.worldFolder.deleteOnExit()
     }
+  }
+
+  /** Unloads this game world. */
+  public fun unload() {
+    Bukkit.unloadWorld(world, false)
+    world.worldFolder.deleteRecursively()
   }
 }
