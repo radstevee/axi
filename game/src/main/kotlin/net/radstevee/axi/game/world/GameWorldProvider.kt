@@ -22,7 +22,7 @@ public fun interface GameWorldProvider<T : GameInstance<T>> {
           .keepSpawnLoaded(TriState.FALSE)
           .generateStructures(false)
           .createWorld()
-          ?: error("failed creating world")
+          ?: error("failed creating world"),
       )
     }
   }

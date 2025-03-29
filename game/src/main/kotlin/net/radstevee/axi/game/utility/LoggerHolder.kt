@@ -1,9 +1,9 @@
 package net.radstevee.axi.game.utility
 
 import org.apache.logging.log4j.LogManager
-import org.apache.logging.log4j.Logger as Log4JLogger
-import java.util.logging.Logger as JULLogger
 import org.slf4j.Logger
+import java.util.logging.Logger as JULLogger
+import org.apache.logging.log4j.Logger as Log4JLogger
 
 /** Something that holds a logger. */
 public interface LoggerHolder {

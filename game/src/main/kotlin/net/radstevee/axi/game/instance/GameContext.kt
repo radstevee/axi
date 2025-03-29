@@ -28,7 +28,8 @@ public data class GameContext(
 
   /** The list of players in this instance. */
   public val members: MutableList<UUID>,
-) : IdentificationAware, Keyed {
+) : IdentificationAware,
+  Keyed {
   /** When this instance started. */
   public val start: Instant = now()
 

@@ -28,12 +28,11 @@ import kotlin.coroutines.CoroutineContext
 public abstract class GameInstance<T : GameInstance<T>>(
   /** The context of this instance. */
   public open val context: GameContext,
-) :
+) : AbstractCoroutineContextElement(ContextKey),
   ForwardingAudience,
   Tickable,
   DisplayTickable,
   CoroutineScope by coroutineScope,
-  AbstractCoroutineContextElement(ContextKey),
   Attachable,
   IdentificationAware by context,
   GameWorldHolder<T>,

@@ -5,6 +5,7 @@ plugins {
 
 dependencies {
   api(libs.bundles.packed)
+  api(libs.interfaces)
   implementation(libs.bundles.inject)
 }
 

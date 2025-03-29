@@ -6,5 +6,5 @@ import net.radstevee.axi.game.utility.internal.text
 /** An exception formatted to a component. */
 public open class FormattedException(
   /** The message. */
-  message: Component
+  message: Component,
 ) : RuntimeException(message.text())
