@@ -9,10 +9,14 @@ import net.radstevee.axi.example.resource.ExamplePack
 import net.radstevee.axi.example.resource.OtherLayer
 import net.radstevee.axi.example.resource.testRenderLayer
 import net.radstevee.axi.event.SuspendingListener
+import net.radstevee.axi.npc.NPC
+import net.radstevee.axi.npc.SkinData
 import net.radstevee.axi.ui.render.layer.addRenderable
 import net.radstevee.axi.ui.resource.pack.send.sendAxiPack
 import net.radstevee.axi.ui.text.TextBuilder
+import net.radstevee.axi.ui.text.buildText
 import net.radstevee.axi.ui.text.send
+import net.radstevee.axi.utility.nms
 import org.bukkit.Bukkit
 import org.bukkit.entity.EntityType
 import org.bukkit.event.EventHandler
@@ -48,6 +52,19 @@ public object ConnectionListener : SuspendingListener {
       append(" ticks!")
       green()
     }
+
+    val playerSkin = player.nms.gameProfile.properties.get("textures").first()
+    NPC(
+      buildText {
+        append("weeee")
+        green()
+      },
+      player.location,
+      SkinData(
+        playerSkin.value,
+        playerSkin.signature!!
+      ),
+    ).show(player)
 
     player.addRenderable(testRenderLayer(Bukkit.getCurrentTick()))
     delay(1.seconds)

@@ -21,6 +21,12 @@ kotlin {
   explicitApi()
 }
 
+axi {
+  paper {
+    internals()
+  }
+}
+
 tasks {
   runServer {
     minecraftVersion("1.21.4")
