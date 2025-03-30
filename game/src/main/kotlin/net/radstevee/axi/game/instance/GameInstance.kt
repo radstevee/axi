@@ -177,4 +177,9 @@ public open class GameInstance<T : GameInstance<T>>(
     lifecyclePhase = phase
     lifecycleProgress(old, phase)
   }
+
+  override fun equals(other: Any?): Boolean {
+    other as GameInstance<*>
+    return other.context.uuid == context.uuid
+  }
 }
