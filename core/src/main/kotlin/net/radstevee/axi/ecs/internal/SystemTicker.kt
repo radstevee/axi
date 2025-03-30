@@ -4,14 +4,13 @@ import com.destroystokyo.paper.event.server.ServerTickEndEvent
 import net.radstevee.axi.ecs.ECS
 import net.radstevee.axi.ecs.get
 import net.radstevee.axi.ecs.getOrPut
-import net.radstevee.axi.plugin.AxiPlugin
-import net.radstevee.axi.plugin.event.SuspendingListener
+import net.radstevee.axi.event.SuspendingListener
+import net.radstevee.axi.utility.PluginAware
 import org.bukkit.event.EventHandler
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-internal object SystemTicker : SuspendingListener, KoinComponent {
-  private val plugin: AxiPlugin by inject()
+internal object SystemTicker : SuspendingListener, KoinComponent, PluginAware {
   private val ecs: ECSImpl by inject()
 
   @EventHandler

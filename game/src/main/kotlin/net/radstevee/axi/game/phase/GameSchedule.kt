@@ -9,7 +9,7 @@ public class GameSchedule<T : GameInstance<T>> {
   /** A schedule entry. */
   public data class ScheduleEntry<T : GameInstance<T>>(
     /** The supplier of the game phase. */
-    public val phaseSupplier: () -> GamePhase<T>,
+    public val phaseSupplier: (GameInstance<T>) -> GamePhase<T>,
     /** The klass of the return type of [phaseSupplier]. */
     public val phaseKlass: KClass<out GamePhase<T>>,
     /** The duration of this phase. */
@@ -26,7 +26,7 @@ public class GameSchedule<T : GameInstance<T>> {
   /** Adds an entry of the given [phaseSupplier] for the given [duration]. */
   public inline fun <reified P : GamePhase<T>> add(
     duration: Duration? = null,
-    noinline phaseSupplier: () -> P,
+    noinline phaseSupplier: (GameInstance<T>) -> P,
   ) {
     add(ScheduleEntry(phaseSupplier, P::class, duration))
   }
@@ -41,11 +41,11 @@ public class GameSchedule<T : GameInstance<T>> {
     waitingDuration: Duration?,
     roundDuration: Duration?,
     endingDuration: Duration?,
-    noinline waitingPhaseSupplier: () -> Waiting,
-    noinline roundPhaseSupplier: () -> Round,
-    noinline endingPhaseSupplier: () -> Ending,
+    noinline waitingPhaseSupplier: (GameInstance<T>) -> Waiting,
+    noinline roundPhaseSupplier: (GameInstance<T>) -> Round,
+    noinline endingPhaseSupplier: (GameInstance<T>) -> Ending,
   ) {
-    repeat(roundCount) { idx ->
+    repeat(roundCount) {
       add(waitingDuration, waitingPhaseSupplier)
       add(roundDuration, roundPhaseSupplier)
       add(endingDuration, endingPhaseSupplier)
@@ -79,15 +79,17 @@ public class GameSchedule<T : GameInstance<T>> {
   override fun toString(): String = buildString {
     append("GameSchedule[")
 
-    append(schedule.joinToString { supplier ->
-      // Format: <klass>(<duration>s)
-      buildString {
-        append(supplier.phaseKlass.simpleName)
-        append("(")
-        append(supplier.duration?.inWholeSeconds ?: -1)
-        append("s)")
-      }
-    })
+    append(
+      schedule.joinToString { supplier ->
+        // Format: <klass>(<duration>s)
+        buildString {
+          append(supplier.phaseKlass.simpleName)
+          append("(")
+          append(supplier.duration?.inWholeSeconds ?: -1)
+          append("s)")
+        }
+      },
+    )
 
     append("]")
   }

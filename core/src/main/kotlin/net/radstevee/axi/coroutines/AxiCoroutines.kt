@@ -7,14 +7,11 @@ import kotlinx.coroutines.withContext
 import net.radstevee.axi.coroutines.AxiCoroutines.asyncContext
 import net.radstevee.axi.coroutines.AxiCoroutines.syncContext
 import net.radstevee.axi.plugin.AxiPlugin
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
+import net.radstevee.axi.utility.PluginAware
 import kotlin.coroutines.CoroutineContext
 
 /** Coroutine extensions for the main axi plugin. */
-public object AxiCoroutines : KoinComponent {
-  private val plugin: AxiPlugin by inject()
-
+public object AxiCoroutines : PluginAware {
   /** The [CoroutineScope] of the main [AxiPlugin]. */
   public val coroutineScope: CoroutineScope get() = plugin.coroutineScope
 

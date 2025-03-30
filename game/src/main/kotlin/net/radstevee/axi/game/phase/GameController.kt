@@ -13,7 +13,9 @@ public class GameController<T : GameInstance<T>>(
   /** The game instance. */
   public val instance: GameInstance<T>,
 ) {
-  private var currentPhase: GamePhase<T> = VoidPhase<T>(instance)
+  /** The current phase of the game instance. */
+  public var currentPhase: GamePhase<T> = VoidPhase<T>(instance)
+    private set
   private var currentIdx: Int = -1
   private var totalTicksElapsed: Int = 0
   private val previousPhases: MutableList<GamePhase<T>> = mutableListOf()
@@ -45,7 +47,7 @@ public class GameController<T : GameInstance<T>>(
   /** Goes to the next state and returns whether it progressed. */
   public suspend fun next(): Boolean {
     val progressed = schedule.accept { (phaseSupplier, _, duration) ->
-      switch(phaseSupplier(), duration)
+      switch(phaseSupplier(instance), duration)
     }
 
     if (progressed) {

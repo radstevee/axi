@@ -8,7 +8,7 @@ import net.radstevee.axi.ecs.waitUntilDebounced
 import net.radstevee.axi.example.resource.ExamplePack
 import net.radstevee.axi.example.resource.OtherLayer
 import net.radstevee.axi.example.resource.testRenderLayer
-import net.radstevee.axi.plugin.event.SuspendingListener
+import net.radstevee.axi.event.SuspendingListener
 import net.radstevee.axi.ui.render.layer.addRenderable
 import net.radstevee.axi.ui.resource.pack.send.sendAxiPack
 import net.radstevee.axi.ui.text.TextBuilder

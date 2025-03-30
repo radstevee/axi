@@ -9,7 +9,7 @@ import net.kyori.adventure.audience.Audience
 import net.kyori.adventure.resource.ResourcePackInfo.resourcePackInfo
 import net.kyori.adventure.resource.ResourcePackRequest.addingRequest
 import net.radstevee.axi.ecs.getOrPut
-import net.radstevee.axi.plugin.event.SuspendingListener
+import net.radstevee.axi.event.SuspendingListener
 import net.radstevee.axi.ui.resource.host.buildServerURI
 import net.radstevee.axi.ui.resource.pack.AxiPack
 import net.radstevee.axi.utility.forEachPlayer

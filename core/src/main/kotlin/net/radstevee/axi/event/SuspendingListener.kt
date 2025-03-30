@@ -1,7 +1,7 @@
-package net.radstevee.axi.plugin.event
+package net.radstevee.axi.event
 
 import kotlinx.coroutines.CoroutineScope
-import net.radstevee.axi.coroutines.AxiCoroutines.syncContext
+import net.radstevee.axi.coroutines.AxiCoroutines
 import org.bukkit.event.Listener
 import kotlin.coroutines.CoroutineContext
 
@@ -10,5 +10,5 @@ public interface SuspendingListener :
   Listener,
   CoroutineScope {
   override val coroutineContext: CoroutineContext
-    get() = syncContext
+    get() = AxiCoroutines.syncContext
 }

@@ -1,5 +1,6 @@
 package net.radstevee.axi.game.phase
 
+import net.radstevee.axi.event.Handleable
 import net.radstevee.axi.game.instance.GameInstance
 import net.radstevee.axi.tick.DisplayTickable
 import net.radstevee.axi.tick.TickDuration.inWholeTicks
@@ -13,7 +14,8 @@ public open class GamePhase<T : GameInstance<T>>(
   /** The current game instance. */
   public val instance: GameInstance<T>,
 ) : Tickable,
-  DisplayTickable {
+  DisplayTickable,
+  Handleable {
   /** The current tick of this phase. Starts at [durationTicks] and decrements. */
   public open var tick: Int = -1
     internal set

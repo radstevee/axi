@@ -17,6 +17,7 @@ spotless = "7.0.2"
 ktlint = "1.5.0"
 koin = "4.1.0-Beta5"
 interfaces = "1.4.0-SNAPSHOT"
+classgraph = "4.8.179"
 
 [libraries]
 kotlinx-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization-json" }
@@ -62,6 +63,8 @@ kgp = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kot
 kgp-api = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin-api", version.ref = "kotlin" }
 
 interfaces = { module = "com.noxcrew.interfaces:interfaces", version.ref = "interfaces" }
+
+classgraph = { module = "io.github.classgraph:classgraph", version.ref = "classgraph" }
 
 [bundles]
 kotlinx = ["kotlinx-coroutines"]

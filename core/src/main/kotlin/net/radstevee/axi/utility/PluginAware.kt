@@ -1,4 +1,4 @@
-package net.radstevee.axi.game.utility
+package net.radstevee.axi.utility
 
 import net.radstevee.axi.plugin.AxiPlugin
 import org.koin.core.component.KoinComponent

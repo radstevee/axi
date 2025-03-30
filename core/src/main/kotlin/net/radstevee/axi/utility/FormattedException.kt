@@ -1,7 +1,7 @@
-package net.radstevee.axi.game.utility
+package net.radstevee.axi.utility
 
 import net.kyori.adventure.text.Component
-import net.radstevee.axi.game.utility.internal.text
+import net.radstevee.axi.utility.internal.text
 
 /** An exception formatted to a component. */
 public open class FormattedException(

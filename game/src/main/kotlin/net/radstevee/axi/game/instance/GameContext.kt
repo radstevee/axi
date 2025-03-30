@@ -7,8 +7,8 @@ import net.kyori.adventure.key.Key
 import net.kyori.adventure.key.Key.key
 import net.kyori.adventure.key.Keyed
 import net.radstevee.axi.game.type.GameType
-import net.radstevee.axi.game.utility.Identified
 import net.radstevee.axi.tick.TickDuration.ticks
+import net.radstevee.axi.utility.Identified
 import java.util.UUID
 import kotlin.time.Clock.System.now
 import kotlin.time.Duration
@@ -16,12 +16,12 @@ import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
 
 /** The context of a game instance. */
-public data class GameContext(
+public data class GameContext<T : GameInstance<T>>(
   /** The instance UUID. */
   public override val uuid: UUID,
 
   /** The type of the game instance. */
-  public val type: GameType<*>,
+  public val type: GameType<T>,
 
   /** The instance's audience. */
   public var audience: Audience,

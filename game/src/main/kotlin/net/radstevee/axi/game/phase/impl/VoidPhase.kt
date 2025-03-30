@@ -8,5 +8,5 @@ import net.radstevee.axi.utility.AxiInternal
 @AxiInternal
 public class VoidPhase<T : GameInstance<T>>(
   /** The game instance. */
-  instance: GameInstance<T>
+  instance: GameInstance<T>,
 ) : GamePhase<T>(instance)

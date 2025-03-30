@@ -1,4 +1,4 @@
-package net.radstevee.axi.game.utility
+package net.radstevee.axi.utility
 
 import org.apache.logging.log4j.LogManager
 import org.slf4j.Logger

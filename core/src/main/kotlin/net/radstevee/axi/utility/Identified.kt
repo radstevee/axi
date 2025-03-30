@@ -1,4 +1,4 @@
-package net.radstevee.axi.game.utility
+package net.radstevee.axi.utility
 
 import java.util.UUID
 

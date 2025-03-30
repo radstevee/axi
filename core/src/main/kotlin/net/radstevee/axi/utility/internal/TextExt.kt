@@ -1,4 +1,4 @@
-package net.radstevee.axi.game.utility.internal
+package net.radstevee.axi.utility.internal
 
 import net.kyori.adventure.text.ComponentLike
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer.plainText
