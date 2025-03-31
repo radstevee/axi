@@ -8,7 +8,7 @@ This guide will teach you how to set up an axi gradle project.
 ```kts [build.gradle.kts]
 plugins {
   kotlin("jvm") version "2.1.20"
-  id("net.radstevee.axi") version "AXI-VERSION"
+  id("net.radsteve.axi") version "AXI-VERSION"
   // Optional, if you want to use a gradle task to run
   // the paper server.
   id("xyz.jpenilla.run-task") version "2.3.1"
@@ -38,7 +38,7 @@ To do this, we can use the `axi` gradle extension:
 ```kts [build.gradle.kts]
 plugins {
   kotlin("jvm") version "2.1.20"
-  id("net.radstevee.axi") version "AXI-VERSION"
+  id("net.radsteve.axi") version "AXI-VERSION"
   // Optional, if you want to use a gradle task to run
   // the paper server.
   id("xyz.jpenilla.run-task") version "2.3.1"
@@ -108,7 +108,7 @@ dependencies {
 ```kts [build.gradle.kts]
 plugins {
   kotlin("jvm") version "2.1.20"
-  id("net.radstevee.axi") version "AXI-VERSION"
+  id("net.radsteve.axi") version "AXI-VERSION"
   // Optional, if you want to use a gradle task to run
   // the paper server.
   id("xyz.jpenilla.run-task") version "2.3.1"

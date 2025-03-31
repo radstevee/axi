@@ -1,11 +1,11 @@
 plugins {
-  id("net.radstevee.axi")
+  id("net.radsteve.axi")
   id("xyz.jpenilla.run-paper") version "2.3.1"
   id("com.gradleup.shadow") version "9.0.0-beta6"
   kotlin("jvm")
 }
 
-group = "net.radstevee.axi.example"
+group = "net.radsteve.axi.example"
 version = rootProject.version
 
 dependencies {

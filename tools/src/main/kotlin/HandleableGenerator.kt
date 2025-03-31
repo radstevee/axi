@@ -8,7 +8,7 @@ public fun main() {
     println("// THIS FILE IS AUTO-GENERATED! DO NOT MODIFY!")
     println("// spotless:off")
     println("@file:Suppress(\"DEPRECATION\", \"removal\", \"SpellCheckingInspection\")")
-    println("package net.radstevee.axi.event")
+    println("package net.radsteve.axi.event")
 
     println()
     println("/** Something that can handle events. */")

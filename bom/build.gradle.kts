@@ -3,7 +3,7 @@ plugins {
   `java-platform`
 }
 
-group = "net.radstevee.axi"
+group = "net.radsteve.axi"
 version = rootProject.property("version") as String
 
 javaPlatform {

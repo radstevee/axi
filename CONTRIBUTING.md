@@ -40,9 +40,9 @@ setOf(
 - Create a class implementing `AxiModule`
 - Add a service provider for your implementation class:
 
-`my-module/src/main/resources/META-INF/services/net.radstevee.axi.mod.AxiModule`:
+`my-module/src/main/resources/META-INF/services/net.radsteve.axi.mod.AxiModule`:
 ```
-net.radstevee.axi.mymodule.MyModule
+net.radsteve.axi.mymodule.MyModule
 ```
 
 ## Contribution Guidelines

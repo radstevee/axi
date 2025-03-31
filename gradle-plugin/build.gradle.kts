@@ -8,7 +8,7 @@ plugins {
   `java-gradle-plugin`
 }
 
-group = "net.radstevee.axi"
+group = "net.radsteve.axi"
 version = rootProject.property("version") as String
 
 repositories {
@@ -49,8 +49,8 @@ gradlePlugin {
 
   plugins {
     create("axi") {
-      id = "net.radstevee.axi"
-      implementationClass = "net.radstevee.axi.gradle.AxiSubplugin"
+      id = "net.radsteve.axi"
+      implementationClass = "net.radsteve.axi.gradle.AxiSubplugin"
       displayName = "Axi Game Engine"
       description = "Gradle Plugin for the Axi Game Engine"
       tags = listOf("minecraft", "game")

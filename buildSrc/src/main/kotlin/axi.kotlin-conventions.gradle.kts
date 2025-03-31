@@ -16,7 +16,7 @@ plugins {
 
 val libs = the<LibrariesForLibs>()
 
-group = "net.radstevee.axi"
+group = "net.radsteve.axi"
 version = rootProject.property("version") as String
 
 dependencies {

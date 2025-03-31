@@ -1,4 +1,4 @@
-package net.radstevee.axi.gradle
+package net.radsteve.axi.gradle
 
 public object AxiVersions {
   public const val AXI: String = "{{ axiVersion }}"
