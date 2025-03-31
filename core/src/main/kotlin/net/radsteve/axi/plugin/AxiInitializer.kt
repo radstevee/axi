@@ -25,7 +25,7 @@ internal object AxiInitializer {
     plugin.module = module {
       single<AxiPlugin> { plugin }
       single { ECSImpl() }.bind<ECS>()
-      single(named<FileWorldService>()) { FileWorldService(plugin.dataPath.resolve("axi/worlds") ) }.bind<AxiWorldService>()
+      single(named<FileWorldService>()) { FileWorldService(plugin.dataPath.resolve("axi/worlds")) }.bind<AxiWorldService>()
 
       runBlocking {
         with(plugin) { module() }

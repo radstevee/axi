@@ -1,8 +1,8 @@
 package net.radsteve.axi.ecs.internal
 
-import net.radsteve.axi.ecs.component.WrappedComponent
 import net.radsteve.axi.ecs.Attachable
 import net.radsteve.axi.ecs.ECS
+import net.radsteve.axi.ecs.component.WrappedComponent
 import kotlin.reflect.KClass
 
 @Suppress("UNCHECKED_CAST")

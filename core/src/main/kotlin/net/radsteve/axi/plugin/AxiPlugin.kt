@@ -1,10 +1,10 @@
 package net.radsteve.axi.plugin
 
 import kotlinx.coroutines.runBlocking
-import net.radsteve.axi.plugin.AxiPluginHolder.gracefully
 import net.radsteve.axi.command.CommandManager
 import net.radsteve.axi.ecs.Attachable
 import net.radsteve.axi.mod.AxiModuleLoader
+import net.radsteve.axi.plugin.AxiPluginHolder.gracefully
 import org.bukkit.plugin.java.JavaPlugin
 import org.koin.core.component.KoinComponent
 import org.koin.core.module.Module

@@ -9,9 +9,9 @@ import org.incendo.cloud.paper.util.sender.Source
 import kotlin.coroutines.CoroutineContext
 
 internal class CloudCommandExecutionContext(
-    override val ctx: CommandContext<Source>,
-    override var coroutineContext: CoroutineContext,
-    scope: CoroutineScope,
+  override val ctx: CommandContext<Source>,
+  override var coroutineContext: CoroutineContext,
+  scope: CoroutineScope,
 ) : CommandExecutionContext,
   CoroutineScope by scope {
   override val player: Player by lazy { ctx.player }

@@ -13,7 +13,8 @@ import kotlin.io.path.readBytes
 public class FileWorldService(
   /** The path that worlds should be stored in. */
   public val directory: Path,
-) : AxiWorldService, PluginAware {
+) : AxiWorldService,
+  PluginAware {
   override suspend fun save(world: AxiWorld) {
     ioContext {
       val target = directory.resolve("${world.id}.polar")

@@ -7,9 +7,9 @@ import org.bukkit.event.HandlerList
 
 /** Gets called when an axi plugin initializes. */
 public class AxiInitializeEvent(
-    /** The plugin. */
+  /** The plugin. */
   public val plugin: AxiPlugin,
-    /** The modules that were loaded. */
+  /** The modules that were loaded. */
   public val loadedModules: Set<AxiModule>,
 ) : Event() {
   override fun getHandlers(): HandlerList = HANDLER_LIST
