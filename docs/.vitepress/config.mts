@@ -9,8 +9,8 @@ export default defineConfig({
   themeConfig: {
     nav: [
       {text: 'Home', link: '/'},
-      {text: 'Introduction', link: '/introduction'},
-      {text: 'Examples', link: '/examples'}
+      {text: 'Introduction', link: '/getting-started/introduction'},
+      {text: 'Examples', link: '/getting-started/examples'}
     ],
 
     search: {
