@@ -6,7 +6,7 @@ package net.radstevee.axi.event
 
 import org.bukkit.event.EventHandler
 
-/** Event handler for [Handleable]s. */
+/** Event handler implementation for [Handleable]s. */
 public class HandleableHandler(
   /** Supplier for all handleables that should be called. */
   private val handleableSupplier: suspend () -> Iterable<Handleable>,

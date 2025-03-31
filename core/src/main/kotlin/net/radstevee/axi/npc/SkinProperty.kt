@@ -21,7 +21,8 @@ public enum class SkinProperty(private val mask: Int) {
   RightPantsLeg(0x20),
 
   /** Whether the hat should be displayed. */
-  Hat(0x40);
+  Hat(0x40),
+  ;
 
   public companion object {
     /** Packs the given [properties] to a byte. */

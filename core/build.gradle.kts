@@ -15,4 +15,5 @@ dependencies {
   }
   api(libs.bundles.mccoroutine)
   api(libs.bundles.koin)
+  api(libs.polar)
 }

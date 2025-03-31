@@ -11,7 +11,7 @@ import net.minecraft.server.network.ServerGamePacketListenerImpl
 /** A no-op [ServerGamePacketListenerImpl] and [Connection] implementation. */
 internal class NoopConnection(
   player: ServerPlayer,
-  profile: GameProfile
+  profile: GameProfile,
 ) : ServerGamePacketListenerImpl(
   MinecraftServer.getServer(),
   NOOP_CONNECTION,

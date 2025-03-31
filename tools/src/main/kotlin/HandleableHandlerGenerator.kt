@@ -12,7 +12,7 @@ public fun main() {
     println()
     println("import org.bukkit.event.EventHandler")
     println()
-    println("/** Event handler for [Handleable]s. */")
+    println("/** Event handler implementation for [Handleable]s. */")
     println("public class HandleableHandler(")
     println("  /** Supplier for all handleables that should be called. */")
     println("  private val handleableSupplier: suspend () -> Iterable<Handleable>")

@@ -56,8 +56,12 @@ public object ConnectionListener : SuspendingListener {
     val playerSkin = player.nms.gameProfile.properties.get("textures").first()
     NPC(
       buildText {
-        append("weeee")
-        green()
+        append("fake ")
+        red()
+
+        append(player.name) {
+          yellow()
+        }
       },
       player.location,
       SkinData(

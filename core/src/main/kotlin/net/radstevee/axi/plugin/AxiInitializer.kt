@@ -10,8 +10,10 @@ import net.radstevee.axi.ecs.internal.ECSImpl
 import net.radstevee.axi.ecs.internal.SystemTicker
 import net.radstevee.axi.mod.AxiModuleLoader
 import net.radstevee.axi.plugin.event.AxiInitializeEvent
+import net.radstevee.axi.world.AxiWorldService
+import net.radstevee.axi.world.FileWorldService
 import org.koin.core.context.startKoin
-import org.koin.core.module.dsl.bind
+import org.koin.core.qualifier.named
 import org.koin.dsl.bind
 import org.koin.dsl.module
 import org.koin.logger.slf4jLogger
@@ -23,6 +25,7 @@ internal object AxiInitializer {
     plugin.module = module {
       single<AxiPlugin> { plugin }
       single { ECSImpl() }.bind<ECS>()
+      single(named<FileWorldService>()) { FileWorldService(plugin.dataPath.resolve("axi/worlds") ) }.bind<AxiWorldService>()
 
       runBlocking {
         with(plugin) { module() }

@@ -64,9 +64,9 @@ public class NPC(
   ) : this(
     name,
     location,
-    requireNotNull(SkinRegistry.AxiSkins[skinDataId]),
+    requireNotNull(SkinRegistry.AxiSkins[skinDataId]) { "invalid skin data id" },
     skinProperties,
-    uuid
+    uuid,
   )
 
   /** A randomly generated name for this NPC. */
@@ -132,9 +132,9 @@ public class NPC(
           displayName,
           true,
           0,
-          npc.chatSession?.asData()
-        )
-      )
+          npc.chatSession?.asData(),
+        ),
+      ),
     )
 
     // Actually spawn the NPC now
@@ -150,8 +150,8 @@ public class NPC(
         npc.type,
         0,
         Vec3.ZERO,
-        npc.yHeadRot.toDouble()
-      )
+        npc.yHeadRot.toDouble(),
+      ),
     )
 
     // Fix its skin parts
@@ -162,10 +162,10 @@ public class NPC(
           SynchedEntityData.DataValue(
             17,
             EntityDataSerializers.BYTE,
-            information.modelCustomisation().toByte()
-          )
-        )
-      )
+            information.modelCustomisation().toByte(),
+          ),
+        ),
+      ),
     )
 
     // Then we spawn the name tag
@@ -181,8 +181,8 @@ public class NPC(
         nameTag.type,
         0,
         Vec3.ZERO,
-        nameTag.yHeadRot.toDouble()
-      )
+        nameTag.yHeadRot.toDouble(),
+      ),
     )
 
     // And set its data
@@ -194,16 +194,16 @@ public class NPC(
           SynchedEntityData.DataValue(
             23,
             EntityDataSerializers.COMPONENT,
-            displayName
+            displayName,
           ),
           // The billboard type
           SynchedEntityData.DataValue(
             15,
             EntityDataSerializers.BYTE,
-            3 // CENTER
-          )
-        )
-      )
+            3, // CENTER
+          ),
+        ),
+      ),
     )
 
     // And finally, we add the NPC to a team that hides its name tag
@@ -217,7 +217,7 @@ public class NPC(
           nameTagVisibility = Team.Visibility.NEVER
         },
         true,
-      )
+      ),
     )
   }
 }
