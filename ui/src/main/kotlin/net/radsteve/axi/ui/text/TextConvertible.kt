@@ -13,7 +13,6 @@ import net.kyori.adventure.text.event.HoverEvent
 import net.kyori.adventure.text.event.HoverEventSource
 import net.kyori.adventure.text.format.ShadowColor
 import net.kyori.adventure.text.format.Style
-import net.kyori.adventure.text.format.StyleBuilderApplicable
 import net.kyori.adventure.text.format.TextColor
 import net.kyori.adventure.text.format.TextDecoration
 import net.kyori.adventure.util.ARGBLike
@@ -40,22 +39,6 @@ public fun interface TextConvertible : TextComponent {
 
   override fun append(builder: ComponentBuilder<*, *>): TextComponent {
     return asText().append(builder)
-  }
-
-  override fun appendNewline(): Component {
-    return asText().appendNewline()
-  }
-
-  override fun appendSpace(): Component {
-    return asText().appendSpace()
-  }
-
-  override fun applyFallbackStyle(vararg style: StyleBuilderApplicable): Component {
-    return asText().applyFallbackStyle(*style)
-  }
-
-  override fun applyFallbackStyle(style: Style): Component {
-    return asText().applyFallbackStyle(style)
   }
 
   override fun asComponent(): TextComponent {
@@ -134,16 +117,8 @@ public fun interface TextConvertible : TextComponent {
     return asText().decoration(decoration, value)
   }
 
-  override fun decorationIfAbsent(decoration: TextDecoration, value: TextDecoration.State): Component {
-    return asText().decorationIfAbsent(decoration, value)
-  }
-
   override fun decorations(): MutableMap<TextDecoration, TextDecoration.State> {
     return asText().decorations()
-  }
-
-  override fun decorations(map: Map<TextDecoration, TextDecoration.State>): Component {
-    return asText().decorations(map)
   }
 
   override fun decorations(decorations: MutableSet<TextDecoration>, flag: Boolean): Component {
@@ -164,10 +139,6 @@ public fun interface TextConvertible : TextComponent {
 
   override fun font(): Key? {
     return asText().font()
-  }
-
-  override fun font(key: Key?): Component {
-    return asText().font(key)
   }
 
   override fun hasDecoration(decoration: TextDecoration): Boolean {

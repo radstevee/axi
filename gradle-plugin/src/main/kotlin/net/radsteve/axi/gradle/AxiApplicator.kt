@@ -1,5 +1,6 @@
 package net.radsteve.axi.gradle
 
+import com.google.devtools.ksp.gradle.KspAATask
 import net.radsteve.axi.gradle.ext.AxiDependenciesExtension
 import net.radsteve.axi.gradle.ext.AxiExtension
 import net.radsteve.axi.gradle.ext.AxiExtension.Companion.axi
@@ -11,6 +12,7 @@ import org.gradle.api.tasks.bundling.Jar
 import org.gradle.internal.extensions.stdlib.capitalized
 import org.gradle.kotlin.dsl.get
 import org.gradle.kotlin.dsl.maven
+import org.gradle.kotlin.dsl.withType
 import org.gradle.language.jvm.tasks.ProcessResources
 import org.jetbrains.kotlin.gradle.plugin.KotlinCompilation
 
@@ -38,6 +40,10 @@ public object AxiApplicator {
       .extendsFrom(configurations["runtimeClasspath"])
 
     AxiDependencies.applyTo(project, axi)
+
+    tasks.withType<KspAATask> {
+      outputs.upToDateWhen { false }
+    }
   }
 
   public fun applyTo(compilation: KotlinCompilation<*>) {

@@ -15,9 +15,15 @@ public open class CommandArgument<T : Any>(
   /** The argument parser descriptor. */
   public open val descriptor: ParserDescriptor<Source, T>,
 ) {
+  protected var value: T? = null
+
   public open operator fun getValue(thisRef: Any?, property: KProperty<*>): T? {
+    if (value != null) {
+      return value!!
+    }
+
     val ctx = CloudCommandExecutionContext.Holder.get() ?: error("thread local unset")
-    return ctx.ctx.get<T>(id)
+    return ctx.ctx.get<T>(id).also { value = it }
   }
 }
 
@@ -36,11 +42,15 @@ public class NonNullableCommandArgument<T : Any>(
   public val default: T? = null,
 ) : CommandArgument<T>(id, descriptor) {
   public override operator fun getValue(thisRef: Any?, property: KProperty<*>): T {
+    if (value != null) {
+      return value!!
+    }
+
     if (default == null) {
-      return super.getValue(thisRef, property)!!
+      return super.getValue(thisRef, property)!!.also { value = it }
     }
 
     val ctx = CloudCommandExecutionContext.Holder.get() ?: error("thread local unset")
-    return ctx.ctx.getOrDefault<T>(id, default)
+    return ctx.ctx.getOrDefault<T>(id, default).also { value = it }
   }
 }

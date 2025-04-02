@@ -31,7 +31,6 @@ import net.minecraft.world.scores.Scoreboard
 import net.minecraft.world.scores.Team
 import net.radsteve.axi.utility.nms
 import net.radsteve.axi.utility.sendPacket
-import org.apache.commons.lang3.RandomStringUtils
 import org.bukkit.Location
 import org.bukkit.entity.Player
 import java.util.EnumSet
@@ -69,11 +68,12 @@ public class NPC(
     uuid,
   )
 
-  /** A randomly generated name for this NPC. */
-  public val name: String = RandomStringUtils.insecure().next(16, true, true)
+  private companion object {
+    const val NAME: String = "                "
+  }
 
   /** The game profile for this NPC. */
-  private val profile = GameProfile(uuid, name).apply {
+  private val profile = GameProfile(uuid, NAME).apply {
     properties.put("textures", Property("textures", skinData.value, skinData.signature))
   }
 
@@ -211,7 +211,7 @@ public class NPC(
       ClientboundSetPlayerTeamPacket.createAddOrModifyPacket(
         PlayerTeam(
           Scoreboard(),
-          name,
+          NAME,
         ).apply {
           players.add(name)
           nameTagVisibility = Team.Visibility.NEVER

@@ -1,5 +1,5 @@
 plugins {
-  id("axi.publishing-repo-conventions")
+  axi.publishing.repositories
   `java-platform`
 }
 

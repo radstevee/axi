@@ -1,5 +1,5 @@
 plugins {
-  id("axi.kotlin-conventions")
+  axi.kotlin
 }
 
 dependencies {

@@ -9,8 +9,8 @@ First up, create a new subproject:
 
 ```kotlin
 plugins {
-  id("axi.kotlin-conventions")
-  id("axi.paper-conventions")
+  axi.kotlin
+  axi.paper
 }
 ```
 

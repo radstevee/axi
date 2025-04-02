@@ -1,6 +1,6 @@
 plugins {
-  id("axi.kotlin-conventions")
-  id("axi.paper-conventions")
+  axi.kotlin
+  axi.paper
 }
 
 axi {
@@ -15,5 +15,4 @@ dependencies {
   }
   api(libs.bundles.mccoroutine)
   api(libs.bundles.koin)
-  api(libs.polar)
 }

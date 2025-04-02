@@ -4,8 +4,11 @@ package net.radsteve.axi.game.phase
 
 import net.radsteve.axi.game.instance.GameInstance
 import net.radsteve.axi.game.phase.impl.VoidPhase
+import net.radsteve.axi.game.world.GameWorld
 import net.radsteve.axi.utility.AxiInternal
+import net.radsteve.axi.utility.MutableLazy
 import net.radsteve.axi.utility.players
+import org.bukkit.Bukkit
 import kotlin.time.Duration
 
 /** A controller for game instance phases. */
@@ -20,7 +23,9 @@ public class GameController<T : GameInstance<T>>(
   private var totalTicksElapsed: Int = 0
   private val previousPhases: MutableList<GamePhase<T>> = mutableListOf()
   private val schedule: GameSchedule<T> = instance.schedule
+  internal val oldWorlds: MutableSet<GameWorld<T>> = mutableSetOf()
 
+  /** Switches the current phase to the given [phase]. */
   public suspend fun switch(
     phase: GamePhase<T>,
     duration: Duration? = null,
@@ -87,5 +92,13 @@ public class GameController<T : GameInstance<T>>(
   /** Checks whether this game controller is empty and finished. */
   public fun empty(): Boolean {
     return currentPhase is VoidPhase<*> || schedule.empty()
+  }
+
+  /** Unloads the old worlds of this controller. */
+  public fun unloadWorlds() {
+    oldWorlds
+      .plus(instance.world)
+      .filter(GameWorld<*>::isTemporary)
+      .forEach { world -> Bukkit.unloadWorld(world.world, false) }
   }
 }

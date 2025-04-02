@@ -21,8 +21,7 @@ The current features of Axi include:
 - ✅ Coroutine integration
 - 🏗️ Command argument parser builders
 - 🏗️ Game framework
-- 📝 World API
-  using [Polar](https://github.com/MinehubMC/PolarPaper)
+- 📝 World / Map / Schematic API with FAWE
 - 📝 Interactable Region API
 
 ✅: Implemented and tested

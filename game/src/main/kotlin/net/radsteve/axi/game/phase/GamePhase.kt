@@ -2,6 +2,8 @@ package net.radsteve.axi.game.phase
 
 import net.radsteve.axi.event.Handleable
 import net.radsteve.axi.game.instance.GameInstance
+import net.radsteve.axi.game.world.GameWorld
+import net.radsteve.axi.game.world.GameWorldProvider
 import net.radsteve.axi.tick.DisplayTickable
 import net.radsteve.axi.tick.TickDuration.inWholeTicks
 import net.radsteve.axi.tick.Tickable
@@ -15,7 +17,8 @@ public open class GamePhase<T : GameInstance<T>>(
   public val instance: GameInstance<T>,
 ) : Tickable,
   DisplayTickable,
-  Handleable {
+  Handleable,
+  GameWorldProvider<T> {
   /** The current tick of this phase. Starts at [durationTicks] and decrements. */
   public open var tick: Int = -1
     internal set
@@ -48,4 +51,9 @@ public open class GamePhase<T : GameInstance<T>>(
 
   /** Sets up displays for the given [player]. */
   public open suspend fun displaySetup(player: Player) {}
+
+  // By default, we return the instance's current world.
+  override suspend fun gameWorld(instance: GameInstance<T>): GameWorld<T> {
+    return instance.initialWorld
+  }
 }

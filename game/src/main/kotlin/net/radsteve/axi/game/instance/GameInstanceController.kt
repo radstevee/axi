@@ -5,10 +5,7 @@ import net.radsteve.axi.tick.Tickable
 import net.radsteve.axi.utility.PluginAware
 
 /** Controls handling of game instances. */
-public object GameInstanceController : PluginAware, Tickable {
-  override suspend fun tick(startTick: Int, tick: Int) {
-  }
-
+public object GameInstanceController : PluginAware {
   /** Collects all game instances. */
   public fun collect(): Set<GameInstance<*>> {
     return plugin.getOrPut(::GameInstancesComponent).instances

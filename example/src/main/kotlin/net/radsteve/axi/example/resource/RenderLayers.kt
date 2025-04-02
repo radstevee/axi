@@ -41,7 +41,7 @@ public fun testRenderLayer(initTick: Int): RenderLayer = buildRenderLayer {
     }
 
     content {
-      appendSpace((50 * sin(Bukkit.getCurrentTick().toDouble() / 2)).roundToInt())
+      // appendSpace((50 * sin(Bukkit.getCurrentTick().toDouble() / 2)).roundToInt())
       append("mmm ah yes cheese")
       font(Fonts.BeaverOffsets[10.0]!!)
       green()

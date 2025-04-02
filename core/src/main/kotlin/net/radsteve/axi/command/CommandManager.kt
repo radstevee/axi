@@ -25,6 +25,8 @@ public fun CommandManager(plugin: AxiPlugin = AxiPluginHolder.plugin()): Command
 
   manager.exceptionController().registerHandler(CommandExecutionException::class.java) { ctx ->
     val exception = ctx.exception().cause ?: return@registerHandler
+    val commandName = ctx.context().command().rootComponent().name()
+    plugin.slF4JLogger.error("Exception whilst executing command $commandName", exception)
     ctx.context().sendMessage(text(exception.message ?: "<no message>", RED))
   }
 

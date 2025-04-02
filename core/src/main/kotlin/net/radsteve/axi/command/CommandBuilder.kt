@@ -69,7 +69,7 @@ public class CommandBuilder(
   }
 
   /** Sets an executor for players only */
-  public fun playerExecutor(block: suspend CommandExecutionContext.(Player) -> Unit) {
+  public fun playerExecutor(block: suspend CommandExecutionContext.(player: Player) -> Unit) {
     executor {
       block(player)
     }

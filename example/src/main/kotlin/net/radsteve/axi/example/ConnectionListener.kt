@@ -69,6 +69,21 @@ public object ConnectionListener : SuspendingListener {
         playerSkin.signature!!
       ),
     ).show(player)
+    NPC(
+      buildText {
+        append("fake ")
+        red()
+
+        append(player.name) {
+          yellow()
+        }
+      },
+      player.location.clone().add(0.0, 2.0, 0.0),
+      SkinData(
+        playerSkin.value,
+        playerSkin.signature!!
+      ),
+    ).show(player)
 
     player.addRenderable(testRenderLayer(Bukkit.getCurrentTick()))
     delay(1.seconds)

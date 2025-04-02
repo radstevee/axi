@@ -2,7 +2,7 @@ import com.github.gradle.node.npm.task.NpmTask
 import io.papermc.paperweight.util.capitalized
 
 plugins {
-  id("axi.kotlin-conventions")
+  axi.kotlin
   id("com.github.node-gradle.node") version "7.1.0"
 }
 

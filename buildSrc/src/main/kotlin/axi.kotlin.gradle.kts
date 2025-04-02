@@ -8,7 +8,7 @@ plugins {
   kotlin("plugin.serialization")
   id("org.jetbrains.dokka")
   id("com.diffplug.spotless")
-  id("axi.publishing-repo-conventions")
+  id("axi.publishing.repositories")
 
   `maven-publish`
   `java-library`

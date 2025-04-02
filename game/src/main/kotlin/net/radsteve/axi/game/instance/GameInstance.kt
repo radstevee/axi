@@ -23,6 +23,8 @@ import net.radsteve.axi.tick.Tickable
 import net.radsteve.axi.utility.Identified
 import net.radsteve.axi.utility.LoggerHolder
 import net.radsteve.axi.utility.PluginAware
+import net.radsteve.axi.utility.mutableLazy
+import net.radsteve.axi.utility.observableMutableLazy
 import net.radsteve.axi.utility.players
 import org.bukkit.Bukkit
 import org.bukkit.GameMode
@@ -56,7 +58,14 @@ public open class GameInstance<T : GameInstance<T>>(
   /** The key to this coroutine context element. */
   public companion object ContextKey : CoroutineContext.Key<GameInstance<*>>
 
-  override lateinit var world: GameWorld<T>
+  /** The initial world of this game instance. */
+  public lateinit var initialWorld: GameWorld<T>
+
+  /** The world of this game instance. This is first set to [initialWorld] but is changed by phases. */
+  override var world: GameWorld<T> by observableMutableLazy(
+    initializer = { initialWorld },
+    observer = { old, new -> controller.oldWorlds.add(old) }
+  )
   override val logger: Logger = LoggerFactory.getLogger(id)
 
   /** Whether this instance should be ticking. */
@@ -109,7 +118,7 @@ public open class GameInstance<T : GameInstance<T>>(
 
     add()
     controller = GameController(this)
-    world = gameWorld(this)
+    initialWorld = gameWorld(this)
     initializePlayers()
 
     initialized = true
@@ -120,6 +129,7 @@ public open class GameInstance<T : GameInstance<T>>(
 
   /** Cleans up this game instance. */
   public open suspend fun cleanup() {
+    controller.unloadWorlds()
   }
 
   /** Stops this game instance. */
@@ -128,7 +138,6 @@ public open class GameInstance<T : GameInstance<T>>(
       // Teleport the player to the main world's spawn location if it exists.
       Bukkit.getWorld("world")?.spawnLocation?.let(player::teleport)
     }
-    world.unload()
   }
 
   /** Exits this game instance with the given [reason]. */
