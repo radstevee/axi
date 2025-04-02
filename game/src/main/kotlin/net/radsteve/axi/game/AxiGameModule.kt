@@ -8,7 +8,7 @@ import net.radsteve.axi.mod.AxiModule
 import net.radsteve.axi.plugin.AxiPlugin
 
 /** The Axi game module. */
-public class AxiGame : AxiModule {
+public class AxiGameModule : AxiModule {
   override suspend fun enable(plugin: AxiPlugin) {
     GameInstanceTicker.startTicking()
     plugin.registerEventListeners(GameInstanceController)
