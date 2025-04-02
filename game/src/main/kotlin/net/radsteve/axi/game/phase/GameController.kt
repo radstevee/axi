@@ -2,11 +2,12 @@
 
 package net.radsteve.axi.game.phase
 
+import net.radsteve.axi.event.callEvent
 import net.radsteve.axi.game.instance.GameInstance
+import net.radsteve.axi.game.instance.event.GameInstancePhaseChangeEvent
 import net.radsteve.axi.game.phase.impl.VoidPhase
 import net.radsteve.axi.game.world.GameWorld
 import net.radsteve.axi.utility.AxiInternal
-import net.radsteve.axi.utility.MutableLazy
 import net.radsteve.axi.utility.players
 import org.bukkit.Bukkit
 import kotlin.time.Duration
@@ -47,6 +48,8 @@ public class GameController<T : GameInstance<T>>(
     instance.players.forEach { player ->
       phase.displaySetup(player)
     }
+
+    callEvent(GameInstancePhaseChangeEvent(previousPhase, phase, instance))
   }
 
   /** Goes to the next state and returns whether it progressed. */

@@ -8,6 +8,7 @@ import net.radsteve.axi.ecs.component.EntityClickedComponent
 import net.radsteve.axi.ecs.internal.ECSConnectionListener
 import net.radsteve.axi.ecs.internal.ECSImpl
 import net.radsteve.axi.ecs.internal.SystemTicker
+import net.radsteve.axi.event.callEvent
 import net.radsteve.axi.mod.AxiModuleLoader
 import net.radsteve.axi.plugin.event.AxiInitializeEvent
 import org.koin.core.context.startKoin
@@ -18,7 +19,7 @@ import org.koin.logger.slf4jLogger
 /** Initialises axi plugins. */
 internal object AxiInitializer {
   /** Initialises the given [plugin]. */
-  operator fun invoke(plugin: AxiPlugin) {
+  suspend operator fun invoke(plugin: AxiPlugin) {
     plugin.module = module {
       single<AxiPlugin> { plugin }
       single { ECSImpl() }.bind<ECS>()
@@ -40,6 +41,6 @@ internal object AxiInitializer {
     plugin.registerEventListeners(EntityClickedComponent.Handler)
     plugin.registerEventListeners(SystemTicker)
 
-    plugin.server.pluginManager.callEvent(AxiInitializeEvent(plugin, AxiModuleLoader.collectServices(plugin)))
+    callEvent(AxiInitializeEvent(plugin, AxiModuleLoader.collectServices(plugin)))
   }
 }

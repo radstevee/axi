@@ -1,11 +1,34 @@
 package net.radsteve.axi.game.instance
 
 import net.radsteve.axi.ecs.getOrPut
-import net.radsteve.axi.tick.Tickable
+import net.radsteve.axi.event.Handleable
+import net.radsteve.axi.game.instance.event.GameInstanceInitializeEvent
+import net.radsteve.axi.game.instance.event.GameInstancePhaseChangeEvent
+import net.radsteve.axi.game.instance.event.GameInstanceStoppedEvent
 import net.radsteve.axi.utility.PluginAware
+import org.bukkit.event.EventHandler
+import org.bukkit.event.Listener
 
 /** Controls handling of game instances. */
-public object GameInstanceController : PluginAware {
+public object GameInstanceController : PluginAware, Listener {
+  internal val cachedHandleables: MutableSet<Handleable> = mutableSetOf()
+
+  @EventHandler
+  private fun on(event: GameInstanceInitializeEvent<*>) {
+    cachedHandleables.add(event.instance)
+  }
+
+  @EventHandler
+  private fun on(event: GameInstanceStoppedEvent<*>) {
+    cachedHandleables.remove(event.instance)
+  }
+
+  @EventHandler
+  private fun on(event: GameInstancePhaseChangeEvent<*>) {
+    cachedHandleables.remove(event.old)
+    cachedHandleables.add(event.new)
+  }
+
   /** Collects all game instances. */
   public fun collect(): Set<GameInstance<*>> {
     return plugin.getOrPut(::GameInstancesComponent).instances

@@ -30,8 +30,7 @@ public open class MutableLazy<T>(private val initializer: () -> T) : ReadWritePr
   }
 }
 
-private class ObservableMutableLazy<T>(private val initializer: () -> T, private val observer: (old: T, new: T) -> Unit) :
-  MutableLazy<T>(initializer) {
+private class ObservableMutableLazy<T>(private val initializer: () -> T, private val observer: (old: T, new: T) -> Unit) : MutableLazy<T>(initializer) {
   override fun setValue(thisRef: Any?, property: KProperty<*>, new: T) {
     observer(value(), new)
     super.setValue(thisRef, property, new)

@@ -11,15 +11,7 @@ import net.radsteve.axi.plugin.AxiPlugin
 public class AxiGame : AxiModule {
   override suspend fun enable(plugin: AxiPlugin) {
     GameInstanceTicker.startTicking()
-    plugin.registerEventListeners(
-      HandleableHandler {
-        buildSet {
-          GameInstanceController.collect().forEach { instance ->
-            add(instance)
-            add(instance.controller.currentPhase)
-          }
-        }
-      },
-    )
+    plugin.registerEventListeners(GameInstanceController)
+    plugin.registerEventListeners(HandleableHandler { GameInstanceController.cachedHandleables })
   }
 }

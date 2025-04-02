@@ -11,6 +11,10 @@ import net.radsteve.axi.ecs.Attachable
 import net.radsteve.axi.ecs.getOrPut
 import net.radsteve.axi.ecs.system.System
 import net.radsteve.axi.event.Handleable
+import net.radsteve.axi.event.callEvent
+import net.radsteve.axi.game.instance.event.GameInstanceInitializeEvent
+import net.radsteve.axi.game.instance.event.GameInstanceLifecycleEvent
+import net.radsteve.axi.game.instance.event.GameInstanceStoppedEvent
 import net.radsteve.axi.game.phase.GameController
 import net.radsteve.axi.game.phase.GameSchedule
 import net.radsteve.axi.game.phase.GameSchedule.Companion.buildSchedule
@@ -23,7 +27,6 @@ import net.radsteve.axi.tick.Tickable
 import net.radsteve.axi.utility.Identified
 import net.radsteve.axi.utility.LoggerHolder
 import net.radsteve.axi.utility.PluginAware
-import net.radsteve.axi.utility.mutableLazy
 import net.radsteve.axi.utility.observableMutableLazy
 import net.radsteve.axi.utility.players
 import org.bukkit.Bukkit
@@ -64,8 +67,9 @@ public open class GameInstance<T : GameInstance<T>>(
   /** The world of this game instance. This is first set to [initialWorld] but is changed by phases. */
   override var world: GameWorld<T> by observableMutableLazy(
     initializer = { initialWorld },
-    observer = { old, new -> controller.oldWorlds.add(old) }
+    observer = { old, new -> controller.oldWorlds.add(old) },
   )
+
   override val logger: Logger = LoggerFactory.getLogger(id)
 
   /** Whether this instance should be ticking. */
@@ -150,13 +154,17 @@ public open class GameInstance<T : GameInstance<T>>(
     throw GameInstanceException(context, reason)
   }
 
-  /** Adds this instance to the tracker. */
-  public fun add() {
+  /** Adds this instance to the tracker and calls the [net.radsteve.axi.game.instance.event.GameInstanceInitializeEvent]. */
+  public suspend fun add() {
+    callEvent(GameInstanceInitializeEvent(this))
+
     plugin.getOrPut(::GameInstancesComponent).instances.add(this)
   }
 
-  /** Removes this instance from the tracker. */
-  public fun remove() {
+  /** Removes this instance from the tracker and calls the [net.radsteve.axi.game.instance.event.GameInstanceStoppedEvent]. */
+  public suspend fun remove() {
+    callEvent(GameInstanceStoppedEvent(this))
+
     plugin.getOrPut(::GameInstancesComponent).instances.remove(this)
   }
 
@@ -171,6 +179,8 @@ public open class GameInstance<T : GameInstance<T>>(
 
   /** Called when the lifecycle of this instance progresses. */
   public open suspend fun lifecycleProgress(old: GameLifecycle, new: GameLifecycle) {
+    callEvent(GameInstanceLifecycleEvent(old, new, this))
+
     when (new) {
       GameLifecycle.Initializing -> initialize()
       GameLifecycle.Stopping -> stop()
