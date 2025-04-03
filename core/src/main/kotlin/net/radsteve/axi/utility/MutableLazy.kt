@@ -6,13 +6,13 @@ import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
 /** A lazy-initialized mutable property, initialized by the given [initializer]. */
-public open class MutableLazy<T>(private val initializer: () -> T) : ReadWriteProperty<Any?, T> {
+private open class MutableLazy<T>(private val initializer: () -> T) : ReadWriteProperty<Any?, T> {
   // We want to allow nullable values
   private object Uninitialized
 
   private var value: Any? = Uninitialized
 
-  public fun value(): T {
+  fun value(): T {
     if (value != Uninitialized) {
       return value as T
     }
@@ -21,16 +21,16 @@ public open class MutableLazy<T>(private val initializer: () -> T) : ReadWritePr
     return value as T
   }
 
-  public override operator fun getValue(thisRef: Any?, property: KProperty<*>): T {
+  override operator fun getValue(thisRef: Any?, property: KProperty<*>): T {
     return value()
   }
 
-  public override operator fun setValue(thisRef: Any?, property: KProperty<*>, new: T) {
-    value = new
+  override operator fun setValue(thisRef: Any?, property: KProperty<*>, value: T) {
+    this.value = value
   }
 }
 
-private class ObservableMutableLazy<T>(private val initializer: () -> T, private val observer: (old: T, new: T) -> Unit) : MutableLazy<T>(initializer) {
+private class ObservableMutableLazy<T>(initializer: () -> T, private val observer: (old: T, new: T) -> Unit) : MutableLazy<T>(initializer) {
   override fun setValue(thisRef: Any?, property: KProperty<*>, new: T) {
     observer(value(), new)
     super.setValue(thisRef, property, new)
@@ -38,11 +38,11 @@ private class ObservableMutableLazy<T>(private val initializer: () -> T, private
 }
 
 /** Creates a new [MutableLazy] of the given [initializer]. */
-public fun <T> mutableLazy(initializer: () -> T): MutableLazy<T> {
+public fun <T> mutableLazy(initializer: () -> T): ReadWriteProperty<Any?, T> {
   return MutableLazy(initializer)
 }
 
 /** Creates a new [MutableLazy] that will call the given [observer] each time the value changes. */
-public fun <T> observableMutableLazy(initializer: () -> T, observer: (old: T, new: T) -> Unit): MutableLazy<T> {
+public fun <T> observableMutableLazy(initializer: () -> T, observer: (old: T, new: T) -> Unit): ReadWriteProperty<Any?, T> {
   return ObservableMutableLazy(initializer, observer)
 }

@@ -15,9 +15,6 @@ public interface Handleable {
   /** Called when a [com.destroystokyo.paper.event.block.BlockDestroyEvent] is called. */
   public suspend fun on(event: com.destroystokyo.paper.event.block.BlockDestroyEvent) {}
 
-  /** Called when a [com.destroystokyo.paper.event.block.TNTPrimeEvent] is called. */
-  public suspend fun on(event: com.destroystokyo.paper.event.block.TNTPrimeEvent) {}
-
   /** Called when a [com.destroystokyo.paper.event.brigadier.AsyncPlayerSendSuggestionsEvent] is called. */
   public suspend fun on(event: com.destroystokyo.paper.event.brigadier.AsyncPlayerSendSuggestionsEvent) {}
 
@@ -75,9 +72,6 @@ public interface Handleable {
   /** Called when a [com.destroystokyo.paper.event.entity.PreSpawnerSpawnEvent] is called. */
   public suspend fun on(event: com.destroystokyo.paper.event.entity.PreSpawnerSpawnEvent) {}
 
-  /** Called when a [com.destroystokyo.paper.event.entity.ProjectileCollideEvent] is called. */
-  public suspend fun on(event: com.destroystokyo.paper.event.entity.ProjectileCollideEvent) {}
-
   /** Called when a [com.destroystokyo.paper.event.entity.SkeletonHorseTrapEvent] is called. */
   public suspend fun on(event: com.destroystokyo.paper.event.entity.SkeletonHorseTrapEvent) {}
 
@@ -117,14 +111,8 @@ public interface Handleable {
   /** Called when a [com.destroystokyo.paper.event.entity.WitchThrowPotionEvent] is called. */
   public suspend fun on(event: com.destroystokyo.paper.event.entity.WitchThrowPotionEvent) {}
 
-  /** Called when a [com.destroystokyo.paper.event.inventory.PrepareGrindstoneEvent] is called. */
-  public suspend fun on(event: com.destroystokyo.paper.event.inventory.PrepareGrindstoneEvent) {}
-
   /** Called when a [com.destroystokyo.paper.event.inventory.PrepareResultEvent] is called. */
   public suspend fun on(event: com.destroystokyo.paper.event.inventory.PrepareResultEvent) {}
-
-  /** Called when a [com.destroystokyo.paper.event.player.IllegalPacketEvent] is called. */
-  public suspend fun on(event: com.destroystokyo.paper.event.player.IllegalPacketEvent) {}
 
   /** Called when a [com.destroystokyo.paper.event.player.PlayerAdvancementCriterionGrantEvent] is called. */
   public suspend fun on(event: com.destroystokyo.paper.event.player.PlayerAdvancementCriterionGrantEvent) {}
@@ -219,12 +207,6 @@ public interface Handleable {
   /** Called when a [io.papermc.paper.event.block.BeaconDeactivatedEvent] is called. */
   public suspend fun on(event: io.papermc.paper.event.block.BeaconDeactivatedEvent) {}
 
-  /** Called when a [io.papermc.paper.event.block.BellRevealRaiderEvent] is called. */
-  public suspend fun on(event: io.papermc.paper.event.block.BellRevealRaiderEvent) {}
-
-  /** Called when a [io.papermc.paper.event.block.BellRingEvent] is called. */
-  public suspend fun on(event: io.papermc.paper.event.block.BellRingEvent) {}
-
   /** Called when a [io.papermc.paper.event.block.BlockBreakBlockEvent] is called. */
   public suspend fun on(event: io.papermc.paper.event.block.BlockBreakBlockEvent) {}
 
@@ -315,9 +297,6 @@ public interface Handleable {
   /** Called when a [io.papermc.paper.event.packet.PlayerChunkUnloadEvent] is called. */
   public suspend fun on(event: io.papermc.paper.event.packet.PlayerChunkUnloadEvent) {}
 
-  /** Called when a [io.papermc.paper.event.player.AbstractChatEvent] is called. */
-  public suspend fun on(event: io.papermc.paper.event.player.AbstractChatEvent) {}
-
   /** Called when a [io.papermc.paper.event.player.AsyncChatCommandDecorateEvent] is called. */
   public suspend fun on(event: io.papermc.paper.event.player.AsyncChatCommandDecorateEvent) {}
 
@@ -329,9 +308,6 @@ public interface Handleable {
 
   /** Called when a [io.papermc.paper.event.player.CartographyItemEvent] is called. */
   public suspend fun on(event: io.papermc.paper.event.player.CartographyItemEvent) {}
-
-  /** Called when a [io.papermc.paper.event.player.ChatEvent] is called. */
-  public suspend fun on(event: io.papermc.paper.event.player.ChatEvent) {}
 
   /** Called when a [io.papermc.paper.event.player.PlayerArmSwingEvent] is called. */
   public suspend fun on(event: io.papermc.paper.event.player.PlayerArmSwingEvent) {}
@@ -432,9 +408,6 @@ public interface Handleable {
   /** Called when a [io.papermc.paper.event.world.border.WorldBorderCenterChangeEvent] is called. */
   public suspend fun on(event: io.papermc.paper.event.world.border.WorldBorderCenterChangeEvent) {}
 
-  /** Called when a [io.papermc.paper.event.world.border.WorldBorderEvent] is called. */
-  public suspend fun on(event: io.papermc.paper.event.world.border.WorldBorderEvent) {}
-
   /** Called when a [org.bukkit.event.block.BellResonateEvent] is called. */
   public suspend fun on(event: org.bukkit.event.block.BellResonateEvent) {}
 
@@ -471,9 +444,6 @@ public interface Handleable {
   /** Called when a [org.bukkit.event.block.BlockDropItemEvent] is called. */
   public suspend fun on(event: org.bukkit.event.block.BlockDropItemEvent) {}
 
-  /** Called when a [org.bukkit.event.block.BlockEvent] is called. */
-  public suspend fun on(event: org.bukkit.event.block.BlockEvent) {}
-
   /** Called when a [org.bukkit.event.block.BlockExpEvent] is called. */
   public suspend fun on(event: org.bukkit.event.block.BlockExpEvent) {}
 
@@ -503,9 +473,6 @@ public interface Handleable {
 
   /** Called when a [org.bukkit.event.block.BlockPhysicsEvent] is called. */
   public suspend fun on(event: org.bukkit.event.block.BlockPhysicsEvent) {}
-
-  /** Called when a [org.bukkit.event.block.BlockPistonEvent] is called. */
-  public suspend fun on(event: org.bukkit.event.block.BlockPistonEvent) {}
 
   /** Called when a [org.bukkit.event.block.BlockPistonExtendEvent] is called. */
   public suspend fun on(event: org.bukkit.event.block.BlockPistonExtendEvent) {}
@@ -621,9 +588,6 @@ public interface Handleable {
   /** Called when a [org.bukkit.event.entity.EntityCombustEvent] is called. */
   public suspend fun on(event: org.bukkit.event.entity.EntityCombustEvent) {}
 
-  /** Called when a [org.bukkit.event.entity.EntityCreatePortalEvent] is called. */
-  public suspend fun on(event: org.bukkit.event.entity.EntityCreatePortalEvent) {}
-
   /** Called when a [org.bukkit.event.entity.EntityDamageByBlockEvent] is called. */
   public suspend fun on(event: org.bukkit.event.entity.EntityDamageByBlockEvent) {}
 
@@ -648,9 +612,6 @@ public interface Handleable {
   /** Called when a [org.bukkit.event.entity.EntityEnterLoveModeEvent] is called. */
   public suspend fun on(event: org.bukkit.event.entity.EntityEnterLoveModeEvent) {}
 
-  /** Called when a [org.bukkit.event.entity.EntityEvent] is called. */
-  public suspend fun on(event: org.bukkit.event.entity.EntityEvent) {}
-
   /** Called when a [org.bukkit.event.entity.EntityExhaustionEvent] is called. */
   public suspend fun on(event: org.bukkit.event.entity.EntityExhaustionEvent) {}
 
@@ -659,12 +620,6 @@ public interface Handleable {
 
   /** Called when a [org.bukkit.event.entity.EntityInteractEvent] is called. */
   public suspend fun on(event: org.bukkit.event.entity.EntityInteractEvent) {}
-
-  /** Called when a [org.bukkit.event.entity.EntityKnockbackByEntityEvent] is called. */
-  public suspend fun on(event: org.bukkit.event.entity.EntityKnockbackByEntityEvent) {}
-
-  /** Called when a [org.bukkit.event.entity.EntityKnockbackEvent] is called. */
-  public suspend fun on(event: org.bukkit.event.entity.EntityKnockbackEvent) {}
 
   /** Called when a [org.bukkit.event.entity.EntityMountEvent] is called. */
   public suspend fun on(event: org.bukkit.event.entity.EntityMountEvent) {}
@@ -816,9 +771,6 @@ public interface Handleable {
   /** Called when a [org.bukkit.event.hanging.HangingBreakEvent] is called. */
   public suspend fun on(event: org.bukkit.event.hanging.HangingBreakEvent) {}
 
-  /** Called when a [org.bukkit.event.hanging.HangingEvent] is called. */
-  public suspend fun on(event: org.bukkit.event.hanging.HangingEvent) {}
-
   /** Called when a [org.bukkit.event.hanging.HangingPlaceEvent] is called. */
   public suspend fun on(event: org.bukkit.event.hanging.HangingPlaceEvent) {}
 
@@ -861,9 +813,6 @@ public interface Handleable {
   /** Called when a [org.bukkit.event.inventory.InventoryEvent] is called. */
   public suspend fun on(event: org.bukkit.event.inventory.InventoryEvent) {}
 
-  /** Called when a [org.bukkit.event.inventory.InventoryInteractEvent] is called. */
-  public suspend fun on(event: org.bukkit.event.inventory.InventoryInteractEvent) {}
-
   /** Called when a [org.bukkit.event.inventory.InventoryMoveItemEvent] is called. */
   public suspend fun on(event: org.bukkit.event.inventory.InventoryMoveItemEvent) {}
 
@@ -879,9 +828,6 @@ public interface Handleable {
   /** Called when a [org.bukkit.event.inventory.PrepareGrindstoneEvent] is called. */
   public suspend fun on(event: org.bukkit.event.inventory.PrepareGrindstoneEvent) {}
 
-  /** Called when a [org.bukkit.event.inventory.PrepareInventoryResultEvent] is called. */
-  public suspend fun on(event: org.bukkit.event.inventory.PrepareInventoryResultEvent) {}
-
   /** Called when a [org.bukkit.event.inventory.PrepareItemCraftEvent] is called. */
   public suspend fun on(event: org.bukkit.event.inventory.PrepareItemCraftEvent) {}
 
@@ -893,12 +839,6 @@ public interface Handleable {
 
   /** Called when a [org.bukkit.event.inventory.TradeSelectEvent] is called. */
   public suspend fun on(event: org.bukkit.event.inventory.TradeSelectEvent) {}
-
-  /** Called when a [org.bukkit.event.player.AsyncPlayerChatEvent] is called. */
-  public suspend fun on(event: org.bukkit.event.player.AsyncPlayerChatEvent) {}
-
-  /** Called when a [org.bukkit.event.player.AsyncPlayerChatPreviewEvent] is called. */
-  public suspend fun on(event: org.bukkit.event.player.AsyncPlayerChatPreviewEvent) {}
 
   /** Called when a [org.bukkit.event.player.AsyncPlayerPreLoginEvent] is called. */
   public suspend fun on(event: org.bukkit.event.player.AsyncPlayerPreLoginEvent) {}
@@ -927,29 +867,14 @@ public interface Handleable {
   /** Called when a [org.bukkit.event.player.PlayerBucketEntityEvent] is called. */
   public suspend fun on(event: org.bukkit.event.player.PlayerBucketEntityEvent) {}
 
-  /** Called when a [org.bukkit.event.player.PlayerBucketEvent] is called. */
-  public suspend fun on(event: org.bukkit.event.player.PlayerBucketEvent) {}
-
   /** Called when a [org.bukkit.event.player.PlayerBucketFillEvent] is called. */
   public suspend fun on(event: org.bukkit.event.player.PlayerBucketFillEvent) {}
-
-  /** Called when a [org.bukkit.event.player.PlayerBucketFishEvent] is called. */
-  public suspend fun on(event: org.bukkit.event.player.PlayerBucketFishEvent) {}
 
   /** Called when a [org.bukkit.event.player.PlayerChangedMainHandEvent] is called. */
   public suspend fun on(event: org.bukkit.event.player.PlayerChangedMainHandEvent) {}
 
   /** Called when a [org.bukkit.event.player.PlayerChangedWorldEvent] is called. */
   public suspend fun on(event: org.bukkit.event.player.PlayerChangedWorldEvent) {}
-
-  /** Called when a [org.bukkit.event.player.PlayerChannelEvent] is called. */
-  public suspend fun on(event: org.bukkit.event.player.PlayerChannelEvent) {}
-
-  /** Called when a [org.bukkit.event.player.PlayerChatEvent] is called. */
-  public suspend fun on(event: org.bukkit.event.player.PlayerChatEvent) {}
-
-  /** Called when a [org.bukkit.event.player.PlayerChatTabCompleteEvent] is called. */
-  public suspend fun on(event: org.bukkit.event.player.PlayerChatTabCompleteEvent) {}
 
   /** Called when a [org.bukkit.event.player.PlayerCommandPreprocessEvent] is called. */
   public suspend fun on(event: org.bukkit.event.player.PlayerCommandPreprocessEvent) {}
@@ -965,9 +890,6 @@ public interface Handleable {
 
   /** Called when a [org.bukkit.event.player.PlayerEggThrowEvent] is called. */
   public suspend fun on(event: org.bukkit.event.player.PlayerEggThrowEvent) {}
-
-  /** Called when a [org.bukkit.event.player.PlayerEvent] is called. */
-  public suspend fun on(event: org.bukkit.event.player.PlayerEvent) {}
 
   /** Called when a [org.bukkit.event.player.PlayerExpChangeEvent] is called. */
   public suspend fun on(event: org.bukkit.event.player.PlayerExpChangeEvent) {}
@@ -1038,20 +960,11 @@ public interface Handleable {
   /** Called when a [org.bukkit.event.player.PlayerPickupArrowEvent] is called. */
   public suspend fun on(event: org.bukkit.event.player.PlayerPickupArrowEvent) {}
 
-  /** Called when a [org.bukkit.event.player.PlayerPickupItemEvent] is called. */
-  public suspend fun on(event: org.bukkit.event.player.PlayerPickupItemEvent) {}
-
   /** Called when a [org.bukkit.event.player.PlayerPortalEvent] is called. */
   public suspend fun on(event: org.bukkit.event.player.PlayerPortalEvent) {}
 
-  /** Called when a [org.bukkit.event.player.PlayerPreLoginEvent] is called. */
-  public suspend fun on(event: org.bukkit.event.player.PlayerPreLoginEvent) {}
-
   /** Called when a [org.bukkit.event.player.PlayerQuitEvent] is called. */
   public suspend fun on(event: org.bukkit.event.player.PlayerQuitEvent) {}
-
-  /** Called when a [org.bukkit.event.player.PlayerRecipeBookClickEvent] is called. */
-  public suspend fun on(event: org.bukkit.event.player.PlayerRecipeBookClickEvent) {}
 
   /** Called when a [org.bukkit.event.player.PlayerRecipeBookSettingsChangeEvent] is called. */
   public suspend fun on(event: org.bukkit.event.player.PlayerRecipeBookSettingsChangeEvent) {}
@@ -1076,12 +989,6 @@ public interface Handleable {
 
   /** Called when a [org.bukkit.event.player.PlayerShowEntityEvent] is called. */
   public suspend fun on(event: org.bukkit.event.player.PlayerShowEntityEvent) {}
-
-  /** Called when a [org.bukkit.event.player.PlayerSignOpenEvent] is called. */
-  public suspend fun on(event: org.bukkit.event.player.PlayerSignOpenEvent) {}
-
-  /** Called when a [org.bukkit.event.player.PlayerSpawnChangeEvent] is called. */
-  public suspend fun on(event: org.bukkit.event.player.PlayerSpawnChangeEvent) {}
 
   /** Called when a [org.bukkit.event.player.PlayerStatisticIncrementEvent] is called. */
   public suspend fun on(event: org.bukkit.event.player.PlayerStatisticIncrementEvent) {}
@@ -1113,9 +1020,6 @@ public interface Handleable {
   /** Called when a [org.bukkit.event.player.PlayerVelocityEvent] is called. */
   public suspend fun on(event: org.bukkit.event.player.PlayerVelocityEvent) {}
 
-  /** Called when a [org.bukkit.event.raid.RaidEvent] is called. */
-  public suspend fun on(event: org.bukkit.event.raid.RaidEvent) {}
-
   /** Called when a [org.bukkit.event.raid.RaidFinishEvent] is called. */
   public suspend fun on(event: org.bukkit.event.raid.RaidFinishEvent) {}
 
@@ -1140,26 +1044,17 @@ public interface Handleable {
   /** Called when a [org.bukkit.event.server.PluginEnableEvent] is called. */
   public suspend fun on(event: org.bukkit.event.server.PluginEnableEvent) {}
 
-  /** Called when a [org.bukkit.event.server.PluginEvent] is called. */
-  public suspend fun on(event: org.bukkit.event.server.PluginEvent) {}
-
   /** Called when a [org.bukkit.event.server.RemoteServerCommandEvent] is called. */
   public suspend fun on(event: org.bukkit.event.server.RemoteServerCommandEvent) {}
 
   /** Called when a [org.bukkit.event.server.ServerCommandEvent] is called. */
   public suspend fun on(event: org.bukkit.event.server.ServerCommandEvent) {}
 
-  /** Called when a [org.bukkit.event.server.ServerEvent] is called. */
-  public suspend fun on(event: org.bukkit.event.server.ServerEvent) {}
-
   /** Called when a [org.bukkit.event.server.ServerListPingEvent] is called. */
   public suspend fun on(event: org.bukkit.event.server.ServerListPingEvent) {}
 
   /** Called when a [org.bukkit.event.server.ServerLoadEvent] is called. */
   public suspend fun on(event: org.bukkit.event.server.ServerLoadEvent) {}
-
-  /** Called when a [org.bukkit.event.server.ServiceEvent] is called. */
-  public suspend fun on(event: org.bukkit.event.server.ServiceEvent) {}
 
   /** Called when a [org.bukkit.event.server.ServiceRegisterEvent] is called. */
   public suspend fun on(event: org.bukkit.event.server.ServiceRegisterEvent) {}
@@ -1172,9 +1067,6 @@ public interface Handleable {
 
   /** Called when a [org.bukkit.event.vehicle.VehicleBlockCollisionEvent] is called. */
   public suspend fun on(event: org.bukkit.event.vehicle.VehicleBlockCollisionEvent) {}
-
-  /** Called when a [org.bukkit.event.vehicle.VehicleCollisionEvent] is called. */
-  public suspend fun on(event: org.bukkit.event.vehicle.VehicleCollisionEvent) {}
 
   /** Called when a [org.bukkit.event.vehicle.VehicleCreateEvent] is called. */
   public suspend fun on(event: org.bukkit.event.vehicle.VehicleCreateEvent) {}
@@ -1190,9 +1082,6 @@ public interface Handleable {
 
   /** Called when a [org.bukkit.event.vehicle.VehicleEntityCollisionEvent] is called. */
   public suspend fun on(event: org.bukkit.event.vehicle.VehicleEntityCollisionEvent) {}
-
-  /** Called when a [org.bukkit.event.vehicle.VehicleEvent] is called. */
-  public suspend fun on(event: org.bukkit.event.vehicle.VehicleEvent) {}
 
   /** Called when a [org.bukkit.event.vehicle.VehicleExitEvent] is called. */
   public suspend fun on(event: org.bukkit.event.vehicle.VehicleExitEvent) {}
@@ -1212,17 +1101,11 @@ public interface Handleable {
   /** Called when a [org.bukkit.event.weather.WeatherChangeEvent] is called. */
   public suspend fun on(event: org.bukkit.event.weather.WeatherChangeEvent) {}
 
-  /** Called when a [org.bukkit.event.weather.WeatherEvent] is called. */
-  public suspend fun on(event: org.bukkit.event.weather.WeatherEvent) {}
-
   /** Called when a [org.bukkit.event.world.AsyncStructureGenerateEvent] is called. */
   public suspend fun on(event: org.bukkit.event.world.AsyncStructureGenerateEvent) {}
 
   /** Called when a [org.bukkit.event.world.AsyncStructureSpawnEvent] is called. */
   public suspend fun on(event: org.bukkit.event.world.AsyncStructureSpawnEvent) {}
-
-  /** Called when a [org.bukkit.event.world.ChunkEvent] is called. */
-  public suspend fun on(event: org.bukkit.event.world.ChunkEvent) {}
 
   /** Called when a [org.bukkit.event.world.ChunkLoadEvent] is called. */
   public suspend fun on(event: org.bukkit.event.world.ChunkLoadEvent) {}
@@ -1256,9 +1139,6 @@ public interface Handleable {
 
   /** Called when a [org.bukkit.event.world.TimeSkipEvent] is called. */
   public suspend fun on(event: org.bukkit.event.world.TimeSkipEvent) {}
-
-  /** Called when a [org.bukkit.event.world.WorldEvent] is called. */
-  public suspend fun on(event: org.bukkit.event.world.WorldEvent) {}
 
   /** Called when a [org.bukkit.event.world.WorldInitEvent] is called. */
   public suspend fun on(event: org.bukkit.event.world.WorldInitEvent) {}

@@ -8,6 +8,7 @@ import net.radsteve.axi.game.instance.event.GameInstanceStoppedEvent
 import net.radsteve.axi.utility.PluginAware
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
+import java.util.UUID
 
 /** Controls handling of game instances. */
 public object GameInstanceController : PluginAware, Listener {
@@ -51,6 +52,12 @@ public object GameInstanceController : PluginAware, Listener {
     instance.switchLifecycle(GameLifecycle.Running)
 
     return instance
+  }
+
+  /** Searches for an instance with the given [uuid] and gracefully stops it. */
+  public suspend fun stop(uuid: UUID) {
+    val instance = collect().find { instance -> instance.uuid == uuid } ?: return
+    stop(instance)
   }
 
   /** Gracefully stops the given [instance]. */

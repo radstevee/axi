@@ -9,7 +9,7 @@ public class GameSchedule<T : GameInstance<T>> {
   /** A schedule entry. */
   public data class ScheduleEntry<T : GameInstance<T>>(
     /** The supplier of the game phase. */
-    public val phaseSupplier: (GameInstance<T>) -> GamePhase<T>,
+    public val phaseSupplier: (T) -> GamePhase<T>,
     /** The klass of the return type of [phaseSupplier]. */
     public val phaseKlass: KClass<out GamePhase<T>>,
     /** The duration of this phase. */
@@ -26,7 +26,7 @@ public class GameSchedule<T : GameInstance<T>> {
   /** Adds an entry of the given [phaseSupplier] for the given [duration]. */
   public inline fun <reified P : GamePhase<T>> add(
     duration: Duration? = null,
-    noinline phaseSupplier: (GameInstance<T>) -> P,
+    noinline phaseSupplier: (T) -> P,
   ) {
     add(ScheduleEntry(phaseSupplier, P::class, duration))
   }
@@ -41,9 +41,9 @@ public class GameSchedule<T : GameInstance<T>> {
     waitingDuration: Duration?,
     roundDuration: Duration?,
     endingDuration: Duration?,
-    noinline waitingPhaseSupplier: (GameInstance<T>) -> Waiting,
-    noinline roundPhaseSupplier: (GameInstance<T>) -> Round,
-    noinline endingPhaseSupplier: (GameInstance<T>) -> Ending,
+    noinline waitingPhaseSupplier: (T) -> Waiting,
+    noinline roundPhaseSupplier: (T) -> Round,
+    noinline endingPhaseSupplier: (T) -> Ending,
   ) {
     repeat(roundCount) {
       add(waitingDuration, waitingPhaseSupplier)

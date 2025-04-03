@@ -18,6 +18,7 @@ ktlint = "1.5.0"
 koin = "4.1.0-Beta5"
 interfaces = "1.4.0-SNAPSHOT"
 classgraph = "4.8.179"
+fawe = "2.12.2"
 
 [libraries]
 kotlinx-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization-json" }
@@ -66,6 +67,9 @@ interfaces = { module = "com.noxcrew.interfaces:interfaces", version.ref = "inte
 
 classgraph = { module = "io.github.classgraph:classgraph", version.ref = "classgraph" }
 
+fawe-core = { group = "com.fastasyncworldedit", name = "FastAsyncWorldEdit-Core", version.ref = "fawe" }
+fawe-bukkit = { group = "com.fastasyncworldedit", name = "FastAsyncWorldEdit-Bukkit", version.ref = "fawe" }
+
 [bundles]
 kotlinx = ["kotlinx-coroutines"]
 mccoroutine = ["mccoroutine-bukkit-api", "mccoroutine-bukkit-core"]
@@ -74,3 +78,4 @@ packed = ["packed-core", "packed-spaces"]
 inject = ["inject-api", "inject-spigot", "inject-http"]
 koin = ["koin-core", "koin-core-coroutines", "koin-logger-slf4j"]
 kgp = ["kgp", "kgp-api"]
+fawe = ["fawe-core", "fawe-bukkit"]

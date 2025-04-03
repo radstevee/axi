@@ -26,8 +26,8 @@ dependencies {
 repositories {
   mavenCentral()
   maven("https://maven.radsteve.net/public")
-  maven("https://repo.minehub.live/releases")
   maven("https://maven.mcbrawls.net/releases")
+  maven("https://maven.enginehub.org/repo")
   maven("https://packages.jetbrains.team/maven/p/ij/intellij-dependencies")
 }
 

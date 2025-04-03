@@ -14,6 +14,7 @@ dependencies {
   // my maven repository
   implementation(project(":axi-core"))
   implementation(project(":axi-ui"))
+  implementation(project(":axi-game"))
 }
 
 kotlin {
@@ -31,6 +32,10 @@ tasks {
   runServer {
     minecraftVersion("1.21.4")
     jvmArgs("-Dnet.kyori.adventure.text.warnWhenLegacyFormattingDetected=false")
+  }
+
+  shadowJar {
+    mergeServiceFiles()
   }
 
   delete("publish")

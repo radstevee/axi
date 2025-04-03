@@ -5,7 +5,7 @@ import net.radsteve.axi.game.instance.GameInstance
 import net.radsteve.axi.game.instance.GameInstanceFactory
 
 /** A type of game instances. */
-public class GameType<T : GameInstance<T>>(
+public open class GameType<T : GameInstance<T>>(
   /** The factory to this game type. */
   public val factory: GameInstanceFactory<T>,
   /** The metadata about this game type. */

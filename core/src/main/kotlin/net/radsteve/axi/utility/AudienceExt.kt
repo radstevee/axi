@@ -1,6 +1,7 @@
 package net.radsteve.axi.utility
 
 import net.kyori.adventure.audience.Audience
+import net.kyori.adventure.audience.Audience.audience
 import net.kyori.adventure.audience.ForwardingAudience
 import net.kyori.adventure.identity.Identity
 import net.radsteve.axi.ecs.Attachable
@@ -66,3 +67,7 @@ public fun <R> Audience.mapPlayers(transform: (Player) -> R): Set<R> = buildSet 
 public val Audience.attachables: Set<Attachable> get() {
   return mapPlayers(Player::attachable)
 }
+
+/** Combines these audiences into one. */
+public val Collection<Audience>.audience: Audience
+  get() = audience(*toTypedArray())

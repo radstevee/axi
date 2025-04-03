@@ -35,7 +35,7 @@ public class GameController<T : GameInstance<T>>(
     previousPhases.add(previousPhase)
 
     phase.duration = duration
-    phase.tick = phase.durationTicks!!
+    phase.tick = phase.durationTicks ?: -1
     phase.tickInitialized = totalTicksElapsed
 
     currentPhase = phase
@@ -55,7 +55,8 @@ public class GameController<T : GameInstance<T>>(
   /** Goes to the next state and returns whether it progressed. */
   public suspend fun next(): Boolean {
     val progressed = schedule.accept { (phaseSupplier, _, duration) ->
-      switch(phaseSupplier(instance), duration)
+      @Suppress("UNCHECKED_CAST")
+      switch(phaseSupplier(instance as T), duration)
     }
 
     if (progressed) {

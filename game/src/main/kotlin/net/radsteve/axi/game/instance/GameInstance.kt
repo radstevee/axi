@@ -6,7 +6,7 @@ import net.kyori.adventure.audience.ForwardingAudience
 import net.kyori.adventure.key.Keyed
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.Component.text
-import net.radsteve.axi.coroutines.AxiCoroutines.coroutineScope
+import net.radsteve.axi.coroutines.AxiCoroutines.syncContext
 import net.radsteve.axi.ecs.Attachable
 import net.radsteve.axi.ecs.getOrPut
 import net.radsteve.axi.ecs.system.System
@@ -36,18 +36,16 @@ import org.bukkit.entity.Player
 import org.koin.core.component.KoinComponent
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import kotlin.coroutines.AbstractCoroutineContextElement
 import kotlin.coroutines.CoroutineContext
 
 /** An instance of a game. */
 public open class GameInstance<T : GameInstance<T>>(
   /** The context of this instance. */
   public open val context: GameContext<T>,
-) : AbstractCoroutineContextElement(ContextKey),
-  ForwardingAudience,
+) : ForwardingAudience,
   Tickable,
   DisplayTickable,
-  CoroutineScope by coroutineScope,
+  CoroutineScope,
   Attachable,
   System,
   KoinComponent,
@@ -58,9 +56,6 @@ public open class GameInstance<T : GameInstance<T>>(
   LoggerHolder,
   PluginAware,
   Handleable {
-  /** The key to this coroutine context element. */
-  public companion object ContextKey : CoroutineContext.Key<GameInstance<*>>
-
   /** The initial world of this game instance. */
   public lateinit var initialWorld: GameWorld<T>
 
@@ -88,7 +83,7 @@ public open class GameInstance<T : GameInstance<T>>(
   public lateinit var controller: GameController<T>
 
   /** The lifecycle phase of this instance. */
-  public lateinit var lifecyclePhase: GameLifecycle
+  public var lifecyclePhase: GameLifecycle = GameLifecycle.Idling
     private set
 
   override fun audiences(): Iterable<Audience> {
@@ -178,7 +173,7 @@ public open class GameInstance<T : GameInstance<T>>(
   }
 
   /** Called when the lifecycle of this instance progresses. */
-  public open suspend fun lifecycleProgress(old: GameLifecycle, new: GameLifecycle) {
+  protected open suspend fun progressLifecycleState(old: GameLifecycle, new: GameLifecycle) {
     callEvent(GameInstanceLifecycleEvent(old, new, this))
 
     when (new) {
@@ -187,6 +182,7 @@ public open class GameInstance<T : GameInstance<T>>(
       GameLifecycle.Ended -> remove()
       GameLifecycle.Running -> initialized = true
       GameLifecycle.Cleanup -> cleanup()
+      GameLifecycle.Idling -> {}
     }
   }
 
@@ -194,7 +190,7 @@ public open class GameInstance<T : GameInstance<T>>(
   public suspend fun switchLifecycle(phase: GameLifecycle) {
     val old = lifecyclePhase
     lifecyclePhase = phase
-    lifecycleProgress(old, phase)
+    progressLifecycleState(old, phase)
   }
 
   override fun equals(other: Any?): Boolean {
@@ -203,15 +199,8 @@ public open class GameInstance<T : GameInstance<T>>(
   }
 
   override fun hashCode(): Int {
-    var result = shouldBeTicking.hashCode()
-    result = 31 * result + initialized.hashCode()
-    result = 31 * result + tickInitialized
-    result = 31 * result + context.hashCode()
-    result = 31 * result + world.hashCode()
-    result = 31 * result + logger.hashCode()
-    result = 31 * result + schedule.hashCode()
-    result = 31 * result + controller.hashCode()
-    result = 31 * result + lifecyclePhase.hashCode()
-    return result
+    return 31 * context.hashCode()
   }
+
+  override val coroutineContext: CoroutineContext = syncContext + GameInstanceExceptionHandler(this)
 }

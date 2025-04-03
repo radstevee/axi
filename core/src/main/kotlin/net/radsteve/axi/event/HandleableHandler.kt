@@ -33,13 +33,6 @@ public class HandleableHandler(
   }
 
   @EventHandler
-  private suspend fun on(event: com.destroystokyo.paper.event.block.TNTPrimeEvent) {
-    handleableSupplier().forEach { handleable ->
-      handleable.on(event)
-    }
-  }
-
-  @EventHandler
   private suspend fun on(event: com.destroystokyo.paper.event.brigadier.AsyncPlayerSendSuggestionsEvent) {
     handleableSupplier().forEach { handleable ->
       handleable.on(event)
@@ -173,13 +166,6 @@ public class HandleableHandler(
   }
 
   @EventHandler
-  private suspend fun on(event: com.destroystokyo.paper.event.entity.ProjectileCollideEvent) {
-    handleableSupplier().forEach { handleable ->
-      handleable.on(event)
-    }
-  }
-
-  @EventHandler
   private suspend fun on(event: com.destroystokyo.paper.event.entity.SkeletonHorseTrapEvent) {
     handleableSupplier().forEach { handleable ->
       handleable.on(event)
@@ -271,21 +257,7 @@ public class HandleableHandler(
   }
 
   @EventHandler
-  private suspend fun on(event: com.destroystokyo.paper.event.inventory.PrepareGrindstoneEvent) {
-    handleableSupplier().forEach { handleable ->
-      handleable.on(event)
-    }
-  }
-
-  @EventHandler
   private suspend fun on(event: com.destroystokyo.paper.event.inventory.PrepareResultEvent) {
-    handleableSupplier().forEach { handleable ->
-      handleable.on(event)
-    }
-  }
-
-  @EventHandler
-  private suspend fun on(event: com.destroystokyo.paper.event.player.IllegalPacketEvent) {
     handleableSupplier().forEach { handleable ->
       handleable.on(event)
     }
@@ -509,20 +481,6 @@ public class HandleableHandler(
   }
 
   @EventHandler
-  private suspend fun on(event: io.papermc.paper.event.block.BellRevealRaiderEvent) {
-    handleableSupplier().forEach { handleable ->
-      handleable.on(event)
-    }
-  }
-
-  @EventHandler
-  private suspend fun on(event: io.papermc.paper.event.block.BellRingEvent) {
-    handleableSupplier().forEach { handleable ->
-      handleable.on(event)
-    }
-  }
-
-  @EventHandler
   private suspend fun on(event: io.papermc.paper.event.block.BlockBreakBlockEvent) {
     handleableSupplier().forEach { handleable ->
       handleable.on(event)
@@ -733,13 +691,6 @@ public class HandleableHandler(
   }
 
   @EventHandler
-  private suspend fun on(event: io.papermc.paper.event.player.AbstractChatEvent) {
-    handleableSupplier().forEach { handleable ->
-      handleable.on(event)
-    }
-  }
-
-  @EventHandler
   private suspend fun on(event: io.papermc.paper.event.player.AsyncChatCommandDecorateEvent) {
     handleableSupplier().forEach { handleable ->
       handleable.on(event)
@@ -762,13 +713,6 @@ public class HandleableHandler(
 
   @EventHandler
   private suspend fun on(event: io.papermc.paper.event.player.CartographyItemEvent) {
-    handleableSupplier().forEach { handleable ->
-      handleable.on(event)
-    }
-  }
-
-  @EventHandler
-  private suspend fun on(event: io.papermc.paper.event.player.ChatEvent) {
     handleableSupplier().forEach { handleable ->
       handleable.on(event)
     }
@@ -1006,13 +950,6 @@ public class HandleableHandler(
   }
 
   @EventHandler
-  private suspend fun on(event: io.papermc.paper.event.world.border.WorldBorderEvent) {
-    handleableSupplier().forEach { handleable ->
-      handleable.on(event)
-    }
-  }
-
-  @EventHandler
   private suspend fun on(event: org.bukkit.event.block.BellResonateEvent) {
     handleableSupplier().forEach { handleable ->
       handleable.on(event)
@@ -1097,13 +1034,6 @@ public class HandleableHandler(
   }
 
   @EventHandler
-  private suspend fun on(event: org.bukkit.event.block.BlockEvent) {
-    handleableSupplier().forEach { handleable ->
-      handleable.on(event)
-    }
-  }
-
-  @EventHandler
   private suspend fun on(event: org.bukkit.event.block.BlockExpEvent) {
     handleableSupplier().forEach { handleable ->
       handleable.on(event)
@@ -1168,13 +1098,6 @@ public class HandleableHandler(
 
   @EventHandler
   private suspend fun on(event: org.bukkit.event.block.BlockPhysicsEvent) {
-    handleableSupplier().forEach { handleable ->
-      handleable.on(event)
-    }
-  }
-
-  @EventHandler
-  private suspend fun on(event: org.bukkit.event.block.BlockPistonEvent) {
     handleableSupplier().forEach { handleable ->
       handleable.on(event)
     }
@@ -1447,13 +1370,6 @@ public class HandleableHandler(
   }
 
   @EventHandler
-  private suspend fun on(event: org.bukkit.event.entity.EntityCreatePortalEvent) {
-    handleableSupplier().forEach { handleable ->
-      handleable.on(event)
-    }
-  }
-
-  @EventHandler
   private suspend fun on(event: org.bukkit.event.entity.EntityDamageByBlockEvent) {
     handleableSupplier().forEach { handleable ->
       handleable.on(event)
@@ -1510,13 +1426,6 @@ public class HandleableHandler(
   }
 
   @EventHandler
-  private suspend fun on(event: org.bukkit.event.entity.EntityEvent) {
-    handleableSupplier().forEach { handleable ->
-      handleable.on(event)
-    }
-  }
-
-  @EventHandler
   private suspend fun on(event: org.bukkit.event.entity.EntityExhaustionEvent) {
     handleableSupplier().forEach { handleable ->
       handleable.on(event)
@@ -1532,20 +1441,6 @@ public class HandleableHandler(
 
   @EventHandler
   private suspend fun on(event: org.bukkit.event.entity.EntityInteractEvent) {
-    handleableSupplier().forEach { handleable ->
-      handleable.on(event)
-    }
-  }
-
-  @EventHandler
-  private suspend fun on(event: org.bukkit.event.entity.EntityKnockbackByEntityEvent) {
-    handleableSupplier().forEach { handleable ->
-      handleable.on(event)
-    }
-  }
-
-  @EventHandler
-  private suspend fun on(event: org.bukkit.event.entity.EntityKnockbackEvent) {
     handleableSupplier().forEach { handleable ->
       handleable.on(event)
     }
@@ -1902,13 +1797,6 @@ public class HandleableHandler(
   }
 
   @EventHandler
-  private suspend fun on(event: org.bukkit.event.hanging.HangingEvent) {
-    handleableSupplier().forEach { handleable ->
-      handleable.on(event)
-    }
-  }
-
-  @EventHandler
   private suspend fun on(event: org.bukkit.event.hanging.HangingPlaceEvent) {
     handleableSupplier().forEach { handleable ->
       handleable.on(event)
@@ -2007,13 +1895,6 @@ public class HandleableHandler(
   }
 
   @EventHandler
-  private suspend fun on(event: org.bukkit.event.inventory.InventoryInteractEvent) {
-    handleableSupplier().forEach { handleable ->
-      handleable.on(event)
-    }
-  }
-
-  @EventHandler
   private suspend fun on(event: org.bukkit.event.inventory.InventoryMoveItemEvent) {
     handleableSupplier().forEach { handleable ->
       handleable.on(event)
@@ -2049,13 +1930,6 @@ public class HandleableHandler(
   }
 
   @EventHandler
-  private suspend fun on(event: org.bukkit.event.inventory.PrepareInventoryResultEvent) {
-    handleableSupplier().forEach { handleable ->
-      handleable.on(event)
-    }
-  }
-
-  @EventHandler
   private suspend fun on(event: org.bukkit.event.inventory.PrepareItemCraftEvent) {
     handleableSupplier().forEach { handleable ->
       handleable.on(event)
@@ -2078,20 +1952,6 @@ public class HandleableHandler(
 
   @EventHandler
   private suspend fun on(event: org.bukkit.event.inventory.TradeSelectEvent) {
-    handleableSupplier().forEach { handleable ->
-      handleable.on(event)
-    }
-  }
-
-  @EventHandler
-  private suspend fun on(event: org.bukkit.event.player.AsyncPlayerChatEvent) {
-    handleableSupplier().forEach { handleable ->
-      handleable.on(event)
-    }
-  }
-
-  @EventHandler
-  private suspend fun on(event: org.bukkit.event.player.AsyncPlayerChatPreviewEvent) {
     handleableSupplier().forEach { handleable ->
       handleable.on(event)
     }
@@ -2161,21 +2021,7 @@ public class HandleableHandler(
   }
 
   @EventHandler
-  private suspend fun on(event: org.bukkit.event.player.PlayerBucketEvent) {
-    handleableSupplier().forEach { handleable ->
-      handleable.on(event)
-    }
-  }
-
-  @EventHandler
   private suspend fun on(event: org.bukkit.event.player.PlayerBucketFillEvent) {
-    handleableSupplier().forEach { handleable ->
-      handleable.on(event)
-    }
-  }
-
-  @EventHandler
-  private suspend fun on(event: org.bukkit.event.player.PlayerBucketFishEvent) {
     handleableSupplier().forEach { handleable ->
       handleable.on(event)
     }
@@ -2190,27 +2036,6 @@ public class HandleableHandler(
 
   @EventHandler
   private suspend fun on(event: org.bukkit.event.player.PlayerChangedWorldEvent) {
-    handleableSupplier().forEach { handleable ->
-      handleable.on(event)
-    }
-  }
-
-  @EventHandler
-  private suspend fun on(event: org.bukkit.event.player.PlayerChannelEvent) {
-    handleableSupplier().forEach { handleable ->
-      handleable.on(event)
-    }
-  }
-
-  @EventHandler
-  private suspend fun on(event: org.bukkit.event.player.PlayerChatEvent) {
-    handleableSupplier().forEach { handleable ->
-      handleable.on(event)
-    }
-  }
-
-  @EventHandler
-  private suspend fun on(event: org.bukkit.event.player.PlayerChatTabCompleteEvent) {
     handleableSupplier().forEach { handleable ->
       handleable.on(event)
     }
@@ -2246,13 +2071,6 @@ public class HandleableHandler(
 
   @EventHandler
   private suspend fun on(event: org.bukkit.event.player.PlayerEggThrowEvent) {
-    handleableSupplier().forEach { handleable ->
-      handleable.on(event)
-    }
-  }
-
-  @EventHandler
-  private suspend fun on(event: org.bukkit.event.player.PlayerEvent) {
     handleableSupplier().forEach { handleable ->
       handleable.on(event)
     }
@@ -2420,13 +2238,6 @@ public class HandleableHandler(
   }
 
   @EventHandler
-  private suspend fun on(event: org.bukkit.event.player.PlayerPickupItemEvent) {
-    handleableSupplier().forEach { handleable ->
-      handleable.on(event)
-    }
-  }
-
-  @EventHandler
   private suspend fun on(event: org.bukkit.event.player.PlayerPortalEvent) {
     handleableSupplier().forEach { handleable ->
       handleable.on(event)
@@ -2434,21 +2245,7 @@ public class HandleableHandler(
   }
 
   @EventHandler
-  private suspend fun on(event: org.bukkit.event.player.PlayerPreLoginEvent) {
-    handleableSupplier().forEach { handleable ->
-      handleable.on(event)
-    }
-  }
-
-  @EventHandler
   private suspend fun on(event: org.bukkit.event.player.PlayerQuitEvent) {
-    handleableSupplier().forEach { handleable ->
-      handleable.on(event)
-    }
-  }
-
-  @EventHandler
-  private suspend fun on(event: org.bukkit.event.player.PlayerRecipeBookClickEvent) {
     handleableSupplier().forEach { handleable ->
       handleable.on(event)
     }
@@ -2505,20 +2302,6 @@ public class HandleableHandler(
 
   @EventHandler
   private suspend fun on(event: org.bukkit.event.player.PlayerShowEntityEvent) {
-    handleableSupplier().forEach { handleable ->
-      handleable.on(event)
-    }
-  }
-
-  @EventHandler
-  private suspend fun on(event: org.bukkit.event.player.PlayerSignOpenEvent) {
-    handleableSupplier().forEach { handleable ->
-      handleable.on(event)
-    }
-  }
-
-  @EventHandler
-  private suspend fun on(event: org.bukkit.event.player.PlayerSpawnChangeEvent) {
     handleableSupplier().forEach { handleable ->
       handleable.on(event)
     }
@@ -2595,13 +2378,6 @@ public class HandleableHandler(
   }
 
   @EventHandler
-  private suspend fun on(event: org.bukkit.event.raid.RaidEvent) {
-    handleableSupplier().forEach { handleable ->
-      handleable.on(event)
-    }
-  }
-
-  @EventHandler
   private suspend fun on(event: org.bukkit.event.raid.RaidFinishEvent) {
     handleableSupplier().forEach { handleable ->
       handleable.on(event)
@@ -2658,13 +2434,6 @@ public class HandleableHandler(
   }
 
   @EventHandler
-  private suspend fun on(event: org.bukkit.event.server.PluginEvent) {
-    handleableSupplier().forEach { handleable ->
-      handleable.on(event)
-    }
-  }
-
-  @EventHandler
   private suspend fun on(event: org.bukkit.event.server.RemoteServerCommandEvent) {
     handleableSupplier().forEach { handleable ->
       handleable.on(event)
@@ -2679,13 +2448,6 @@ public class HandleableHandler(
   }
 
   @EventHandler
-  private suspend fun on(event: org.bukkit.event.server.ServerEvent) {
-    handleableSupplier().forEach { handleable ->
-      handleable.on(event)
-    }
-  }
-
-  @EventHandler
   private suspend fun on(event: org.bukkit.event.server.ServerListPingEvent) {
     handleableSupplier().forEach { handleable ->
       handleable.on(event)
@@ -2694,13 +2456,6 @@ public class HandleableHandler(
 
   @EventHandler
   private suspend fun on(event: org.bukkit.event.server.ServerLoadEvent) {
-    handleableSupplier().forEach { handleable ->
-      handleable.on(event)
-    }
-  }
-
-  @EventHandler
-  private suspend fun on(event: org.bukkit.event.server.ServiceEvent) {
     handleableSupplier().forEach { handleable ->
       handleable.on(event)
     }
@@ -2729,13 +2484,6 @@ public class HandleableHandler(
 
   @EventHandler
   private suspend fun on(event: org.bukkit.event.vehicle.VehicleBlockCollisionEvent) {
-    handleableSupplier().forEach { handleable ->
-      handleable.on(event)
-    }
-  }
-
-  @EventHandler
-  private suspend fun on(event: org.bukkit.event.vehicle.VehicleCollisionEvent) {
     handleableSupplier().forEach { handleable ->
       handleable.on(event)
     }
@@ -2771,13 +2519,6 @@ public class HandleableHandler(
 
   @EventHandler
   private suspend fun on(event: org.bukkit.event.vehicle.VehicleEntityCollisionEvent) {
-    handleableSupplier().forEach { handleable ->
-      handleable.on(event)
-    }
-  }
-
-  @EventHandler
-  private suspend fun on(event: org.bukkit.event.vehicle.VehicleEvent) {
     handleableSupplier().forEach { handleable ->
       handleable.on(event)
     }
@@ -2826,13 +2567,6 @@ public class HandleableHandler(
   }
 
   @EventHandler
-  private suspend fun on(event: org.bukkit.event.weather.WeatherEvent) {
-    handleableSupplier().forEach { handleable ->
-      handleable.on(event)
-    }
-  }
-
-  @EventHandler
   private suspend fun on(event: org.bukkit.event.world.AsyncStructureGenerateEvent) {
     handleableSupplier().forEach { handleable ->
       handleable.on(event)
@@ -2841,13 +2575,6 @@ public class HandleableHandler(
 
   @EventHandler
   private suspend fun on(event: org.bukkit.event.world.AsyncStructureSpawnEvent) {
-    handleableSupplier().forEach { handleable ->
-      handleable.on(event)
-    }
-  }
-
-  @EventHandler
-  private suspend fun on(event: org.bukkit.event.world.ChunkEvent) {
     handleableSupplier().forEach { handleable ->
       handleable.on(event)
     }
@@ -2925,13 +2652,6 @@ public class HandleableHandler(
 
   @EventHandler
   private suspend fun on(event: org.bukkit.event.world.TimeSkipEvent) {
-    handleableSupplier().forEach { handleable ->
-      handleable.on(event)
-    }
-  }
-
-  @EventHandler
-  private suspend fun on(event: org.bukkit.event.world.WorldEvent) {
     handleableSupplier().forEach { handleable ->
       handleable.on(event)
     }

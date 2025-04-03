@@ -14,11 +14,15 @@ import kotlin.time.Duration
 /** A phase of a game. This phase can have a specific duration or go on indefinitely. */
 public open class GamePhase<T : GameInstance<T>>(
   /** The current game instance. */
-  public val instance: GameInstance<T>,
+  instance: GameInstance<T>,
 ) : Tickable,
   DisplayTickable,
   Handleable,
   GameWorldProvider<T> {
+  /** The current game instance. */
+  @Suppress("UNCHECKED_CAST")
+  public val instance: T = instance as T
+
   /** The current tick of this phase. Starts at [durationTicks] and decrements. */
   public open var tick: Int = -1
     internal set

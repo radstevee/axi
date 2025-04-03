@@ -1,5 +1,6 @@
 import io.github.classgraph.ClassGraph
 import org.bukkit.event.Event
+import kotlin.reflect.full.hasAnnotation
 
 public fun main() {
   ClassGraph().enableAllInfo().scan().use { result ->
@@ -20,6 +21,15 @@ public fun main() {
 
       // We do not want any tick events as we already have systems.
       if ("Tick" in klass.simpleName.toString()) {
+        return@forEachIndexed
+      }
+
+      // We don't wanna spam our logs
+      if (klass.hasAnnotation<java.lang.Deprecated>()) {
+        return@forEachIndexed
+      }
+
+      if (klass.isAbstract) {
         return@forEachIndexed
       }
 

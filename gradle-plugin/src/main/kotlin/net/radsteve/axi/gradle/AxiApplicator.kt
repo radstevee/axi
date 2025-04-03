@@ -28,8 +28,8 @@ public object AxiApplicator {
     repositories.maven(AxiRepos.RAD)
     repositories.maven(AxiRepos.PAPER)
     repositories.maven(AxiRepos.BRAWLS)
+    repositories.maven(AxiRepos.ENGINEHUB)
     repositories.maven(AxiRepos.INTELLIJ)
-    repositories.maven(AxiRepos.MINEHUB)
 
     afterEvaluate(::applyAfter)
   }

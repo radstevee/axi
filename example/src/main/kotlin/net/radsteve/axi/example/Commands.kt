@@ -6,7 +6,13 @@ import net.radsteve.axi.command.Command
 import net.radsteve.axi.command.sendMessage
 import net.radsteve.axi.ecs.data
 import net.radsteve.axi.ecs.set
+import net.radsteve.axi.example.game.bedwars.BedWarsGameType
+import net.radsteve.axi.game.instance.GameContext
+import net.radsteve.axi.game.instance.GameInstanceController
 import net.radsteve.axi.ui.text.mm
+import net.radsteve.axi.utility.audience
+import org.bukkit.entity.Player
+import org.incendo.cloud.bukkit.parser.selector.MultiplePlayerSelectorParser.multiplePlayerSelectorParser
 import org.incendo.cloud.parser.standard.IntegerParser.integerParser
 import org.incendo.cloud.parser.standard.StringParser.stringParser
 
@@ -54,5 +60,17 @@ public val OtherTestCommand: Command = Command("other_test") {
     executor {
       player.set<TestComponent>(null)
     }
+  }
+}
+
+@AutoRegistered
+public val BedWarsCommand: Command = Command("bedwars") {
+  val players by arg("players", multiplePlayerSelectorParser())
+
+  executor {
+    val players = players.values()
+    val context = GameContext(BedWarsGameType, players.audience, players.map(Player::getUniqueId).toMutableList())
+
+    GameInstanceController.create(context)
   }
 }

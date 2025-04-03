@@ -1,5 +1,6 @@
 import io.github.classgraph.ClassGraph
 import org.bukkit.event.Event
+import kotlin.reflect.full.hasAnnotation
 
 public fun main() {
   ClassGraph().enableAllInfo().scan().use { result ->
@@ -15,7 +16,7 @@ public fun main() {
     println("/** Event handler implementation for [Handleable]s. */")
     println("public class HandleableHandler(")
     println("  /** Supplier for all handleables that should be called. */")
-    println("  private val handleableSupplier: suspend () -> Iterable<Handleable>")
+    println("  private val handleableSupplier: suspend () -> Iterable<Handleable>,")
     println(") : SuspendingListener {")
     eventClasses.forEachIndexed { idx, klass ->
       if (klass.typeParameters.isNotEmpty()) {
@@ -23,6 +24,15 @@ public fun main() {
       }
       // We do not want any tick events as we already have systems.
       if ("Tick" in klass.simpleName.toString()) {
+        return@forEachIndexed
+      }
+
+      // We don't wanna spam our logs
+      if (klass.hasAnnotation<java.lang.Deprecated>()) {
+        return@forEachIndexed
+      }
+
+      if (klass.isAbstract) {
         return@forEachIndexed
       }
 

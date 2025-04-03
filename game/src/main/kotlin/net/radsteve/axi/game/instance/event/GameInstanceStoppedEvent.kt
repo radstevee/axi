@@ -16,6 +16,6 @@ public class GameInstanceStoppedEvent<T : GameInstance<T>>(
     private val HANDLER_LIST: HandlerList = HandlerList()
 
     @JvmStatic
-    internal fun getHandlerList(): HandlerList = HANDLER_LIST
+    public fun getHandlerList(): HandlerList = HANDLER_LIST
   }
 }

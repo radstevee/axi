@@ -17,9 +17,6 @@ import kotlin.time.Instant
 
 /** The context of a game instance. */
 public data class GameContext<T : GameInstance<T>>(
-  /** The instance UUID. */
-  public override val uuid: UUID,
-
   /** The type of the game instance. */
   public val type: GameType<T>,
 
@@ -38,6 +35,8 @@ public data class GameContext<T : GameInstance<T>>(
 
   /** The duration between now and the [start]. */
   public val duration: Duration get() = start - now()
+
+  override val uuid: UUID = UUID.randomUUID()
 
   /** The id of this game context. */
   public override val id: String = "${type.key().value()}-$uuid"
