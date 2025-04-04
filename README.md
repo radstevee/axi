@@ -4,6 +4,10 @@ Axi is a Minecraft game engine based on PaperMC and Kotlin
 Coroutines, allowing you to write games in a clean and concise
 way.
 
+**Note that axi is not yet ready for production usage
+and has zero guarantee of maintaining any API compatibility
+up to 1.0.0.**
+
 🔗 **[Documentation](https://axi.radsteve.net/)**
 
 Current features:
