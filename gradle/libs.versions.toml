@@ -67,8 +67,8 @@ interfaces = { module = "com.noxcrew.interfaces:interfaces", version.ref = "inte
 
 classgraph = { module = "io.github.classgraph:classgraph", version.ref = "classgraph" }
 
-fawe-core = { group = "com.fastasyncworldedit", name = "FastAsyncWorldEdit-Core", version.ref = "fawe" }
-fawe-bukkit = { group = "com.fastasyncworldedit", name = "FastAsyncWorldEdit-Bukkit", version.ref = "fawe" }
+fawe-core = { module = "com.fastasyncworldedit:FastAsyncWorldEdit-Core", version.ref = "fawe" }
+fawe-bukkit = { module = "com.fastasyncworldedit:FastAsyncWorldEdit-Bukkit", version.ref = "fawe" }
 
 [bundles]
 kotlinx = ["kotlinx-coroutines"]

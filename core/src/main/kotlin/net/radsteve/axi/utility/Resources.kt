@@ -24,9 +24,9 @@ internal val cache: MutableMap<Pair<String, KClass<out Any>>, Any> = mutableMapO
  *
  * [T] can be one of the following:
  *
- * * [String]
- * * [ByteArray]
- * * [com.sk89q.worldedit.extent.clipboard.Clipboard]
+ * - [String]
+ * - [ByteArray]
+ * - [com.sk89q.worldedit.extent.clipboard.Clipboard]
  */
 public inline fun <reified T : Any> resource(path: String, classLoader: ClassLoader = AxiPluginHolder.plugin().javaClass.classLoader): T {
   val cached = cache[path to T::class] as T?
@@ -34,9 +34,10 @@ public inline fun <reified T : Any> resource(path: String, classLoader: ClassLoa
     return cached
   }
 
-  val stream = requireNotNull(classLoader.getResourceAsStream("/$path")) { "resource $path does not exist" }
+  val inputStream = requireNotNull(classLoader.getResourceAsStream("/$path")) { "resource $path does not exist" }
 
-  return stream.use { stream ->
+  return inputStream.use { stream ->
+    @Suppress("IMPLICIT_CAST_TO_ANY") // This is intended
     when (T::class) {
       String::class -> stream.readBytes().decodeToString()
       ByteArray::class -> stream.readBytes()

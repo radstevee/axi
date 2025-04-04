@@ -14,7 +14,7 @@ public class GameInstanceExceptionHandler<T : GameInstance<T>>(
   private val instance: GameInstance<T>,
 ) : AbstractCoroutineContextElement(Key),
   CoroutineExceptionHandler {
-  override fun handleException(coroutineContext: CoroutineContext, exception: Throwable) {
+  override fun handleException(context: CoroutineContext, exception: Throwable) {
     instance.logger.error("Unhandled exception in game instance ${instance.id}", exception)
     instance.sendMessage(
       text()
@@ -24,7 +24,7 @@ public class GameInstanceExceptionHandler<T : GameInstance<T>>(
         .color(RED),
     )
 
-    CoroutineScope(coroutineContext).launch {
+    CoroutineScope(context).launch {
       try {
         GameInstanceController.stop(instance)
       } catch (exception: Exception) {

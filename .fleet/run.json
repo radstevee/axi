@@ -1,0 +1,14 @@
+{
+  "configurations": [
+    {
+      "type": "gradle",
+      "name": "Run example",
+      "tasks": [":a-e:clean", ":a-e:rS"]
+    },
+    {
+      "type": "gradle",
+      "name": "Spotless",
+      "tasks": [":spotless"]
+    }
+  ]
+}

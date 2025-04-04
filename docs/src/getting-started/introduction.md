@@ -13,16 +13,17 @@ The current features of Axi include:
 - ✅ Sprite API
 - ✅ Rendering API
   - ✅ Actionbar support
-  - 🏗️ Boss Bar support
-  - 🏗️ Scoreboard support
+  - 📝 Boss Bar support
+  - 📝 Scoreboard support
 - ✅ Entity Component System
 - ✅ Command API based on cloud
 - ✅ Text API based on adventure
 - ✅ Coroutine integration
-- 🏗️ Command argument parser builders
 - 🏗️ Game framework
-- 📝 World / Map / Schematic API with FAWE
+- 🏗️ World / Map / Schematic API with FAWE
+- 📝 Command argument parser builders
 - 📝 Interactable Region API
+- 📝 Display name API via text displays
 
 ✅: Implemented and tested
 

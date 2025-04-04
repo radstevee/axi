@@ -65,10 +65,10 @@ public val OtherTestCommand: Command = Command("other_test") {
 
 @AutoRegistered
 public val BedWarsCommand: Command = Command("bedwars") {
-  val players by arg("players", multiplePlayerSelectorParser())
+  val playersArg by arg("players", multiplePlayerSelectorParser())
 
   executor {
-    val players = players.values()
+    val players = playersArg.values()
     val context = GameContext(BedWarsGameType, players.audience, players.map(Player::getUniqueId).toMutableList())
 
     GameInstanceController.create(context)

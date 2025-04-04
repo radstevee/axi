@@ -10,18 +10,27 @@ up to 1.0.0.**
 
 🔗 **[Documentation](https://axi.radsteve.net/)**
 
-Current features:
+The current features of Axi include:
 
-- [x] Resource pack API
-- [x] Font API
-- [x] Sprite API
-- [x] Rendering API
-  - [x] Actionbar support
-  - [ ] Boss Bar support
-  - [ ] Scoreboard support
-- [x] Entity Component System
-- [x] Command API based on cloud
-- [x] Text API based on adventure
-- [x] Coroutine integration
-- [ ] Command argument parser builders
-- [ ] Game framework
+- ✅ Resource pack API
+- ✅ Font API
+- ✅ Sprite API
+- ✅ Rendering API
+  - ✅ Actionbar support
+  - 📝 Boss Bar support
+  - 📝 Scoreboard support
+- ✅ Entity Component System
+- ✅ Command API based on cloud
+- ✅ Text API based on adventure
+- ✅ Coroutine integration
+- 🏗️ Game framework
+- 🏗️ World / Map / Schematic API with FAWE
+- 📝 Command argument parser builders
+- 📝 Interactable Region API
+- 📝 Display name API via text displays
+
+✅: Implemented and tested
+
+🏗️: In Progress
+
+📝: Planned

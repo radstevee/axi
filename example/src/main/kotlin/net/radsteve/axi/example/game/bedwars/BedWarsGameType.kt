@@ -3,7 +3,6 @@ package net.radsteve.axi.example.game.bedwars
 import net.kyori.adventure.key.Key.key
 import net.radsteve.axi.game.type.GameType
 import net.radsteve.axi.game.type.GameTypeMetadata
-import net.radsteve.axi.game.type.GameTypeRegistry
 import net.radsteve.axi.ui.text.buildText
 
 public object BedWarsGameType : GameType<BedWarsInstance>(
