@@ -21,7 +21,7 @@ public class BedWarsInstance(
     add(10.seconds, ::FinalPhase)
   }
 
-  override suspend fun gameWorld(instance: GameInstance<BedWarsInstance>): GameWorld<BedWarsInstance> {
+  public override suspend fun gameWorld(instance: GameInstance<*>): GameWorld {
     return delegateWorldProvider(GameWorldProvider.clipboard(resource("bedwars_map.nbt")))
   }
 }

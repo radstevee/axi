@@ -18,13 +18,13 @@ public class GameController<T : GameInstance<T>>(
   public val instance: GameInstance<T>,
 ) {
   /** The current phase of the game instance. */
-  public var currentPhase: GamePhase<T> = VoidPhase<T>(instance)
+  public var currentPhase: GamePhase<T> = VoidPhase(instance)
     private set
   private var currentIdx: Int = -1
   private var totalTicksElapsed: Int = 0
   private val previousPhases: MutableList<GamePhase<T>> = mutableListOf()
   private val schedule: GameSchedule<T> = instance.schedule
-  internal val oldWorlds: MutableSet<GameWorld<T>> = mutableSetOf()
+  internal val oldWorlds: MutableSet<GameWorld> = mutableSetOf()
 
   /** Switches the current phase to the given [phase]. */
   public suspend fun switch(
@@ -64,7 +64,7 @@ public class GameController<T : GameInstance<T>>(
     }
 
     if (currentPhase !is VoidPhase<*>) {
-      switch(VoidPhase<T>(instance))
+      switch(VoidPhase(instance))
     }
 
     return false
@@ -102,7 +102,7 @@ public class GameController<T : GameInstance<T>>(
   public fun unloadWorlds() {
     oldWorlds
       .plus(instance.world)
-      .filter(GameWorld<*>::isTemporary)
+      .filter(GameWorld::isTemporary)
       .forEach { world -> Bukkit.unloadWorld(world.world, false) }
   }
 }

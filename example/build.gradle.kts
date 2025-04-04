@@ -52,3 +52,9 @@ tasks {
 
   delete("publish")
 }
+
+afterEvaluate {
+  tasks.getByName("kspKotlin") {
+    outputs.upToDateWhen { false }
+  }
+}

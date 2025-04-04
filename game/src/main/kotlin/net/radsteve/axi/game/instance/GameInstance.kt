@@ -19,7 +19,6 @@ import net.radsteve.axi.game.phase.GameController
 import net.radsteve.axi.game.phase.GameSchedule
 import net.radsteve.axi.game.phase.GameSchedule.Companion.buildSchedule
 import net.radsteve.axi.game.world.GameWorld
-import net.radsteve.axi.game.world.GameWorldHolder
 import net.radsteve.axi.game.world.GameWorldProvider
 import net.radsteve.axi.tick.DisplayTickable
 import net.radsteve.axi.tick.TickDuration.currentTick
@@ -41,7 +40,7 @@ import kotlin.coroutines.CoroutineContext
 /** An instance of a game. */
 public open class GameInstance<T : GameInstance<T>>(
   /** The context of this instance. */
-  public open val context: GameContext<T>,
+  public val context: GameContext<T>,
 ) : ForwardingAudience,
   Tickable,
   DisplayTickable,
@@ -51,21 +50,21 @@ public open class GameInstance<T : GameInstance<T>>(
   KoinComponent,
   Keyed by context,
   Identified by context,
-  GameWorldHolder<T>,
-  GameWorldProvider<T> by GameWorldProvider.void(),
+  GameWorldProvider by GameWorldProvider.void(),
   LoggerHolder,
   PluginAware,
   Handleable {
   /** The initial world of this game instance. */
-  public lateinit var initialWorld: GameWorld<T>
+  public lateinit var initialWorld: GameWorld
 
   /** The world of this game instance. This is first set to [initialWorld] but is changed by phases. */
-  override var world: GameWorld<T> by observableMutableLazy(
+  public var world: GameWorld by observableMutableLazy(
     initializer = { initialWorld },
-    observer = { old, new -> controller.oldWorlds.add(old) },
+    observer = { old, _ -> controller.oldWorlds.add(old) },
   )
 
-  override val logger: Logger = LoggerFactory.getLogger(id)
+  override lateinit var logger: Logger
+    protected set
 
   /** Whether this instance should be ticking. */
   public var shouldBeTicking: Boolean = true
@@ -113,6 +112,7 @@ public open class GameInstance<T : GameInstance<T>>(
 
   /** Initialises this game instance. */
   public open suspend fun initialize() {
+    logger = LoggerFactory.getLogger(id)
     logger.info("Initialising...")
 
     add()
@@ -141,7 +141,7 @@ public open class GameInstance<T : GameInstance<T>>(
 
   /** Exits this game instance with the given [reason]. */
   public open fun exit(reason: String): Nothing {
-    return exit(text(reason))
+    exit(text(reason))
   }
 
   /** Exits this game instance with the given [reason]. */
@@ -202,5 +202,5 @@ public open class GameInstance<T : GameInstance<T>>(
     return 31 * context.hashCode()
   }
 
-  override val coroutineContext: CoroutineContext = syncContext + GameInstanceExceptionHandler(this)
+  override val coroutineContext: CoroutineContext get() = syncContext + GameInstanceExceptionHandler(this)
 }

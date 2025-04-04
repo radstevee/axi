@@ -8,6 +8,7 @@ import net.radsteve.axi.tick.DisplayTickable
 import net.radsteve.axi.tick.TickDuration.inWholeTicks
 import net.radsteve.axi.tick.Tickable
 import org.bukkit.entity.Player
+import kotlin.coroutines.CoroutineContext
 import kotlin.properties.Delegates
 import kotlin.time.Duration
 
@@ -41,6 +42,9 @@ public open class GamePhase<T : GameInstance<T>>(
     internal set
 
   override suspend fun displayTick(tick: Int, displayTick: Int) {}
+
+  override val coroutineContext: CoroutineContext
+    get() = instance.coroutineContext
 
   /** Called at the end of this phase. */
   public open suspend fun end() {}

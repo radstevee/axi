@@ -1,11 +1,17 @@
 // THIS FILE IS AUTO-GENERATED! DO NOT MODIFY!
 // spotless:off
-@file:Suppress("DEPRECATION", "removal", "SpellCheckingInspection")
+@file:Suppress("SpellCheckingInspection")
 
 package net.radsteve.axi.event
 
+import kotlin.coroutines.CoroutineContext
+import kotlin.coroutines.EmptyCoroutineContext
+
 /** Something that can handle events. */
 public interface Handleable {
+  /** The coroutine context for these events. */
+  public val coroutineContext: CoroutineContext get() = EmptyCoroutineContext
+
   /** Called when a [com.destroystokyo.paper.event.block.AnvilDamagedEvent] is called. */
   public suspend fun on(event: com.destroystokyo.paper.event.block.AnvilDamagedEvent) {}
 

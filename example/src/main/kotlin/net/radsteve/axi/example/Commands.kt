@@ -7,6 +7,7 @@ import net.radsteve.axi.command.sendMessage
 import net.radsteve.axi.ecs.data
 import net.radsteve.axi.ecs.set
 import net.radsteve.axi.example.game.bedwars.BedWarsGameType
+import net.radsteve.axi.example.game.bedwars.BedWarsInstance
 import net.radsteve.axi.game.instance.GameContext
 import net.radsteve.axi.game.instance.GameInstanceController
 import net.radsteve.axi.ui.text.mm
@@ -71,6 +72,6 @@ public val BedWarsCommand: Command = Command("bedwars") {
     val players = playersArg.values()
     val context = GameContext(BedWarsGameType, players.audience, players.map(Player::getUniqueId).toMutableList())
 
-    GameInstanceController.create(context)
+    val instance: BedWarsInstance = GameInstanceController.create(context)
   }
 }

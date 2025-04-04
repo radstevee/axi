@@ -17,11 +17,13 @@ public object GameInstanceController : PluginAware, Listener {
   @EventHandler
   private fun on(event: GameInstanceInitializeEvent<*>) {
     cachedHandleables.add(event.instance)
+    cachedHandleables.add(event.instance.controller.currentPhase)
   }
 
   @EventHandler
   private fun on(event: GameInstanceStoppedEvent<*>) {
     cachedHandleables.remove(event.instance)
+    cachedHandleables.remove(event.instance.controller.currentPhase)
   }
 
   @EventHandler
@@ -36,22 +38,23 @@ public object GameInstanceController : PluginAware, Listener {
   }
 
   /** Creates a game instance of the given [context]. */
-  public suspend fun <T : GameInstance<T>> create(context: GameContext<T>): GameInstance<T> {
+  public suspend fun <T : GameInstance<T>> create(context: GameContext<T>): T {
     val instance = context.type.factory.createInstance(context)
 
     try {
       instance.switchLifecycle(GameLifecycle.Initializing)
     } catch (exception: Throwable) {
       instance.switchLifecycle(GameLifecycle.Ended)
-      val exception = exception as? GameInstanceException ?: GameInstanceException.Companion.subException(context, exception)
-      exception.printStackTrace()
+      val gameException = exception as? GameInstanceException ?: GameInstanceException.Companion.subException(context, exception)
+      gameException.printStackTrace()
 
-      throw exception
+      throw gameException
     }
 
     instance.switchLifecycle(GameLifecycle.Running)
 
-    return instance
+    @Suppress("UNCHECKED_CAST")
+    return instance as T
   }
 
   /** Searches for an instance with the given [uuid] and gracefully stops it. */

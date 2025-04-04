@@ -3,7 +3,7 @@
     {
       "type": "gradle",
       "name": "Run example",
-      "tasks": [":a-e:clean", ":a-e:rS"]
+      "tasks": [":a-e:rS"]
     },
     {
       "type": "gradle",

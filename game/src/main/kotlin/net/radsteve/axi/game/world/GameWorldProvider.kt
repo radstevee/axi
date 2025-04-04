@@ -6,7 +6,6 @@ import com.sk89q.worldedit.math.BlockVector3
 import net.kyori.adventure.util.TriState
 import net.radsteve.axi.coroutines.AxiCoroutines.asyncContext
 import net.radsteve.axi.game.instance.GameInstance
-import net.radsteve.axi.game.world.GameWorldProvider.Companion.clipboard
 import net.radsteve.axi.tick.TickDuration.inWholeTicks
 import net.radsteve.axi.utility.bukkit
 import org.bukkit.WorldCreator
@@ -14,18 +13,18 @@ import org.bukkit.WorldType
 import kotlin.time.measureTime
 
 /** A provider for [GameWorld]s. */
-public fun interface GameWorldProvider<T : GameInstance<T>> {
+public fun interface GameWorldProvider {
   /** Gets the [GameWorld] for a given [instance]. */
-  public suspend fun gameWorld(instance: GameInstance<T>): GameWorld<T>
+  public suspend fun gameWorld(instance: GameInstance<*>): GameWorld
 
   /** Delegates a world provider to the [other] provider. */
-  public suspend fun GameInstance<T>.delegateWorldProvider(other: GameWorldProvider<T>): GameWorld<T> {
+  public suspend fun GameInstance<*>.delegateWorldProvider(other: GameWorldProvider): GameWorld {
     return other.gameWorld(this)
   }
 
   public companion object {
     /** Creates a void world. */
-    public fun <T : GameInstance<T>> void(): GameWorldProvider<T> = GameWorldProvider { instance ->
+    public fun void(): GameWorldProvider = GameWorldProvider { instance ->
       GameWorld(
         WorldCreator.ofKey(TemporaryWorldNameProvider[instance.key()].bukkit())
           .biomeProvider(VoidBiomeProvider)
@@ -39,8 +38,8 @@ public fun interface GameWorldProvider<T : GameInstance<T>> {
     }
 
     /** Creates a void world and pastes the given [clipboard] at (0, 0, 0). */
-    public fun <T : GameInstance<T>> clipboard(clipboard: Clipboard): GameWorldProvider<T> = GameWorldProvider { instance ->
-      val world = void<T>().gameWorld(instance)
+    public fun clipboard(clipboard: Clipboard): GameWorldProvider = GameWorldProvider { instance ->
+      val world = void().gameWorld(instance)
       val time = measureTime {
         asyncContext {
           clipboard.paste(adapt(world.world), BlockVector3.ZERO, false, false, true, null)

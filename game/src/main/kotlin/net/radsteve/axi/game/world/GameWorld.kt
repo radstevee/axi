@@ -1,11 +1,10 @@
 package net.radsteve.axi.game.world
 
-import net.radsteve.axi.game.instance.GameInstance
 import org.bukkit.Bukkit
 import org.bukkit.World
 
 /** A world used by a game instance. */
-public class GameWorld<T : GameInstance<T>>(
+public class GameWorld(
   /** The inner world. */
   public val world: World,
   /** Whether this world should be removed after the instance ends. */
