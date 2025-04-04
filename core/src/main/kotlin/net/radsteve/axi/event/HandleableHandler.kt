@@ -1,6 +1,6 @@
 // THIS FILE IS AUTO-GENERATED! DO NOT MODIFY!
 // spotless:off
-@file:Suppress("SpellCheckingInspection")
+@file:Suppress("SpellCheckingInspection", "unused")
 
 package net.radsteve.axi.event
 

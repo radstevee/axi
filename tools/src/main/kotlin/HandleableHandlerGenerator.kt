@@ -11,7 +11,7 @@ public fun main() {
     val code = buildString {
       appendLine("// THIS FILE IS AUTO-GENERATED! DO NOT MODIFY!")
       appendLine("// spotless:off")
-      appendLine("@file:Suppress(\"SpellCheckingInspection\")")
+      appendLine("@file:Suppress(\"SpellCheckingInspection\", \"unused\")")
       appendLine("package net.radsteve.axi.event")
 
       appendLine()
