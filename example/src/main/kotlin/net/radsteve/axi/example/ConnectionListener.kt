@@ -2,26 +2,29 @@ package net.radsteve.axi.example
 
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import net.radsteve.axi.ecs.addDebounce
+import net.kyori.adventure.text.format.TextColor.color
+import net.radsteve.axi.displayname.displayNameTag
 import net.radsteve.axi.ecs.onClickEntity
-import net.radsteve.axi.ecs.waitUntilDebounced
+import net.radsteve.axi.event.SuspendingListener
 import net.radsteve.axi.example.resource.ExamplePack
 import net.radsteve.axi.example.resource.OtherLayer
 import net.radsteve.axi.example.resource.testRenderLayer
-import net.radsteve.axi.event.SuspendingListener
 import net.radsteve.axi.npc.NPC
 import net.radsteve.axi.npc.SkinData
+import net.radsteve.axi.tick.TickDuration.ticks
 import net.radsteve.axi.ui.render.layer.addRenderable
 import net.radsteve.axi.ui.resource.pack.send.sendAxiPack
 import net.radsteve.axi.ui.text.TextBuilder
 import net.radsteve.axi.ui.text.buildText
 import net.radsteve.axi.ui.text.send
+import net.radsteve.axi.utility.lerpColor
 import net.radsteve.axi.utility.nms
 import org.bukkit.Bukkit
 import org.bukkit.entity.EntityType
 import org.bukkit.event.EventHandler
 import org.bukkit.event.player.PlayerJoinEvent
-import kotlin.time.Duration.Companion.seconds
+import kotlin.math.abs
+import kotlin.math.sin
 
 public object ConnectionListener : SuspendingListener {
   @EventHandler
@@ -39,6 +42,23 @@ public object ConnectionListener : SuspendingListener {
         .withFilter { (_, entity) -> entity.type == EntityType.PIG }
     }
 
+    launch {
+      val color = color(0xFF0000)
+      val targetColor = color(0x00FFF0)
+
+      while (true) {
+        val currentTime = Bukkit.getCurrentTick() / 20f
+        val lerpedAmount = abs(sin(currentTime))
+        val lerpedColor = lerpColor(lerpedAmount, color, targetColor)
+
+        player.displayNameTag = buildText {
+          append(player.name)
+          color(lerpedColor)
+        }
+        delay(1.ticks)
+      }
+    }
+
     player.send {
       append("You started loading the pack at: ")
       append(Bukkit.getCurrentTick(), TextBuilder::green)
@@ -52,7 +72,6 @@ public object ConnectionListener : SuspendingListener {
       append(" ticks!")
       green()
     }
-
     val playerSkin = player.nms.gameProfile.properties.get("textures").first()
     NPC(
       buildText {
@@ -86,22 +105,6 @@ public object ConnectionListener : SuspendingListener {
     ).show(player)
 
     player.addRenderable(testRenderLayer(Bukkit.getCurrentTick()))
-    delay(1.seconds)
     player.addRenderable(OtherLayer)
-
-    player.send {
-      append("Started waiting at: ")
-      append(Bukkit.getCurrentTick(), TextBuilder::yellow)
-      append(" ticks")
-      green()
-    }
-    player.addDebounce(ConnectionListener::class, 5.seconds) // 100 ticks
-    player.waitUntilDebounced(ConnectionListener::class)
-    player.send {
-      append("Finished waiting at: ")
-      append(Bukkit.getCurrentTick(), TextBuilder::green)
-      append(" ticks")
-      yellow()
-    }
   }
 }

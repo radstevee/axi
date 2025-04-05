@@ -22,7 +22,8 @@ public class GameInstancePhaseChangeEvent<T : GameInstance<T>>(
   public val new: GamePhase<T>,
 
   instance: GameInstance<T>,
-) : GameInstanceEvent<T>(instance), Cancellable {
+) : GameInstanceEvent<T>(instance),
+  Cancellable {
   private var cancelled: Boolean = false
 
   override fun getHandlers(): HandlerList {

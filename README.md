@@ -23,11 +23,11 @@ The current features of Axi include:
 - ✅ Command API based on cloud
 - ✅ Text API based on adventure
 - ✅ Coroutine integration
+- ✅ Display name API via text displays
 - 🏗️ Game framework
 - 🏗️ World / Map / Schematic API with FAWE
 - 📝 Command argument parser builders
 - 📝 Interactable Region API
-- 📝 Display name API via text displays
 
 ✅: Implemented and tested
 

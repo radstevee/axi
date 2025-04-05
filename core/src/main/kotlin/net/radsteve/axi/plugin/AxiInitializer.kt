@@ -3,6 +3,7 @@ package net.radsteve.axi.plugin
 import kotlinx.coroutines.runBlocking
 import net.radsteve.axi.command.CommandManager
 import net.radsteve.axi.coroutines.registerEventListeners
+import net.radsteve.axi.displayname.DisplayNameHandler
 import net.radsteve.axi.ecs.ECS
 import net.radsteve.axi.ecs.component.EntityClickedComponent
 import net.radsteve.axi.ecs.internal.ECSConnectionListener
@@ -40,6 +41,8 @@ internal object AxiInitializer {
     plugin.registerEventListeners(ECSConnectionListener)
     plugin.registerEventListeners(EntityClickedComponent.Handler)
     plugin.registerEventListeners(SystemTicker)
+    plugin.registerEventListeners(DisplayNameHandler)
+    DisplayNameHandler.startTicking()
 
     callEvent(AxiInitializeEvent(plugin, AxiModuleLoader.collectServices(plugin)))
   }

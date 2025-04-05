@@ -3,7 +3,6 @@
 package net.radsteve.axi.game.phase
 
 import net.radsteve.axi.event.callCancellable
-import net.radsteve.axi.event.callEvent
 import net.radsteve.axi.game.instance.GameInstance
 import net.radsteve.axi.game.instance.event.GameInstancePhaseChangeEvent
 import net.radsteve.axi.game.phase.impl.VoidPhase
