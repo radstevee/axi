@@ -2,6 +2,7 @@
 
 package net.radsteve.axi.game.phase
 
+import net.radsteve.axi.event.callCancellable
 import net.radsteve.axi.event.callEvent
 import net.radsteve.axi.game.instance.GameInstance
 import net.radsteve.axi.game.instance.event.GameInstancePhaseChangeEvent
@@ -32,6 +33,9 @@ public class GameController<T : GameInstance<T>>(
     duration: Duration? = null,
   ) {
     val previousPhase = currentPhase
+    if (callCancellable(GameInstancePhaseChangeEvent(previousPhase, phase, instance))) {
+      return
+    }
     previousPhases.add(previousPhase)
 
     phase.duration = duration
@@ -48,8 +52,6 @@ public class GameController<T : GameInstance<T>>(
     instance.players.forEach { player ->
       phase.displaySetup(player)
     }
-
-    callEvent(GameInstancePhaseChangeEvent(previousPhase, phase, instance))
   }
 
   /** Goes to the next state and returns whether it progressed. */

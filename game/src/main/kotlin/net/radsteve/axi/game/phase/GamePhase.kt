@@ -19,7 +19,7 @@ public open class GamePhase<T : GameInstance<T>>(
 ) : Tickable,
   DisplayTickable,
   Handleable,
-  GameWorldProvider<T> {
+  GameWorldProvider {
   /** The current game instance. */
   @Suppress("UNCHECKED_CAST")
   public val instance: T = instance as T
@@ -61,7 +61,7 @@ public open class GamePhase<T : GameInstance<T>>(
   public open suspend fun displaySetup(player: Player) {}
 
   // By default, we return the instance's current world.
-  override suspend fun gameWorld(instance: GameInstance<T>): GameWorld<T> {
+  override suspend fun gameWorld(instance: GameInstance<*>): GameWorld {
     return instance.initialWorld
   }
 }
