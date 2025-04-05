@@ -42,16 +42,16 @@ internal object DisplayNameHandler : System, SuspendingListener {
     if (component.textDisplay == null) {
       return
     }
-    val isAccrossWorlds = event.from.world.uid != event.to.world.uid
+    val isAcrossWorlds = event.from.world.uid != event.to.world.uid
 
     player.removePassenger(component.textDisplay!!)
-    if (isAccrossWorlds) {
+    if (isAcrossWorlds) {
       remove(player, setToNull = false)
     }
 
     launch {
       delay(1.ticks)
-      if (!isAccrossWorlds) {
+      if (!isAcrossWorlds) {
         component.textDisplay?.let(player::addPassenger)
       } else {
         remove(player)

@@ -34,7 +34,7 @@ public class DisplayNameComponent(
       display.billboard = Display.Billboard.CENTER
     }
     player.addPassenger(textDisplay!!)
-    player.hideEntity(AxiPluginHolder.plugin(), textDisplay!!)
+    // player.hideEntity(AxiPluginHolder.plugin(), textDisplay!!)
   }
 }
 
