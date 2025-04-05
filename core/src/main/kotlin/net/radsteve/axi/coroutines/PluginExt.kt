@@ -14,7 +14,7 @@ import org.bukkit.event.Listener
 import kotlin.coroutines.CoroutineContext
 
 /** The [CoroutineScope] of this plugin. */
-public val AxiPlugin.coroutineScope: CoroutineScope get() = scope + LoggingExceptionHandler
+public val AxiPlugin.coroutineScope: CoroutineScope get() = CoroutineScope(syncContext)
 
 /** The synchronous dispatcher. */
 public val AxiPlugin.syncContext: CoroutineContext get() = minecraftDispatcher + LoggingExceptionHandler
