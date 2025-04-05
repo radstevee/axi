@@ -12,14 +12,8 @@ import kotlin.properties.Delegates
 /** Holds the display name of a player. */
 public class DisplayNameComponent(
   /** The display name. */
-  displayName: Component,
+  public var displayName: Component,
 ) {
-  /** The display name. */
-  public var displayName: Component by Delegates.observable(displayName) { _, _, _ ->
-    // textDisplay?.remove()
-    // textDisplay = null
-  }
-
   internal var textDisplay: TextDisplay? = null
 
   internal fun create(player: Player) {
@@ -34,7 +28,7 @@ public class DisplayNameComponent(
       display.billboard = Display.Billboard.CENTER
     }
     player.addPassenger(textDisplay!!)
-    // player.hideEntity(AxiPluginHolder.plugin(), textDisplay!!)
+    player.hideEntity(AxiPluginHolder.plugin(), textDisplay!!)
   }
 }
 

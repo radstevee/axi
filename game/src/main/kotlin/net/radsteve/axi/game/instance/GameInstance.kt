@@ -115,8 +115,8 @@ public open class GameInstance<T : GameInstance<T>>(
     logger = LoggerFactory.getLogger(id)
     logger.info("Initialising...")
 
-    add()
     controller = GameController(this)
+    add()
     initialWorld = gameWorld(this)
     initializePlayers()
 
