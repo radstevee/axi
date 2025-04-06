@@ -138,7 +138,7 @@ public open class GameInstance<T : GameInstance<T>>(
   public open suspend fun stop() {
     players.forEach { player ->
       // Teleport the player to the main world's spawn location if it exists.
-      Bukkit.getWorld("world")?.spawnLocation?.let(player::teleport)
+      Bukkit.getWorld("world")?.spawnLocation?.let(player::axiTeleport)
     }
   }
 
