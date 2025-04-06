@@ -15,6 +15,7 @@ public fun main() {
       appendLine("package net.radsteve.axi.event")
       appendLine()
 
+      appendLine("import kotlinx.coroutines.CoroutineScope")
       appendLine("import kotlin.coroutines.CoroutineContext")
       appendLine("import kotlin.coroutines.EmptyCoroutineContext")
 
@@ -23,6 +24,9 @@ public fun main() {
       appendLine("public interface Handleable {")
       appendLine("  /** The coroutine context for these events. */")
       appendLine("  public val coroutineContext: CoroutineContext get() = EmptyCoroutineContext")
+      appendLine()
+      appendLine("  /** The coroutine scope these events run on. */")
+      appendLine("  public val coroutineScope: CoroutineScope get() = CoroutineScope(coroutineContext)")
       appendLine()
       eventClasses.forEachIndexed { idx, klass ->
         if (klass.typeParameters.isNotEmpty()) {

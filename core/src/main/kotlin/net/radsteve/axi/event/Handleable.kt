@@ -1,9 +1,9 @@
 // THIS FILE IS AUTO-GENERATED! DO NOT MODIFY!
 // spotless:off
 @file:Suppress("SpellCheckingInspection")
-
 package net.radsteve.axi.event
 
+import kotlinx.coroutines.CoroutineScope
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 
@@ -11,6 +11,9 @@ import kotlin.coroutines.EmptyCoroutineContext
 public interface Handleable {
   /** The coroutine context for these events. */
   public val coroutineContext: CoroutineContext get() = EmptyCoroutineContext
+
+  /** The coroutine scope these events run on. */
+  public val coroutineScope: CoroutineScope get() = CoroutineScope(coroutineContext)
 
   /** Called when a [com.destroystokyo.paper.event.block.AnvilDamagedEvent] is called. */
   public suspend fun on(event: com.destroystokyo.paper.event.block.AnvilDamagedEvent) {}

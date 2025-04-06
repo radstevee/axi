@@ -16,7 +16,8 @@ public fun main() {
       appendLine("package net.radsteve.axi.event")
       appendLine()
 
-      appendLine("import kotlinx.coroutines.withContext")
+      appendLine("import kotlinx.coroutines.CoroutineStart")
+      appendLine("import kotlinx.coroutines.launch")
       appendLine("import org.bukkit.event.EventHandler")
 
       appendLine()
@@ -46,7 +47,7 @@ public fun main() {
         appendLine("  @EventHandler")
         appendLine("  private suspend fun on(event: ${klass.qualifiedName}) {")
         appendLine("    handleableSupplier().forEach { handleable ->")
-        appendLine("      withContext(handleable.coroutineContext + CurrentlyCalledEvent(${klass.qualifiedName}::class)) {")
+        appendLine("      handleable.coroutineScope.launch(context = CurrentlyCalledEvent(${klass.qualifiedName}::class), start = CoroutineStart.UNDISPATCHED) {")
         appendLine("        handleable.on(event)")
         appendLine("      }")
         appendLine("    }")

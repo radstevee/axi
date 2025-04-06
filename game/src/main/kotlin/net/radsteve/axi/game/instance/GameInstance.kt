@@ -1,5 +1,6 @@
 package net.radsteve.axi.game.instance
 
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import net.kyori.adventure.audience.Audience
 import net.kyori.adventure.audience.ForwardingAudience
@@ -65,7 +66,6 @@ public open class GameInstance<T : GameInstance<T>>(
     initializer = { initialWorld },
     observer = { old, _ -> controller.oldWorlds.add(old) },
   )
-
   override lateinit var logger: Logger
     protected set
 
@@ -161,6 +161,7 @@ public open class GameInstance<T : GameInstance<T>>(
 
   /** Removes this instance from the tracker and calls the [net.radsteve.axi.game.instance.event.GameInstanceStoppedEvent]. */
   public suspend fun remove() {
+    sendMessage(text("help?"))
     callEvent(GameInstanceStoppedEvent(this))
 
     plugin.getOrPut(::GameInstancesComponent).instances.remove(this)
@@ -205,6 +206,14 @@ public open class GameInstance<T : GameInstance<T>>(
     return 31 * context.hashCode()
   }
 
-  override val coroutineContext: CoroutineContext get() = syncContext + GameInstanceExceptionHandler(this)
-  override val coroutineScope: CoroutineScope = CoroutineScope(coroutineContext)
+  override val coroutineContext: CoroutineContext by lazy {
+    syncContext.fold(GameInstanceExceptionHandler(this) as CoroutineContext) { acc, elem ->
+      if (elem.key == CoroutineExceptionHandler) {
+        acc
+      } else {
+        acc + elem
+      }
+    }
+  }
+  override val coroutineScope: CoroutineScope by lazy { CoroutineScope(coroutineContext) }
 }

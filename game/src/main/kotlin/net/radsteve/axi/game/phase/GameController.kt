@@ -96,7 +96,7 @@ public class GameController<T : GameInstance<T>>(
 
   /** Checks whether this game controller is empty and finished. */
   public fun empty(): Boolean {
-    return currentPhase is VoidPhase<*> || schedule.empty()
+    return currentPhase is VoidPhase<*> && schedule.empty()
   }
 
   /** Unloads the old worlds of this controller. */
