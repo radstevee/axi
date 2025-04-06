@@ -3,13 +3,14 @@ package net.radsteve.axi.example
 import net.kyori.adventure.text.Component.text
 import net.radsteve.axi.command.AutoRegistered
 import net.radsteve.axi.command.Command
+import net.radsteve.axi.command.parser.RegistryEntryParser.Companion.registryEntryParser
 import net.radsteve.axi.command.sendMessage
 import net.radsteve.axi.ecs.data
 import net.radsteve.axi.ecs.set
-import net.radsteve.axi.example.game.bedwars.BedWarsGameType
-import net.radsteve.axi.example.game.bedwars.BedWarsInstance
+import net.radsteve.axi.example.game.tnttag.TntTagInstance
 import net.radsteve.axi.game.instance.GameContext
 import net.radsteve.axi.game.instance.GameInstanceController
+import net.radsteve.axi.game.type.GameTypeRegistry
 import net.radsteve.axi.ui.text.mm
 import net.radsteve.axi.utility.audience
 import org.bukkit.entity.Player
@@ -65,13 +66,13 @@ public val OtherTestCommand: Command = Command("other_test") {
 }
 
 @AutoRegistered
-public val BedWarsCommand: Command = Command("bedwars") {
-  val playersArg by arg("players", multiplePlayerSelectorParser())
+public val GameCommand: Command = Command("game") {
+  val gameType by arg("type", registryEntryParser(GameTypeRegistry.AxiGameTypes))
+  val playerSelector by arg("players", multiplePlayerSelectorParser())
 
   executor {
-    val players = playersArg.values()
-    val context = GameContext(BedWarsGameType, players.audience, players.map(Player::getUniqueId).toMutableList())
-
-    val instance: BedWarsInstance = GameInstanceController.create(context)
+    val players = playerSelector.values()
+    val context = GameContext(gameType, players.audience, players.map(Player::getUniqueId).toMutableList())
+    GameInstanceController.create(context)
   }
 }

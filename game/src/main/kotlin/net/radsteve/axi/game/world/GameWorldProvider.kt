@@ -1,13 +1,14 @@
 package net.radsteve.axi.game.world
 
-import com.sk89q.worldedit.bukkit.BukkitAdapter.adapt
 import com.sk89q.worldedit.extent.clipboard.Clipboard
 import com.sk89q.worldedit.math.BlockVector3
 import net.kyori.adventure.util.TriState
 import net.radsteve.axi.coroutines.AxiCoroutines.asyncContext
 import net.radsteve.axi.game.instance.GameInstance
+import net.radsteve.axi.game.world.GameWorldProvider.Companion.clipboard
 import net.radsteve.axi.tick.TickDuration.inWholeTicks
 import net.radsteve.axi.utility.bukkit
+import net.radsteve.axi.worldedit.pasteFast
 import org.bukkit.WorldCreator
 import org.bukkit.WorldType
 import kotlin.time.measureTime
@@ -42,7 +43,7 @@ public fun interface GameWorldProvider {
       val world = void().gameWorld(instance)
       val time = measureTime {
         asyncContext {
-          clipboard.paste(adapt(world.world), BlockVector3.ZERO, false, false, true, null)
+          clipboard.pasteFast(world.world, BlockVector3.ZERO)
         }
       }
 

@@ -1,8 +1,12 @@
 package net.radsteve.axi.command
 
+import io.leangen.geantyref.TypeToken
+import net.kyori.adventure.key.Key
 import net.kyori.adventure.text.Component.text
 import net.kyori.adventure.text.format.NamedTextColor.RED
+import net.minecraft.commands.arguments.ResourceLocationArgument
 import net.radsteve.axi.command.caption.CaptionRegistry
+import net.radsteve.axi.command.parser.RegistryEntryParser
 import net.radsteve.axi.plugin.AxiPlugin
 import net.radsteve.axi.plugin.AxiPluginHolder
 import org.incendo.cloud.brigadier.BrigadierSetting.FORCE_EXECUTABLE
@@ -31,6 +35,11 @@ public fun CommandManager(plugin: AxiPlugin = AxiPluginHolder.plugin()): Command
   }
 
   val brig = manager.brigadierManager()
+  brig.registerMapping(object : TypeToken<RegistryEntryParser<Source, Key, *>>() {}) { builder ->
+    builder
+      .to { parser -> ResourceLocationArgument() }
+      .cloudSuggestions()
+  }
   brig.settings().set(FORCE_EXECUTABLE, true)
   brig.setNativeNumberSuggestions(true)
 

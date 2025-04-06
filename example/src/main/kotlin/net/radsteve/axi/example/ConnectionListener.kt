@@ -46,7 +46,7 @@ public object ConnectionListener : SuspendingListener {
       val color = color(0xFF0000)
       val targetColor = color(0x00FFF0)
 
-      while (true) {
+      while (player.isOnline) {
         val currentTime = Bukkit.getCurrentTick() / 20f
         val lerpedAmount = abs(sin(currentTime))
         val lerpedColor = lerpColor(lerpedAmount, color, targetColor)

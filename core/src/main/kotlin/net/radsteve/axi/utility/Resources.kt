@@ -34,7 +34,7 @@ public inline fun <reified T : Any> resource(path: String, classLoader: ClassLoa
     return cached
   }
 
-  val inputStream = requireNotNull(classLoader.getResourceAsStream("/$path")) { "resource $path does not exist" }
+  val inputStream = requireNotNull(classLoader.getResourceAsStream("/$path") ?: classLoader.getResourceAsStream(path)) { "resource $path does not exist" }
 
   return inputStream.use { stream ->
     @Suppress("IMPLICIT_CAST_TO_ANY") // This is intended

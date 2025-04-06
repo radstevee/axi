@@ -33,5 +33,8 @@ public open class CaptionRegistry {
   }
 
   /** Built-in axi captions. */
-  public companion object AxiCaptions : CaptionRegistry()
+  public companion object AxiCaptions : CaptionRegistry() {
+    /** An invalid key of a map. */
+    public val InvalidMapKey: Caption = register("argument.parse.failure.map", "'<input>' is not a valid key!")
+  }
 }

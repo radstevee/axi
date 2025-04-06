@@ -1,6 +1,5 @@
 package net.radsteve.axi.plugin
 
-import kotlinx.coroutines.runBlocking
 import net.radsteve.axi.command.CommandManager
 import net.radsteve.axi.ecs.Attachable
 import net.radsteve.axi.mod.AxiModuleLoader
@@ -38,30 +37,24 @@ public abstract class AxiPlugin :
   }
 
   final override fun onEnable() {
-    runBlocking {
-      gracefully("enable") {
-        initAxi()
-        AxiModuleLoader.enable(this@AxiPlugin)
-        enable()
-      }
+    gracefully("enable") {
+      initAxi()
+      AxiModuleLoader.enable(this@AxiPlugin)
+      enable()
     }
   }
 
   final override fun onLoad() {
-    runBlocking {
-      gracefully("load") {
-        AxiModuleLoader.load(this@AxiPlugin)
-        load()
-      }
+    gracefully("load") {
+      AxiModuleLoader.load(this@AxiPlugin)
+      load()
     }
   }
 
   final override fun onDisable() {
-    runBlocking {
-      gracefully("disable") {
-        AxiModuleLoader.disable(this@AxiPlugin)
-        disable()
-      }
+    gracefully("disable") {
+      AxiModuleLoader.disable(this@AxiPlugin)
+      disable()
     }
   }
 }

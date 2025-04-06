@@ -12,14 +12,12 @@ public fun main() {
       appendLine("// THIS FILE IS AUTO-GENERATED! DO NOT MODIFY!")
       appendLine("// spotless:off")
       appendLine("@file:Suppress(\"SpellCheckingInspection\", \"unused\")")
+      appendLine()
       appendLine("package net.radsteve.axi.event")
-
       appendLine()
 
-      appendLine("import org.bukkit.event.EventHandler")
-      appendLine("import kotlin.coroutines.CoroutineContext")
-      appendLine("import kotlin.coroutines.EmptyCoroutineContext")
       appendLine("import kotlinx.coroutines.withContext")
+      appendLine("import org.bukkit.event.EventHandler")
 
       appendLine()
       appendLine("/** Event handler implementation for [Handleable]s. */")
@@ -48,7 +46,7 @@ public fun main() {
         appendLine("  @EventHandler")
         appendLine("  private suspend fun on(event: ${klass.qualifiedName}) {")
         appendLine("    handleableSupplier().forEach { handleable ->")
-        appendLine("      withContext(handleable.coroutineContext) {")
+        appendLine("      withContext(handleable.coroutineContext + CurrentlyCalledEvent(${klass.qualifiedName}::class)) {")
         appendLine("        handleable.on(event)")
         appendLine("      }")
         appendLine("    }")

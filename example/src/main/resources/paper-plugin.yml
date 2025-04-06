@@ -2,3 +2,9 @@ name: axi-example
 version: 0.1.0
 main: net.radsteve.axi.example.ExampleAxiPlugin
 api-version: 1.21.4
+
+dependencies:
+  server:
+    FastAsyncWorldEdit:
+      load: BEFORE
+      required: true

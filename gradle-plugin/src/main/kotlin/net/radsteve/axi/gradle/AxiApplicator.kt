@@ -30,6 +30,7 @@ public object AxiApplicator {
     repositories.maven(AxiRepos.BRAWLS)
     repositories.maven(AxiRepos.ENGINEHUB)
     repositories.maven(AxiRepos.INTELLIJ)
+    repositories.maven(AxiRepos.FROTTING_SERVICES)
 
     afterEvaluate(::applyAfter)
   }

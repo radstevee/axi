@@ -3,11 +3,9 @@ package net.radsteve.axi.displayname
 import net.kyori.adventure.text.Component
 import net.radsteve.axi.ecs.get
 import net.radsteve.axi.ecs.set
-import net.radsteve.axi.plugin.AxiPluginHolder
 import org.bukkit.entity.Display
 import org.bukkit.entity.Player
 import org.bukkit.entity.TextDisplay
-import kotlin.properties.Delegates
 
 /** Holds the display name of a player. */
 public class DisplayNameComponent(
@@ -15,6 +13,12 @@ public class DisplayNameComponent(
   public var displayName: Component,
 ) {
   internal var textDisplay: TextDisplay? = null
+    set(value) {
+      if (value == null) {
+        field?.remove()
+      }
+      field = value
+    }
 
   internal fun create(player: Player) {
     if (textDisplay != null) {
@@ -28,7 +32,6 @@ public class DisplayNameComponent(
       display.billboard = Display.Billboard.CENTER
     }
     player.addPassenger(textDisplay!!)
-    player.hideEntity(AxiPluginHolder.plugin(), textDisplay!!)
   }
 }
 
@@ -43,5 +46,6 @@ public var Player.displayNameTag: Component?
       set(DisplayNameComponent(value))
     } else {
       set<DisplayNameComponent>(null)
+      DisplayNameHandler.hiddenNameTeam.removeEntity(this)
     }
   }

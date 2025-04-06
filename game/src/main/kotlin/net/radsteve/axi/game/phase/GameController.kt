@@ -73,7 +73,7 @@ public class GameController<T : GameInstance<T>>(
 
   /** Ticks the game controller. */
   public suspend fun tick(tick: Int) {
-    if (!instance.shouldBeTicking) {
+    if (!instance.shouldBeTicking || !instance.initialized) {
       return
     }
 

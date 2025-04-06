@@ -8,14 +8,8 @@ public class GameWorld(
   /** The inner world. */
   public val world: World,
   /** Whether this world should be removed after the instance ends. */
-  public val isTemporary: Boolean = false,
+  public val isTemporary: Boolean = true,
 ) {
-  init {
-    if (isTemporary) {
-      world.worldFolder.deleteOnExit()
-    }
-  }
-
   /** Unloads this game world. */
   public fun unload() {
     Bukkit.unloadWorld(world, false)

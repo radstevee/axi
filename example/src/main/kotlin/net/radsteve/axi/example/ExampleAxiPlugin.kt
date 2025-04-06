@@ -1,6 +1,7 @@
 package net.radsteve.axi.example
 
 import net.radsteve.axi.coroutines.registerEventListeners
+import net.radsteve.axi.example.game.GameTypes
 import net.radsteve.axi.example.resource.Colors
 import net.radsteve.axi.example.resource.ExamplePack
 import net.radsteve.axi.plugin.AxiPlugin
@@ -10,7 +11,10 @@ public class ExampleAxiPlugin : AxiPlugin() {
     ExamplePack.save()
 
     registerEventListeners(ConnectionListener)
+
+    // Initialise all our registries
     Colors
+    GameTypes
 
     ExampleSystem.startTicking()
   }

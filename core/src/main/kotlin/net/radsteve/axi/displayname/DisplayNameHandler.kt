@@ -8,7 +8,9 @@ import net.radsteve.axi.ecs.get
 import net.radsteve.axi.ecs.player
 import net.radsteve.axi.ecs.system.System
 import net.radsteve.axi.event.SuspendingListener
+import net.radsteve.axi.plugin.AxiPluginHolder
 import net.radsteve.axi.tick.TickDuration.ticks
+import org.bukkit.Bukkit
 import org.bukkit.GameMode
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
@@ -17,10 +19,13 @@ import org.bukkit.event.entity.PlayerDeathEvent
 import org.bukkit.event.player.PlayerGameModeChangeEvent
 import org.bukkit.event.player.PlayerQuitEvent
 import org.bukkit.event.player.PlayerTeleportEvent
+import org.bukkit.scoreboard.Team
 import kotlin.reflect.KClass
 
 internal object DisplayNameHandler : System, SuspendingListener {
   override val archetypes: Sequence<KClass<out Any>> = sequenceOf(DisplayNameComponent::class)
+
+  val hiddenNameTeam: Team = Bukkit.getScoreboardManager().newScoreboard.registerNewTeam("axi_hidden")
 
   override suspend fun tick(tick: Int, attachable: Attachable) {
     val player = attachable.player ?: return
@@ -33,6 +38,8 @@ internal object DisplayNameHandler : System, SuspendingListener {
 
     component.create(player)
     component.textDisplay!!.text(component.displayName)
+    hiddenNameTeam.addEntity(player)
+    player.hideEntity(AxiPluginHolder.plugin(), component.textDisplay!!)
   }
 
   @EventHandler
@@ -46,7 +53,7 @@ internal object DisplayNameHandler : System, SuspendingListener {
 
     player.removePassenger(component.textDisplay!!)
     if (isAcrossWorlds) {
-      remove(player, setToNull = false)
+      remove(player)
     }
 
     launch {
@@ -54,7 +61,7 @@ internal object DisplayNameHandler : System, SuspendingListener {
       if (!isAcrossWorlds) {
         component.textDisplay?.let(player::addPassenger)
       } else {
-        remove(player)
+        // remove(player)
       }
     }
   }

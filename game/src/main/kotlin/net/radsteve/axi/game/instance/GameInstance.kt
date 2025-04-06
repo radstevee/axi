@@ -7,6 +7,7 @@ import net.kyori.adventure.key.Keyed
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.Component.text
 import net.radsteve.axi.coroutines.AxiCoroutines.syncContext
+import net.radsteve.axi.displayname.axiTeleport
 import net.radsteve.axi.ecs.Attachable
 import net.radsteve.axi.ecs.getOrPut
 import net.radsteve.axi.ecs.system.System
@@ -35,13 +36,15 @@ import org.bukkit.entity.Player
 import org.koin.core.component.KoinComponent
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import sh.illumi.kraft.layer.Layer
 import kotlin.coroutines.CoroutineContext
 
 /** An instance of a game. */
 public open class GameInstance<T : GameInstance<T>>(
   /** The context of this instance. */
   public val context: GameContext<T>,
-) : ForwardingAudience,
+) : Layer(),
+  ForwardingAudience,
   Tickable,
   DisplayTickable,
   CoroutineScope,
@@ -100,7 +103,7 @@ public open class GameInstance<T : GameInstance<T>>(
   /** Initialises a player for this game instance. */
   public open suspend fun initializePlayer(player: Player) {
     player.gameMode = GameMode.ADVENTURE
-    player.teleport(spawnFor(player))
+    player.axiTeleport(spawnFor(player))
     player.closeInventory()
     displaySetup(player)
   }
@@ -203,4 +206,5 @@ public open class GameInstance<T : GameInstance<T>>(
   }
 
   override val coroutineContext: CoroutineContext get() = syncContext + GameInstanceExceptionHandler(this)
+  override val coroutineScope: CoroutineScope = CoroutineScope(coroutineContext)
 }

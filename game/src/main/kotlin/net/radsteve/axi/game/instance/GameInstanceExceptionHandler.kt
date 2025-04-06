@@ -5,6 +5,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import net.kyori.adventure.text.Component.text
 import net.kyori.adventure.text.format.NamedTextColor.RED
+import net.radsteve.axi.event.CurrentlyCalledEvent
 import kotlin.coroutines.AbstractCoroutineContextElement
 import kotlin.coroutines.CoroutineContext
 
@@ -15,7 +16,29 @@ public class GameInstanceExceptionHandler<T : GameInstance<T>>(
 ) : AbstractCoroutineContextElement(Key),
   CoroutineExceptionHandler {
   override fun handleException(context: CoroutineContext, exception: Throwable) {
-    instance.logger.error("Unhandled exception in game instance ${instance.id}", exception)
+    val currentEvent = context[CurrentlyCalledEvent]
+    if (currentEvent == null) {
+      instance.logger.error("Unhandled exception in game instance ${instance.id}", exception)
+    } else {
+      instance.logger.error(
+        "Unhandled exception in game instance ${instance.id} whilst executing" +
+          "${currentEvent.eventKlass.simpleName}",
+        exception,
+      )
+    }
+
+    val isRecoverable = exception is IllegalStateException ||
+      exception is IllegalArgumentException ||
+      exception is NullPointerException ||
+      exception is UnsupportedOperationException ||
+      exception is IndexOutOfBoundsException ||
+      exception is ConcurrentModificationException ||
+      exception is NoSuchElementException
+
+    if (isRecoverable) {
+      return
+    }
+
     instance.sendMessage(
       text()
         .append(text("The game instance you were in has stopped due to an internal error."))
