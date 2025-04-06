@@ -4,13 +4,13 @@
 package net.radsteve.axi.event
 
 import kotlinx.coroutines.CoroutineScope
+import net.radsteve.axi.coroutines.AxiCoroutines
 import kotlin.coroutines.CoroutineContext
-import kotlin.coroutines.EmptyCoroutineContext
 
 /** Something that can handle events. */
 public interface Handleable {
   /** The coroutine context for these events. */
-  public val coroutineContext: CoroutineContext get() = EmptyCoroutineContext
+  public val coroutineContext: CoroutineContext get() = AxiCoroutines.syncContext
 
   /** The coroutine scope these events run on. */
   public val coroutineScope: CoroutineScope get() = CoroutineScope(coroutineContext)
