@@ -6,5 +6,4 @@ public object AxiRepos {
   public const val BRAWLS: String = "https://maven.mcbrawls.net/releases"
   public const val ENGINEHUB: String = "https://maven.enginehub.org/repo"
   public const val INTELLIJ: String = "https://packages.jetbrains.team/maven/p/ij/intellij-dependencies"
-  public const val FROTTING_SERVICES: String = "https://repo.frotting.services/repository/maven-releases"
 }

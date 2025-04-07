@@ -37,15 +37,13 @@ import org.bukkit.entity.Player
 import org.koin.core.component.KoinComponent
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import sh.illumi.kraft.layer.Layer
 import kotlin.coroutines.CoroutineContext
 
 /** An instance of a game. */
 public open class GameInstance<T : GameInstance<T>>(
   /** The context of this instance. */
   public val context: GameContext<T>,
-) : Layer(),
-  ForwardingAudience,
+) : ForwardingAudience,
   Tickable,
   DisplayTickable,
   CoroutineScope,

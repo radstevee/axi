@@ -7,6 +7,7 @@ import net.radsteve.axi.ui.resource.font.AxiFontRegistry
 import net.radsteve.axi.ui.resource.pack.AxiPackRegistry.AxiPacks.negativeSpaces
 import net.radsteve.axi.ui.util.adventure
 import net.radsteve.axi.ui.util.packed
+import kotlin.math.abs
 import kotlin.math.roundToInt
 
 /** Calculates the width of a component. */
@@ -20,7 +21,7 @@ public fun ComponentLike.width(): Int {
       }
 
       negativeSpaces.fontKey.adventure() -> {
-        negativeSpaces.advances.getOrDefault(char, 0).toInt()
+        negativeSpaces.getWidth(char)
       }
 
       else -> {
