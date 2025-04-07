@@ -14,35 +14,38 @@ import kotlin.reflect.KClass
 import kotlin.time.Duration
 
 /** This player's attachable. */
-public val Player.attachable: Attachable get() = PlayerTracker[uniqueId]
+public val Player.attachable: Attachable get() {
+  return PlayerTracker[uniqueId]
+}
 
 /** Gets the player of this attachable, if they are online. */
-public val Attachable.player: Player? get() = identity?.let(Bukkit::getPlayer)
+public val Attachable.player: Player? get() {
+  return identity?.let(Bukkit::getPlayer)
+}
 
 /** Gets the component of [T] on this player. */
-public inline fun <reified T : Any> Player.get(): T? = attachable.get()
+public inline fun <reified T : Any> Player.get(): T? {
+  return attachable.get()
+}
 
 /** Gets the component of [T] on this player, or calls and puts the return value of [valueSupplier]. */
-public inline fun <reified T : Any> Player.getOrPut(noinline valueSupplier: () -> T): T = attachable.getOrPut(valueSupplier)
+public inline fun <reified T : Any> Player.getOrPut(noinline valueSupplier: () -> T): T {
+  return attachable.getOrPut(valueSupplier)
+}
 
 /** Sets the component of [T] to [value] on this player. */
-public inline fun <reified T : Any> Player.set(value: T?): T? = attachable.set(value)
+public inline fun <reified T : Any> Player.set(value: T?): T? {
+  return attachable.set(value)
+}
 
 /** Gets a delegate to the component of [T] on this player. */
-public inline fun <reified T : Any> Player.data(): ReadWriteProperty<Any?, T?> = attachable.data()
-
-/** Sets an [EntityClickedComponent] for the given [block]. */
-public fun Player.onClickEntity(block: suspend (EntityClickedComponent.ClickContext) -> Unit): EntityClickedComponent {
-  val component = EntityClickedComponent(block)
-  set(component)
-  return component
+public inline fun <reified T : Any> Player.data(): ReadWriteProperty<Any?, T?> {
+  return attachable.data()
 }
 
 /** Sets an [EntityClickedComponent] for the given [block]. */
-public fun Attachable.onClickEntity(block: suspend (EntityClickedComponent.ClickContext) -> Unit): EntityClickedComponent {
-  val component = EntityClickedComponent(block)
-  set(component)
-  return component
+public fun Player.onClickEntity(block: suspend (EntityClickedComponent.ClickContext) -> Unit): EntityClickedComponent {
+  return set(EntityClickedComponent(block))!!
 }
 
 /** Adds a debounce entry to this attachable's debounce component for the given [klass] and the given [duration]. */

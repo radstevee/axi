@@ -20,7 +20,6 @@ public class GameController<T : GameInstance<T>>(
   /** The current phase of the game instance. */
   public var currentPhase: GamePhase<T> = VoidPhase(instance)
     private set
-  private var currentIdx: Int = -1
   private var totalTicksElapsed: Int = 0
   private val previousPhases: MutableList<GamePhase<T>> = mutableListOf()
   private val schedule: GameSchedule<T> = instance.schedule
@@ -41,10 +40,9 @@ public class GameController<T : GameInstance<T>>(
     phase.tick = phase.durationTicks ?: -1
     phase.tickInitialized = totalTicksElapsed
 
-    currentPhase = phase
-    currentIdx++
-
     previousPhase.end()
+
+    currentPhase = phase
 
     phase.start()
 
@@ -87,8 +85,11 @@ public class GameController<T : GameInstance<T>>(
       next()
       return
     }
-
-    currentPhase.tick(currentPhase.tickInitialized, tick - currentPhase.tickInitialized)
+    val phaseTick = tick - currentPhase.tickInitialized
+    currentPhase.tick(phaseTick)
+    if (phaseTick % 20 == 0) {
+      currentPhase.displayTick(tick, phaseTick / 20)
+    }
     currentPhase.tick--
 
     totalTicksElapsed++

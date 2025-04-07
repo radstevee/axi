@@ -40,7 +40,7 @@ internal class ECSImpl : ECS {
   }
 
   override fun entities(): Set<Attachable> {
-    return data.keys
+    return data.keys.toSet()
   }
 
   override fun id(componentKlass: KClass<out Any>): Int {

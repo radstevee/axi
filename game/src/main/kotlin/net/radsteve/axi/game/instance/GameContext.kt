@@ -9,6 +9,7 @@ import net.kyori.adventure.key.Keyed
 import net.radsteve.axi.game.type.GameType
 import net.radsteve.axi.tick.TickDuration.ticks
 import net.radsteve.axi.utility.Identified
+import org.bukkit.Bukkit
 import java.util.UUID
 import kotlin.time.Clock.System.now
 import kotlin.time.Duration
@@ -31,7 +32,7 @@ public data class GameContext<T : GameInstance<T>>(
   public val start: Instant = now()
 
   /** The tick this instance started. */
-  public val startTick: Int = start.ticks.toInt()
+  public val startTick: Int = Bukkit.getCurrentTick()
 
   /** The duration between now and the [start]. */
   public val duration: Duration get() = start - now()

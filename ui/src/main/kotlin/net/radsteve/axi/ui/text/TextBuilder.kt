@@ -4,6 +4,7 @@ import net.kyori.adventure.audience.Audience
 import net.kyori.adventure.key.Key.key
 import net.kyori.adventure.key.Keyed
 import net.kyori.adventure.text.Component
+import net.kyori.adventure.text.Component.text
 import net.kyori.adventure.text.ComponentLike
 import net.kyori.adventure.text.TextComponent
 import net.kyori.adventure.text.event.ClickEvent
@@ -20,7 +21,7 @@ import net.radstevee.packed.core.key.Key as PackedKey
 
 /** A text component builder. */
 public class TextBuilder {
-  private val componentBuilder: TextComponent.Builder = Component.text()
+  private val componentBuilder: TextComponent.Builder = text()
   private var offset: Int? = null
 
   /** Sets this component color to the given color [id]. */
@@ -99,7 +100,7 @@ public class TextBuilder {
 
   /** Appends a string to this component. */
   public fun append(text: String?) {
-    append(Component.text(text ?: ""))
+    append(text(text ?: ""))
   }
 
   /** Appends children to this component. */
@@ -135,6 +136,17 @@ public class TextBuilder {
   /** Appends a newline to this component. */
   public fun appendNewline() {
     componentBuilder.appendNewline()
+  }
+
+  /** Appends the given [component] and appends a newline. */
+  public fun appendLine(component: Component) {
+    append(component)
+    appendNewline()
+  }
+
+  /** Appends the given [component] and appends a newline. */
+  public fun appendLine(text: String) {
+    appendLine(text(text))
   }
 
   /** Appends a space to this component. */

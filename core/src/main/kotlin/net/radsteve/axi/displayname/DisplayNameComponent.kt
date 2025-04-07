@@ -44,8 +44,8 @@ public var Player.displayNameTag: Component?
       existing.displayName = value
     } else if (existing == null && value != null) {
       set(DisplayNameComponent(value))
-    } else {
+    } else if (existing != null) {
+      DisplayNameHandler.remove(this)
       set<DisplayNameComponent>(null)
-      DisplayNameHandler.hiddenNameTeam.removeEntity(this)
     }
   }

@@ -58,6 +58,9 @@ public fun Audience.forEachPlayer(block: (Player) -> Unit) {
 /** Gets the players contained in this audience. */
 public val Audience.players: Set<Player> get() = buildSet { forEachPlayer(::add) }
 
+/** Gets the uuids of the players contained in this audience. */
+public val Audience.uuids: List<UUID> get() = players.map(Player::getUniqueId)
+
 /** Applies [transform] on each player and returns the result. */
 public fun <R> Audience.mapPlayers(transform: (Player) -> R): Set<R> = buildSet {
   forEachPlayer { player -> add(transform(player)) }

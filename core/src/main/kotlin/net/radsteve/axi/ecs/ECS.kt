@@ -23,7 +23,7 @@ public interface ECS : KoinComponent {
     return get(klass) ?: set(valueSupplier(), klass)!!
   }
 
-  /** Gets all entities in the ECS. */
+  /** Returns an immutable view of all entities in the ECS. */
   public fun entities(): Set<Attachable>
 
   /** Retrieves the id of the given [componentKlass], or assigns one. */

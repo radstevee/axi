@@ -236,8 +236,24 @@ public fun interface TextConvertible : TextComponent {
     return asText().style()
   }
 
-  override fun style(consumer: Consumer<Style.Builder>, strategy: Style.Merge.Strategy): Component {
+  override fun decorations(decorations: Map<TextDecoration?, TextDecoration.State?>): TextComponent {
+    return asText().decorations(decorations)
+  }
+
+  override fun font(key: Key?): TextComponent {
+    return asText().font(key)
+  }
+
+  override fun style(consumer: Consumer<Style.Builder?>, strategy: Style.Merge.Strategy): TextComponent {
     return asText().style(consumer, strategy)
+  }
+
+  override fun appendNewline(): TextComponent {
+    return asText().appendNewline()
+  }
+
+  override fun appendSpace(): TextComponent {
+    return asText().appendSpace()
   }
 
   override fun style(style: Style): TextComponent {

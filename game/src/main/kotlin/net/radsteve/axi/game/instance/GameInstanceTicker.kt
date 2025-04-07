@@ -15,9 +15,9 @@ internal object GameInstanceTicker : System {
       try {
         instance.controller.tick(tick - instance.context.startTick)
       } catch (exception: GameInstanceException) {
+        exception.printStackTrace()
         instance.stop()
         instance.remove()
-        exception.printStackTrace()
       }
 
       if (instance.finishing()) {

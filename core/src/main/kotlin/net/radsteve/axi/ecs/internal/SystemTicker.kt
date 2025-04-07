@@ -1,7 +1,6 @@
 package net.radsteve.axi.ecs.internal
 
 import com.destroystokyo.paper.event.server.ServerTickEndEvent
-import net.radsteve.axi.ecs.ECS
 import net.radsteve.axi.ecs.getOrPut
 import net.radsteve.axi.event.SuspendingListener
 import net.radsteve.axi.utility.PluginAware
@@ -14,21 +13,26 @@ internal object SystemTicker : SuspendingListener, KoinComponent, PluginAware {
 
   @EventHandler
   private suspend fun on(event: ServerTickEndEvent) {
-    val systems = plugin.getOrPut(::SystemsComponent)
-    val entities = ECS.entities()
+    val systems = plugin.getOrPut(::SystemsComponent).systems.iterator()
+    val entities = ecs.entities().iterator()
 
-    entities.forEach { entity ->
-      systems.systems.forEach { system ->
-        val applicable = system.archetypes.all { klass ->
-          ecs.data[entity]?.any { component -> component.klass == klass } == true
+    try {
+      while (entities.hasNext()) {
+        val entity = entities.next()
+
+        while (systems.hasNext()) {
+          val system = systems.next()
+          val applicable = system.archetypes.all { klass ->
+            ecs.data[entity]?.any { component -> component.klass == klass } == true
+          }
+
+          if (applicable) {
+            system.tick(event.tickNumber, entity)
+          }
         }
-
-        if (!applicable) {
-          return@forEach
-        }
-
-        system.tick(event.tickNumber, entity)
       }
+    } catch (exception: Exception) {
+      plugin.slF4JLogger.error("failed to tick systems", exception)
     }
   }
 }

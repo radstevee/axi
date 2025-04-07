@@ -50,7 +50,6 @@ public open class GameInstance<T : GameInstance<T>>(
   DisplayTickable,
   CoroutineScope,
   Attachable,
-  System,
   KoinComponent,
   Keyed by context,
   Identified by context,
@@ -93,6 +92,9 @@ public open class GameInstance<T : GameInstance<T>>(
   }
 
   override suspend fun displayTick(tick: Int, displayTick: Int) {
+  }
+
+  override suspend fun tick(startTick: Int, tick: Int) {
   }
 
   /** Gets the spawn location for the given [player]. */
@@ -161,7 +163,6 @@ public open class GameInstance<T : GameInstance<T>>(
 
   /** Removes this instance from the tracker and calls the [net.radsteve.axi.game.instance.event.GameInstanceStoppedEvent]. */
   public suspend fun remove() {
-    sendMessage(text("help?"))
     callEvent(GameInstanceStoppedEvent(this))
 
     plugin.getOrPut(::GameInstancesComponent).instances.remove(this)
