@@ -1,6 +1,7 @@
 // THIS FILE IS AUTO-GENERATED! DO NOT MODIFY!
 // spotless:off
 @file:Suppress("SpellCheckingInspection")
+
 package net.radsteve.axi.event
 
 import kotlinx.coroutines.CoroutineScope

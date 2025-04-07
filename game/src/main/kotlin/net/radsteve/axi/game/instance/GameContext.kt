@@ -7,7 +7,6 @@ import net.kyori.adventure.key.Key
 import net.kyori.adventure.key.Key.key
 import net.kyori.adventure.key.Keyed
 import net.radsteve.axi.game.type.GameType
-import net.radsteve.axi.tick.TickDuration.ticks
 import net.radsteve.axi.utility.Identified
 import org.bukkit.Bukkit
 import java.util.UUID

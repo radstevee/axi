@@ -6,7 +6,7 @@ import org.incendo.cloud.parser.ParserDescriptor
 /** A [StringMapEntryParser] implementation for registries. Calls [Any.toString] on the keys. */
 public class RegistryEntryParser<C, K : Any, V : Any>(
   /** The registry. */
-  public val registry: Registry<K, V>
+  public val registry: Registry<K, V>,
 ) : StringMapEntryParser<C, V>({ registry.collect().mapKeys { (k) -> k.toString() } }) {
   public companion object {
     /** Creates a [RegistryEntryParser] from the given [registry]. */

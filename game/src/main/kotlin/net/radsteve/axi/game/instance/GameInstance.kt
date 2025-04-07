@@ -11,7 +11,6 @@ import net.radsteve.axi.coroutines.AxiCoroutines.syncContext
 import net.radsteve.axi.displayname.axiTeleport
 import net.radsteve.axi.ecs.Attachable
 import net.radsteve.axi.ecs.getOrPut
-import net.radsteve.axi.ecs.system.System
 import net.radsteve.axi.event.Handleable
 import net.radsteve.axi.event.callEvent
 import net.radsteve.axi.game.instance.event.GameInstanceInitializeEvent
