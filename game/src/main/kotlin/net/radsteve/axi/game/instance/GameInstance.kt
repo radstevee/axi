@@ -30,7 +30,6 @@ import net.radsteve.axi.tick.Tickable
 import net.radsteve.axi.utility.Identified
 import net.radsteve.axi.utility.LoggerHolder
 import net.radsteve.axi.utility.PluginAware
-import net.radsteve.axi.utility.observableMutableLazy
 import net.radsteve.axi.utility.players
 import org.bukkit.Bukkit
 import org.bukkit.GameMode

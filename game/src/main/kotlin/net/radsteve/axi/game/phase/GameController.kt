@@ -85,10 +85,16 @@ public class GameController<T : GameInstance<T>>(
       next()
       return
     }
+
     val phaseTick = tick - currentPhase.tickInitialized
+    if (phaseTick < 0) {
+      return
+    }
+
     currentPhase.tick(phaseTick)
     if (phaseTick % 20 == 0) {
-      currentPhase.displayTick(tick, phaseTick / 20)
+      val displayTick = phaseTick / 20
+      currentPhase.displayTick(tick, displayTick)
     }
     currentPhase.tick--
 

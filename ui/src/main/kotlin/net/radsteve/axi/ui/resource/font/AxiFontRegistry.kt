@@ -59,7 +59,7 @@ public open class AxiFontRegistry : DelegatingRegistry<Key, AxiFont>(AxiFonts) {
     font: AxiFont,
     pack: AxiPack,
     offsets: List<Double> = DEFAULT_OFFSETS,
-  ): Map<Double, AxiOffsetFont> {
+  ): AxiOffsetFonts {
     val fonts = buildMap {
       offsets.forEach { offset ->
         this[offset] = AxiOffsetFont(font, offset, pack)
@@ -68,6 +68,6 @@ public open class AxiFontRegistry : DelegatingRegistry<Key, AxiFont>(AxiFonts) {
 
     fonts.forEach { (_, font) -> register(font.fontKey, font) }
 
-    return fonts
+    return AxiOffsetFonts(fonts)
   }
 }

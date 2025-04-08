@@ -1,15 +1,24 @@
 package net.radsteve.axi.example.game.tnttag
 
 import net.radsteve.axi.ecs.data
-import net.radsteve.axi.example.game.tnttag.phase.TaggingPhase
+import net.radsteve.axi.ecs.getOrPut
+import net.radsteve.axi.ecs.set
 import net.radsteve.axi.example.game.tnttag.phase.FinalPhase
+import net.radsteve.axi.example.game.tnttag.phase.TaggingPhase
 import net.radsteve.axi.example.game.tnttag.phase.WaitingPhase
+import net.radsteve.axi.example.resource.Fonts
+import net.radsteve.axi.example.resource.Sprites
 import net.radsteve.axi.game.instance.GameContext
 import net.radsteve.axi.game.instance.GameInstance
 import net.radsteve.axi.game.phase.GameSchedule
 import net.radsteve.axi.game.phase.GameSchedule.Companion.buildSchedule
 import net.radsteve.axi.game.world.GameWorld
 import net.radsteve.axi.game.world.GameWorldProvider
+import net.radsteve.axi.ui.render.layer.addRenderable
+import net.radsteve.axi.ui.render.layer.buildRenderLayer
+import net.radsteve.axi.ui.render.layer.clearRenderables
+import net.radsteve.axi.utility.formatSeconds
+import net.radsteve.axi.utility.players
 import net.radsteve.axi.utility.resource
 import net.radsteve.axi.utility.uuids
 import org.bukkit.Location
@@ -73,5 +82,63 @@ public class TntTagInstance(
 
   override suspend fun on(event: EntityDamageEvent) {
     event.isCancelled = true
+  }
+
+  public val Player.stats: TntTagPlayerStats get() = getOrPut(::TntTagPlayerStats)
+
+  override suspend fun cleanup() {
+    super.cleanup()
+    players.forEach { player ->
+      player.set<TntTagPlayerStats>(null)
+      player.clearRenderables()
+    }
+  }
+
+  override suspend fun displaySetup(player: Player) {
+    player.clearRenderables()
+    player.addRenderable(buildRenderLayer {
+      add {
+        content(-120) {
+          append(Sprites.SmallHudBackground)
+        }
+      }
+
+      add {
+        content(-120) {
+          val tags = player.stats.tags
+          append(tags)
+          append(" k")
+          font(Fonts.BeaverOffsets[-4])
+        }
+      }
+
+      add {
+        content {
+          append(Sprites.SmallHudBackground)
+        }
+      }
+
+      add {
+        content {
+          append(formatSeconds(controller.currentPhase.tick / 20))
+          font(Fonts.BeaverOffsets[-4])
+        }
+      }
+
+      add {
+        content(120) {
+          append(Sprites.SmallHudBackground)
+        }
+      }
+
+      add {
+        content(120) {
+          val timesTagged = player.stats.timesTagged
+          append(timesTagged)
+          append(" d")
+          font(Fonts.BeaverOffsets[-4])
+        }
+      }
+    })
   }
 }

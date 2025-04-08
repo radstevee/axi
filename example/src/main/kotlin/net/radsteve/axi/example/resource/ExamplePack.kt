@@ -23,5 +23,6 @@ public object ExamplePack : AxiPack("example") {
 
   init {
     Fonts
+    Sprites
   }
 }

@@ -1,12 +1,9 @@
 package net.radsteve.axi.ecs
 
 import net.radsteve.axi.plugin.AxiPluginHolder
-import net.radsteve.axi.utility.observableMutableLazy
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.get
-import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KClass
-import kotlin.reflect.KProperty
 
 /** Tracks and manages data contained in Axi's ECS. */
 public interface ECS : KoinComponent {

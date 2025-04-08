@@ -2,7 +2,6 @@ package net.radsteve.axi.example.game.tnttag.phase
 
 import net.radsteve.axi.example.game.tnttag.TntTagInstance
 import net.radsteve.axi.game.phase.GamePhase
-import net.radsteve.axi.ui.text.TextBuilder
 import net.radsteve.axi.ui.text.send
 import net.radsteve.axi.utility.buildItemStack
 import net.radsteve.axi.utility.onlinePlayer
@@ -19,9 +18,14 @@ public class TaggingPhase(instance: TntTagInstance) : GamePhase<TntTagInstance>(
       return
     }
 
+    // Don't reroll in the last second
+    if (displayTick == durationSeconds!!) {
+      return
+    }
+
     val oldTagger = instance.currentTaggerOrNull()?.onlinePlayer
     val newTagger = instance.rerollTagger().onlinePlayer
-    newTagger(newTagger, oldTagger)
+    newTagger(newTagger, oldTagger, countsToStats = false)
     newTagger.send {
       append("You were randomly selected to be the ")
       append("tagger") {
@@ -33,10 +37,9 @@ public class TaggingPhase(instance: TntTagInstance) : GamePhase<TntTagInstance>(
     }
     oldTagger?.send {
       append("You are ")
-      append("not") {
+      append("not ") {
         red()
         bold()
-        appendSpace()
       }
       append("the tagger anymore!")
       green()
@@ -51,23 +54,36 @@ public class TaggingPhase(instance: TntTagInstance) : GamePhase<TntTagInstance>(
   private fun notifyNewTagger(newTagger: Player, oldTagger: Player? = null) {
     newTagger.send {
       append("You are now the ")
-      append("tagger", TextBuilder::red)
+      append("tagger") {
+        red()
+        bold()
+      }
       append("!")
       yellow()
     }
     oldTagger?.send {
       append("You are ")
-      append("not") {
+      append("not ") {
         red()
         bold()
-        appendSpace()
       }
       append("the tagger anymore!")
       green()
     }
   }
 
-  private fun newTagger(newTagger: Player, oldTagger: Player? = null) {
+  private fun newTagger(newTagger: Player, oldTagger: Player? = null, countsToStats: Boolean = true) {
+    with(instance) {
+      if (!countsToStats) {
+        return@with
+      }
+
+      newTagger.stats.timesTagged++
+      if (oldTagger != null) {
+        oldTagger.stats.tags++
+      }
+    }
+
     instance.newTagger(newTagger.uniqueId)
     equipTagger(newTagger)
     oldTagger?.inventory?.clear()
@@ -77,9 +93,11 @@ public class TaggingPhase(instance: TntTagInstance) : GamePhase<TntTagInstance>(
     val initialTagger = instance.rerollTagger()
     val player = initialTagger.onlinePlayer
 
-    newTagger(initialTagger.onlinePlayer)
-    player.send {
-      append("You are starting as the ")
+    newTagger(initialTagger.onlinePlayer, countsToStats = false)
+    send {
+      append(player.displayName())
+      appendSpace()
+      append("is starting as the ")
       append("tagger") {
         red()
         bold()
@@ -104,7 +122,6 @@ public class TaggingPhase(instance: TntTagInstance) : GamePhase<TntTagInstance>(
 
   override suspend fun on(event: EntityDamageByEntityEvent) {
     event.isCancelled = true
-
     val damager = event.damager as? Player ?: return
     val hitPlayer = event.entity as? Player ?: return
 

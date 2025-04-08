@@ -8,3 +8,8 @@ import org.bukkit.entity.Player
 public fun Player.addRenderable(renderable: RedrawableRenderable) {
   renderState.currentlyRenderedRenderables.add(renderable)
 }
+
+/** Clears the currently rendered renderables. */
+public fun Player.clearRenderables() {
+  renderState.currentlyRenderedRenderables.clear()
+}

@@ -14,6 +14,8 @@ import net.kyori.adventure.text.format.TextColor
 import net.kyori.adventure.text.format.TextDecoration
 import net.kyori.adventure.text.format.TextDecoration.BOLD
 import net.kyori.adventure.text.format.TextDecoration.ITALIC
+import net.radsteve.axi.ui.render.layer.layered.LayeredTextBuilder
+import net.radsteve.axi.ui.render.layer.layered.buildLayeredText
 import net.radsteve.axi.ui.resource.font.AxiFont
 import net.radsteve.axi.ui.resource.pack.AxiPackRegistry.AxiPacks.negativeSpaces
 import net.radsteve.axi.ui.text.color as getColor
@@ -147,6 +149,11 @@ public class TextBuilder {
   /** Appends the given [component] and appends a newline. */
   public fun appendLine(text: String) {
     appendLine(text(text))
+  }
+
+  /** Builds a component from the given [block] and appends it and a newline. */
+  public fun appendLine(block: TextBuilder.() -> Unit) {
+    appendLine(buildText(block))
   }
 
   /** Appends a space to this component. */
@@ -344,6 +351,11 @@ public class TextBuilder {
   /** Adds an underline decoration to this component. */
   public fun underlined() {
     decorate(TextDecoration.UNDERLINED)
+  }
+
+  /** Appends a layered text, built from the given [block] to this component. */
+  public fun appendLayered(block: LayeredTextBuilder.() -> Unit) {
+    append(buildLayeredText(block))
   }
 }
 

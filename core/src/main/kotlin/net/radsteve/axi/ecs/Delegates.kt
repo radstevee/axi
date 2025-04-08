@@ -1,6 +1,5 @@
 package net.radsteve.axi.ecs
 
-import net.radsteve.axi.utility.observableMutableLazy
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
@@ -43,7 +42,7 @@ public inline fun <reified T : Any> Attachable.nonNullData(initial: T): ReadWrit
 /** Gets a read-write property for a lazily initialised component data value, which calls [observer] when changed. */
 public inline fun <reified T : Any> Attachable.observableLazyData(
   noinline initializer: () -> T?,
-  noinline observer: (old: T?, new: T?) -> Unit
+  noinline observer: (old: T?, new: T?) -> Unit,
 ): ReadWriteProperty<Any?, T?> {
   return object : ReadWriteProperty<Any?, T?> {
     var initialised: Boolean = false
@@ -66,7 +65,7 @@ public inline fun <reified T : Any> Attachable.observableLazyData(
 /** Gets a read-write non-null property for a lazily initialised component data value, which calls [observer] when changed. */
 public inline fun <reified T : Any> Attachable.observableNonNullLazyData(
   noinline initializer: () -> T,
-  noinline observer: (old: T, new: T) -> Unit
+  noinline observer: (old: T, new: T) -> Unit,
 ): ReadWriteProperty<Any?, T> {
   return object : ReadWriteProperty<Any?, T> {
     var initialised: Boolean = false

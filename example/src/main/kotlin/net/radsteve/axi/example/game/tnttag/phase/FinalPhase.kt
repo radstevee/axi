@@ -2,6 +2,7 @@ package net.radsteve.axi.example.game.tnttag.phase
 
 import net.radsteve.axi.example.game.tnttag.TntTagInstance
 import net.radsteve.axi.game.phase.GamePhase
+import net.radsteve.axi.ui.text.send
 import net.radsteve.axi.utility.players
 
 public class FinalPhase(instance: TntTagInstance) : GamePhase<TntTagInstance>(instance) {
@@ -10,6 +11,43 @@ public class FinalPhase(instance: TntTagInstance) : GamePhase<TntTagInstance>(in
       player.allowFlight = true
       player.isFlying = true
       player.inventory.clear()
+      val stats = with(instance) { player.stats }
+
+      player.send {
+        appendLine {
+          append("Game Roundup:")
+          blue()
+          underlined()
+        }
+
+        appendLine {
+          append("You have been tagged ")
+          append(stats.timesTagged) {
+            append(" time")
+            if (stats.timesTagged > 1 || stats.timesTagged == 0) {
+              append("s")
+            }
+            red()
+            bold()
+          }
+          append(".")
+          yellow()
+        }
+
+        append {
+          append("You have tagged people ")
+          append(stats.tags) {
+            append(" time")
+            if (stats.tags > 1 || stats.tags == 0) {
+              append("s")
+            }
+            red()
+            bold()
+          }
+          append(".")
+          green()
+        }
+      }
     }
   }
 

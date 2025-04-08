@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalTime::class)
+
 package net.radsteve.axi.game.phase
 
 import net.kyori.adventure.audience.ForwardingAudience
@@ -10,6 +12,7 @@ import org.bukkit.entity.Player
 import kotlin.coroutines.CoroutineContext
 import kotlin.properties.Delegates
 import kotlin.time.Duration
+import kotlin.time.ExperimentalTime
 
 /** A phase of a game. This phase can have a specific duration or go on indefinitely. */
 public open class GamePhase<T : GameInstance<T>>(
@@ -76,6 +79,11 @@ public open class GamePhase<T : GameInstance<T>>(
       return null
     }
 
-    return (durationSeconds ?: error("phase has no duration")) - displayTick
+    val tick = (durationSeconds ?: error("phase has no duration")) - displayTick
+    return if (tick >= 0) {
+      tick
+    } else {
+      null
+    }
   }
 }
