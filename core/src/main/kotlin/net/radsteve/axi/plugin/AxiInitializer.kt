@@ -1,7 +1,12 @@
 package net.radsteve.axi.plugin
 
+import com.github.shynixn.mccoroutine.bukkit.asyncDispatcher
+import com.github.shynixn.mccoroutine.bukkit.minecraftDispatcher
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.runBlocking
 import net.radsteve.axi.command.CommandManager
+import net.radsteve.axi.coroutines.LoggingExceptionHandler
 import net.radsteve.axi.coroutines.registerEventListeners
 import net.radsteve.axi.displayname.DisplayNameHandler
 import net.radsteve.axi.ecs.ECS
@@ -36,6 +41,10 @@ internal object AxiInitializer {
       slf4jLogger()
       createEagerInstances()
     }
+
+    plugin.syncContext = plugin.minecraftDispatcher.minusKey(CoroutineExceptionHandler.Key) + LoggingExceptionHandler
+    plugin.asyncContext = plugin.asyncDispatcher.minusKey(CoroutineExceptionHandler.Key) + LoggingExceptionHandler
+    plugin.coroutineScope = CoroutineScope(plugin.syncContext)
 
     plugin.commandManager = CommandManager(plugin)
     plugin.registerEventListeners(ECSConnectionListener)

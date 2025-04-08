@@ -21,6 +21,9 @@ public object AxiCoroutines : PluginAware {
   /** The asynchronous dispatcher. */
   public val asyncContext: CoroutineContext get() = plugin.asyncContext
 
+  /** The IO dispatcher. */
+  public val ioContext: CoroutineContext = Dispatchers.IO + LoggingExceptionHandler
+
   /** Launches a sync task on the main [org.bukkit.scheduler.BukkitScheduler]. */
   public fun <R> sync(block: suspend CoroutineScope.() -> R): Deferred<R> {
     return plugin.sync(block)
@@ -43,6 +46,6 @@ public object AxiCoroutines : PluginAware {
 
   /** Executes [block] on the I/O dispatcher. */
   public suspend fun <R> ioContext(block: suspend CoroutineScope.() -> R): R {
-    return withContext(Dispatchers.IO + LoggingExceptionHandler, block = block)
+    return withContext(ioContext, block = block)
   }
 }

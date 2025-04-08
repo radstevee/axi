@@ -1,26 +1,12 @@
 package net.radsteve.axi.coroutines
 
-import com.github.shynixn.mccoroutine.bukkit.asyncDispatcher
-import com.github.shynixn.mccoroutine.bukkit.minecraftDispatcher
 import com.github.shynixn.mccoroutine.bukkit.registerSuspendingEvents
-import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
-import kotlinx.coroutines.plus
 import kotlinx.coroutines.withContext
 import net.radsteve.axi.plugin.AxiPlugin
 import org.bukkit.event.Listener
-import kotlin.coroutines.CoroutineContext
-
-/** The [CoroutineScope] of this plugin. */
-public val AxiPlugin.coroutineScope: CoroutineScope get() = CoroutineScope(syncContext)
-
-/** The synchronous dispatcher. */
-public val AxiPlugin.syncContext: CoroutineContext get() = minecraftDispatcher.minusKey(CoroutineExceptionHandler.Key) + LoggingExceptionHandler
-
-/** The asynchronous dispatcher. */
-public val AxiPlugin.asyncContext: CoroutineContext get() = asyncDispatcher.minusKey(CoroutineExceptionHandler.Key) + LoggingExceptionHandler
 
 /** Launches a sync task on the main [org.bukkit.scheduler.BukkitScheduler]. */
 public fun <R> AxiPlugin.sync(block: suspend CoroutineScope.() -> R): Deferred<R> {

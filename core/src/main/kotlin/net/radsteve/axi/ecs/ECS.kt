@@ -1,6 +1,7 @@
 package net.radsteve.axi.ecs
 
 import net.radsteve.axi.plugin.AxiPluginHolder
+import net.radsteve.axi.utility.observableMutableLazy
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.get
 import kotlin.properties.ReadWriteProperty
@@ -61,15 +62,4 @@ public inline fun <reified T : Any> Attachable.set(value: T?): T? {
 /** Gets a component of given type, or calls and puts the return value of [valueSupplier] if it is absent. */
 public inline fun <reified T : Any> Attachable.getOrPut(noinline valueSupplier: () -> T): T {
   return getOrPut(T::class, valueSupplier)
-}
-
-/** Gets a read-write property of the given type, useful for delegation. */
-public inline fun <reified T : Any> Attachable.data(): ReadWriteProperty<Any?, T?> {
-  return object : ReadWriteProperty<Any?, T?> {
-    override fun getValue(thisRef: Any?, property: KProperty<*>): T? = get(T::class)
-
-    override fun setValue(thisRef: Any?, property: KProperty<*>, value: T?) {
-      set(value, T::class)
-    }
-  }
 }

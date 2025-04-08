@@ -11,6 +11,9 @@ import net.radsteve.axi.coroutines.AxiCoroutines.syncContext
 import net.radsteve.axi.displayname.axiTeleport
 import net.radsteve.axi.ecs.Attachable
 import net.radsteve.axi.ecs.getOrPut
+import net.radsteve.axi.ecs.nonNullData
+import net.radsteve.axi.ecs.observableNonNullLazyData
+import net.radsteve.axi.ecs.set
 import net.radsteve.axi.event.Handleable
 import net.radsteve.axi.event.callEvent
 import net.radsteve.axi.game.instance.event.GameInstanceInitializeEvent
@@ -58,12 +61,13 @@ public open class GameInstance<T : GameInstance<T>>(
   public lateinit var initialWorld: GameWorld
 
   /** The world of this game instance. This is first set to [initialWorld] but is changed by phases. */
-  public var world: GameWorld by observableMutableLazy(
+  public var world: GameWorld by observableNonNullLazyData(
     initializer = { initialWorld },
     observer = { old, _ -> controller.oldWorlds.add(old) },
   )
-  override lateinit var logger: Logger
-    protected set
+
+  /** The logger of this game instance. */
+  override var logger: Logger by nonNullData()
 
   /** Whether this instance should be ticking. */
   public var shouldBeTicking: Boolean = true
@@ -75,13 +79,13 @@ public open class GameInstance<T : GameInstance<T>>(
   public var tickInitialized: Int = context.startTick
 
   /** The game schedule of this instance. */
-  public open val schedule: GameSchedule<T> = buildSchedule()
+  public open val schedule: GameSchedule<T> by nonNullData(buildSchedule())
 
   /** The game controller of this instance. */
-  public lateinit var controller: GameController<T>
+  public var controller: GameController<T> by nonNullData()
 
   /** The lifecycle phase of this instance. */
-  public var lifecyclePhase: GameLifecycle = GameLifecycle.Idling
+  public var lifecyclePhase: GameLifecycle by nonNullData(GameLifecycle.Idling)
     private set
 
   override fun audiences(): Iterable<Audience> {
@@ -117,6 +121,8 @@ public open class GameInstance<T : GameInstance<T>>(
     logger = LoggerFactory.getLogger(id)
     logger.info("Initialising...")
 
+    // Reset the schedule component back to the schedule
+    set(schedule)
     controller = GameController(this)
     add()
     initialWorld = gameWorld(this)
@@ -205,6 +211,7 @@ public open class GameInstance<T : GameInstance<T>>(
   }
 
   override val coroutineContext: CoroutineContext by lazy {
+    // Use the sync context without its already existing exception handlers.
     syncContext.fold(GameInstanceExceptionHandler(this) as CoroutineContext) { acc, elem ->
       if (elem.key == CoroutineExceptionHandler) {
         acc
