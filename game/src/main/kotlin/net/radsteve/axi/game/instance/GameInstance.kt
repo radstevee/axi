@@ -40,6 +40,7 @@ import org.koin.core.component.KoinComponent
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import kotlin.coroutines.CoroutineContext
+import kotlin.time.measureTime
 
 /** An instance of a game. */
 public open class GameInstance<T : GameInstance<T>>(
@@ -88,6 +89,10 @@ public open class GameInstance<T : GameInstance<T>>(
   public var lifecyclePhase: GameLifecycle by nonNullData(GameLifecycle.Idling)
     private set
 
+  init {
+    logger = LoggerFactory.getLogger(id)
+  }
+
   override fun audiences(): Iterable<Audience> {
     return setOf(context.audience)
   }
@@ -118,20 +123,21 @@ public open class GameInstance<T : GameInstance<T>>(
 
   /** Initialises this game instance. */
   public open suspend fun initialize() {
-    logger = LoggerFactory.getLogger(id)
     logger.info("Initialising...")
 
-    // Reset the schedule component back to the schedule
-    set(schedule)
-    controller = GameController(this)
-    add()
-    initialWorld = gameWorld(this)
-    initializePlayers()
+    val time = measureTime {
+      // Reset the schedule component back to the schedule
+      set(schedule)
+      controller = GameController(this)
+      add()
+      initialWorld = gameWorld(this)
+      initializePlayers()
+    }
 
     initialized = true
     tickInitialized = currentTick()
 
-    logger.info("Initialised!")
+    logger.info("Initialised in $time!")
   }
 
   /** Cleans up this game instance. */
