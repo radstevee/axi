@@ -96,45 +96,54 @@ public class TntTagInstance(
 
   override suspend fun displaySetup(player: Player) {
     player.clearRenderables()
+
+    // add our statistic and timer HUD to the player's actionbar
     player.addRenderable(buildRenderLayer {
+      // left hand side: kills display
       add {
-        content(-120) {
+        // kill display background
+        content(offset = -120) {
           append(Sprites.SmallHudBackground)
         }
       }
 
       add {
-        content(-120) {
-          val tags = player.stats.tags
-          append(tags)
+        // kill display content
+        content(offset = -120) {
+          append(player.stats.tags)
           append(" k")
           font(Fonts.BeaverOffsets[-4])
         }
       }
 
+      // centre: timer
       add {
+        // timer background
         content {
           append(Sprites.SmallHudBackground)
         }
       }
 
       add {
+        // timer content
         content {
           append(formatSeconds(controller.currentPhase.tick / 20))
           font(Fonts.BeaverOffsets[-4])
         }
       }
 
+      // right hand side: deaths display
       add {
-        content(120) {
+        // deaths display background
+        content(offset = 120) {
           append(Sprites.SmallHudBackground)
         }
       }
 
       add {
-        content(120) {
-          val timesTagged = player.stats.timesTagged
-          append(timesTagged)
+        // deaths display content
+        content(offset = 120) {
+          append(player.stats.timesTagged)
           append(" d")
           font(Fonts.BeaverOffsets[-4])
         }
