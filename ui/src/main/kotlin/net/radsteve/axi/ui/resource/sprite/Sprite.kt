@@ -67,7 +67,7 @@ public class Sprite(
 
   override fun asText(): TextComponent = buildText {
     font(font)
-    append(character)
+    append(character.toString())
 
     if (!data.shadow) {
       removeShadow()

@@ -3,6 +3,7 @@ package net.radsteve.axi.example.game.tnttag
 import net.radsteve.axi.ecs.data
 import net.radsteve.axi.ecs.getOrPut
 import net.radsteve.axi.ecs.set
+import net.radsteve.axi.example.Decayce
 import net.radsteve.axi.example.game.tnttag.phase.FinalPhase
 import net.radsteve.axi.example.game.tnttag.phase.TaggingPhase
 import net.radsteve.axi.example.game.tnttag.phase.WaitingPhase
@@ -17,6 +18,9 @@ import net.radsteve.axi.game.world.GameWorldProvider
 import net.radsteve.axi.ui.render.layer.addRenderable
 import net.radsteve.axi.ui.render.layer.buildRenderLayer
 import net.radsteve.axi.ui.render.layer.clearRenderables
+import net.radsteve.axi.ui.theme.Theme
+import net.radsteve.axi.ui.theme.Themed
+import net.radsteve.axi.ui.text.buildText
 import net.radsteve.axi.utility.formatSeconds
 import net.radsteve.axi.utility.players
 import net.radsteve.axi.utility.resource
@@ -30,7 +34,7 @@ import kotlin.time.Duration.Companion.seconds
 
 public class TntTagInstance(
   context: GameContext<TntTagInstance>,
-) : GameInstance<TntTagInstance>(context) {
+) : GameInstance<TntTagInstance>(context), Themed {
   private var currentTagger: UUID? by data()
 
   public fun resetTagger() {
@@ -150,4 +154,11 @@ public class TntTagInstance(
       }
     })
   }
+
+  override val theme: Theme = Decayce.copy(
+    prefix = buildText(Decayce) {
+      append("[TNT Tag] ")
+      red()
+    }
+  )
 }

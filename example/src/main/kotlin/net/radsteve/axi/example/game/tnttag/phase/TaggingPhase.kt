@@ -2,7 +2,7 @@ package net.radsteve.axi.example.game.tnttag.phase
 
 import net.radsteve.axi.example.game.tnttag.TntTagInstance
 import net.radsteve.axi.game.phase.GamePhase
-import net.radsteve.axi.ui.text.send
+import net.radsteve.axi.ui.theme.Themed
 import net.radsteve.axi.utility.buildItemStack
 import net.radsteve.axi.utility.onlinePlayer
 import net.radsteve.axi.utility.players
@@ -10,8 +10,10 @@ import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.event.entity.EntityDropItemEvent
+import org.bukkit.potion.PotionEffect
+import org.bukkit.potion.PotionEffectType
 
-public class TaggingPhase(instance: TntTagInstance) : GamePhase<TntTagInstance>(instance) {
+public class TaggingPhase(instance: TntTagInstance) : GamePhase<TntTagInstance>(instance), Themed by instance {
   override suspend fun displayTick(tick: Int, displayTick: Int) {
     // Reroll the tagger every 20 seconds
     if (displayTick % 20 != 0) {
@@ -28,19 +30,13 @@ public class TaggingPhase(instance: TntTagInstance) : GamePhase<TntTagInstance>(
     newTagger(newTagger, oldTagger, countsToStats = false)
     newTagger.send {
       append("You were randomly selected to be the ")
-      append("tagger") {
-        red()
-        bold()
-      }
+      append("tagger", red, bold)
       append("!")
       yellow()
     }
     oldTagger?.send {
       append("You are ")
-      append("not ") {
-        red()
-        bold()
-      }
+      append("not ", red, bold)
       append("the tagger anymore!")
       green()
     }
@@ -49,24 +45,19 @@ public class TaggingPhase(instance: TntTagInstance) : GamePhase<TntTagInstance>(
   private fun equipTagger(player: Player) {
     player.inventory.helmet = buildItemStack(Material.TNT)
     player.inventory.addItem(buildItemStack(Material.TNT))
+    player.addPotionEffect(PotionEffect(PotionEffectType.SPEED, -1, 0, false, false, false))
   }
 
   private fun notifyNewTagger(newTagger: Player, oldTagger: Player? = null) {
     newTagger.send {
       append("You are now the ")
-      append("tagger") {
-        red()
-        bold()
-      }
+      append("tagger", red, bold)
       append("!")
       yellow()
     }
     oldTagger?.send {
       append("You are ")
-      append("not ") {
-        red()
-        bold()
-      }
+      append("not ", red, bold)
       append("the tagger anymore!")
       green()
     }
@@ -87,6 +78,7 @@ public class TaggingPhase(instance: TntTagInstance) : GamePhase<TntTagInstance>(
     instance.newTagger(newTagger.uniqueId)
     equipTagger(newTagger)
     oldTagger?.inventory?.clear()
+    oldTagger?.clearActivePotionEffects()
   }
 
   override suspend fun start() {
@@ -98,10 +90,7 @@ public class TaggingPhase(instance: TntTagInstance) : GamePhase<TntTagInstance>(
       append(player.displayName())
       appendSpace()
       append("is starting as the ")
-      append("tagger") {
-        red()
-        bold()
-      }
+      append("tagger", red, bold)
       append("!")
       yellow()
     }

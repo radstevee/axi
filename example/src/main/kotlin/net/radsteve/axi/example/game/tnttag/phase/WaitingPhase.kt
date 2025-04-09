@@ -2,10 +2,10 @@ package net.radsteve.axi.example.game.tnttag.phase
 
 import net.radsteve.axi.example.game.tnttag.TntTagInstance
 import net.radsteve.axi.game.phase.GamePhase
-import net.radsteve.axi.ui.text.send
+import net.radsteve.axi.ui.theme.Themed
 import net.radsteve.axi.utility.players
 
-public class WaitingPhase(instance: TntTagInstance) : GamePhase<TntTagInstance>(instance) {
+public class WaitingPhase(instance: TntTagInstance) : GamePhase<TntTagInstance>(instance), Themed by instance {
   override suspend fun start() {
     send {
       appendLine("Welcome to TNT tag!")
@@ -13,7 +13,10 @@ public class WaitingPhase(instance: TntTagInstance) : GamePhase<TntTagInstance>(
       blue()
     }
 
-    players.forEach { player -> player.inventory.clear() }
+    players.forEach { player ->
+      player.inventory.clear()
+      player.clearActivePotionEffects()
+    }
   }
 
   override suspend fun displayTick(tick: Int, displayTick: Int) {
@@ -30,13 +33,8 @@ public class WaitingPhase(instance: TntTagInstance) : GamePhase<TntTagInstance>(
 
     send {
       append("The game is starting in ")
-      append(countdownTick) {
-        green()
-        appendSpace()
-      }
-      append("seconds") {
-        yellow()
-      }
+      append(countdownTick, green)
+      append(" seconds", yellow)
       append("!")
       blue()
     }

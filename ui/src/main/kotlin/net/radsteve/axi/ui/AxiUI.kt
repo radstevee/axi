@@ -6,13 +6,18 @@ import net.radsteve.axi.plugin.AxiPlugin
 import net.radsteve.axi.ui.render.RenderererTicker
 import net.radsteve.axi.ui.resource.pack.send.AxiPackSendingService
 import net.radsteve.axi.ui.resource.pack.send.AxiPackSendingServiceImpl
+import net.radsteve.axi.ui.theme.Theme
+import net.radsteve.axi.ui.theme.Themed
+import org.koin.core.component.KoinComponent
 import org.koin.core.component.get
+import org.koin.core.component.inject
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.bind
 import org.koin.core.module.dsl.singleOf
+import org.koin.dsl.bind
 
 /** Initialises the axi UI module. */
-public class AxiUI : AxiModule {
+public class AxiUI : AxiModule, Themed {
   public override suspend fun enable(plugin: AxiPlugin) {
     plugin.registerEventListeners(RenderererTicker)
     plugin.registerEventListeners(plugin.get<AxiPackSendingServiceImpl>())
@@ -23,6 +28,22 @@ public class AxiUI : AxiModule {
   }
 
   override suspend fun Module.module(plugin: AxiPlugin) {
-    singleOf(::AxiPackSendingServiceImpl) { bind<AxiPackSendingService>() }
+    singleOf(::AxiPackSendingServiceImpl) bind AxiPackSendingService::class
+  }
+
+  override var theme: Theme = Theme.Default
+
+  public companion object : KoinComponent {
+    private val ui: AxiUI by inject()
+
+    /** Gets the current main theme. */
+    public fun theme(): Theme {
+      return ui.theme
+    }
+
+    /** Sets the main theme to the given [new] theme. */
+    public fun theme(new: Theme) {
+      ui.theme = new
+    }
   }
 }

@@ -17,7 +17,10 @@ import net.radsteve.axi.ecs.internal.SystemTicker
 import net.radsteve.axi.event.callEvent
 import net.radsteve.axi.mod.AxiModuleLoader
 import net.radsteve.axi.plugin.event.AxiInitializeEvent
+import org.bukkit.plugin.Plugin
+import org.bukkit.plugin.java.JavaPlugin
 import org.koin.core.context.startKoin
+import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.bind
 import org.koin.dsl.module
 import org.koin.logger.slf4jLogger
@@ -27,17 +30,27 @@ internal object AxiInitializer {
   /** Initialises the given [plugin]. */
   suspend operator fun invoke(plugin: AxiPlugin) {
     plugin.module = module {
-      single<AxiPlugin> { plugin }
-      single { ECSImpl() }.bind<ECS>()
+      single { plugin } bind JavaPlugin::class bind Plugin::class
+      singleOf(::ECSImpl) bind ECS::class
 
       runBlocking {
         with(plugin) { module() }
-        with(AxiModuleLoader) { module(plugin) }
+      }
+    }
+    val modules = AxiModuleLoader.collectServices(plugin).map { mod ->
+      module {
+        with(mod) {
+          runBlocking {
+            module(plugin)
+          }
+        }
+
+        single { mod } bind mod.javaClass.kotlin
       }
     }
 
     startKoin {
-      modules(plugin.module)
+      modules(plugin.module + modules)
       slf4jLogger()
       createEagerInstances()
     }

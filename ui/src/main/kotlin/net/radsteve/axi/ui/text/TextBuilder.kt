@@ -1,108 +1,130 @@
 package net.radsteve.axi.ui.text
 
 import net.kyori.adventure.audience.Audience
-import net.kyori.adventure.key.Key.key
 import net.kyori.adventure.key.Keyed
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.Component.text
+import net.kyori.adventure.text.ComponentBuilderApplicable
 import net.kyori.adventure.text.ComponentLike
 import net.kyori.adventure.text.TextComponent
 import net.kyori.adventure.text.event.ClickEvent
-import net.kyori.adventure.text.event.HoverEventSource
 import net.kyori.adventure.text.format.ShadowColor
 import net.kyori.adventure.text.format.TextColor
 import net.kyori.adventure.text.format.TextDecoration
 import net.kyori.adventure.text.format.TextDecoration.BOLD
 import net.kyori.adventure.text.format.TextDecoration.ITALIC
+import net.kyori.adventure.text.format.TextDecoration.UNDERLINED
+import net.radsteve.axi.ui.AxiUI
 import net.radsteve.axi.ui.render.layer.layered.LayeredTextBuilder
 import net.radsteve.axi.ui.render.layer.layered.buildLayeredText
 import net.radsteve.axi.ui.resource.font.AxiFont
 import net.radsteve.axi.ui.resource.pack.AxiPackRegistry.AxiPacks.negativeSpaces
-import net.radsteve.axi.ui.text.color as getColor
+import net.radsteve.axi.ui.theme.Theme
+import net.radsteve.axi.ui.util.adventure
 import net.radstevee.packed.core.key.Key as PackedKey
 
 /** A text component builder. */
-public class TextBuilder {
-  private val componentBuilder: TextComponent.Builder = text()
+public class TextBuilder(
+  /** The theme of this text builder. */
+  public val theme: Theme = Theme.Default,
+) {
+  @PublishedApi
+  internal val componentBuilder: TextComponent.Builder = text()
   private var offset: Int? = null
+  public val foreground: TextColor? = theme.foreground
+  public val accent: TextColor? = theme.accent
+  public val black: TextColor? = theme.palette?.black
+  public val darkBlue: TextColor? = theme.palette?.darkBlue
+  public val darkGreen: TextColor? = theme.palette?.darkGreen
+  public val darkAqua: TextColor? = theme.palette?.darkAqua
+  public val darkRed: TextColor? = theme.palette?.darkRed
+  public val darkPurple: TextColor? = theme.palette?.darkPurple
+  public val gold: TextColor? = theme.palette?.gold
+  public val gray: TextColor? = theme.palette?.gray
+  public val darkGray: TextColor? = theme.palette?.darkGray
+  public val blue: TextColor? = theme.palette?.blue
+  public val green: TextColor? = theme.palette?.green
+  public val aqua: TextColor? = theme.palette?.aqua
+  public val red: TextColor? = theme.palette?.red
+  public val pink: TextColor? = theme.palette?.pink
+  public val yellow: TextColor? = theme.palette?.yellow
+  public val white: TextColor? = theme.palette?.white
+  public val bold: TextDecoration = BOLD
+  public val italic: TextDecoration = ITALIC
+  public val underlined: TextDecoration = UNDERLINED
 
-  /** Sets this component color to the given color [id]. */
-  public fun color(id: String, ifAbsent: Boolean) {
-    if (ifAbsent) {
-      componentBuilder.colorIfAbsent(getColor(id))
-    } else {
-      componentBuilder.color(getColor(id))
-    }
+  init {
+    color(theme.foreground)
   }
 
   /** Sets this component color to black. */
-  public fun black(ifAbsent: Boolean = false) {
-    color("black", ifAbsent)
+  public fun black() {
+    color(theme.palette?.black)
   }
 
   /** Sets this component color to dark red. */
-  public fun darkRed(ifAbsent: Boolean = false) {
-    color("dark_red", ifAbsent)
+  public fun darkRed() {
+    color(theme.palette?.darkRed)
   }
 
   /** Sets this component color to dark purple. */
-  public fun darkPurple(ifAbsent: Boolean = false) {
-    color("dark_purple", ifAbsent)
+  public fun darkPurple() {
+    color(theme.palette?.darkPurple)
   }
 
   /** Sets this component color to gold. */
-  public fun gold(ifAbsent: Boolean = false) {
-    color("gold", ifAbsent)
+  public fun gold() {
+    color(theme.palette?.gold)
   }
 
   /** Sets this component color to gray. */
-  public fun gray(ifAbsent: Boolean = false) {
-    color("gray", ifAbsent)
+  public fun gray() {
+    color(theme.palette?.gray)
   }
 
   /** Sets this component color to dark gray. */
-  public fun darkGray(ifAbsent: Boolean = false) {
-    color("dark_gray", ifAbsent)
+  public fun darkGray() {
+    color(theme.palette?.darkGray)
   }
 
   /** Sets this component color to blue. */
-  public fun blue(ifAbsent: Boolean = false) {
-    color("blue", ifAbsent)
+  public fun blue() {
+    color(theme.palette?.blue)
   }
 
   /** Sets this component color to green. */
-  public fun green(ifAbsent: Boolean = false) {
-    color("green", ifAbsent)
+  public fun green() {
+    color(theme.palette?.green)
   }
 
   /** Sets this component color to aqua. */
-  public fun aqua(ifAbsent: Boolean = false) {
-    color("aqua", ifAbsent)
+  public fun aqua() {
+    color(theme.palette?.aqua)
   }
 
   /** Sets this component color to red. */
-  public fun red(ifAbsent: Boolean = false) {
-    color("red", ifAbsent)
+  public fun red() {
+    color(theme.palette?.red)
   }
 
-  /** Sets this component color to light purple. */
-  public fun lightPurple(ifAbsent: Boolean = false) {
-    color("light_purple", ifAbsent)
+  /** Sets this component color to pink. */
+  public fun pink() {
+    color(theme.palette?.pink)
   }
 
   /** Sets this component color to yellow. */
-  public fun yellow(ifAbsent: Boolean = false) {
-    color("yellow", ifAbsent)
+  public fun yellow() {
+    color(theme.palette?.yellow)
   }
 
   /** Sets this component color to white. */
-  public fun white(ifAbsent: Boolean = false) {
-    color("white", ifAbsent)
+  public fun white() {
+    color(theme.palette?.white)
   }
 
-  /** Appends a string to this component. */
-  public fun append(text: String?) {
-    append(text(text ?: ""))
+  /** Sets this component color to the [theme]'s secondary color. */
+  public fun accentColor() {
+    color(theme.accent)
   }
 
   /** Appends children to this component. */
@@ -110,29 +132,29 @@ public class TextBuilder {
     components.forEach(componentBuilder::append)
   }
 
-  /** Appends an int to this component. */
-  public fun append(int: Int) {
-    append(int.toString())
-  }
-
-  /** Appends a character to this component. */
-  public fun append(char: Char) {
-    append(char.toString())
-  }
-
   /** Appends text using the given [block]. */
-  public inline fun append(block: TextBuilder.() -> Unit) {
-    append(buildText(block))
+  public inline fun append(theme: Theme = this.theme, block: TextBuilder.() -> Unit) {
+    append(buildText(theme, false, block))
+  }
+
+  /** Appends text of the given [content] and applies the given [applicables]. */
+  public fun append(content: String, vararg applicables: ComponentBuilderApplicable?) {
+    append(content) {
+      applicables.filterNotNull().forEach(componentBuilder::applicableApply)
+    }
+  }
+
+  /** Appends text of the given [content] and applies the given [applicables]. */
+  public fun append(content: Int, vararg applicables: ComponentBuilderApplicable?) {
+    append(content.toString(), *applicables)
   }
 
   /** Appends text using the given [block] and appends the given [content]. */
   public inline fun append(content: Any, block: TextBuilder.() -> Unit) {
-    append(
-      buildText {
-        append(content.toString())
-        block()
-      },
-    )
+    append {
+      append(text(content.toString()))
+      block()
+    }
   }
 
   /** Appends a newline to this component. */
@@ -146,14 +168,14 @@ public class TextBuilder {
     appendNewline()
   }
 
-  /** Appends the given [component] and appends a newline. */
+  /** Appends the given [text] and appends a newline. */
   public fun appendLine(text: String) {
     appendLine(text(text))
   }
 
   /** Builds a component from the given [block] and appends it and a newline. */
-  public fun appendLine(block: TextBuilder.() -> Unit) {
-    appendLine(buildText(block))
+  public fun appendLine(theme: Theme = this.theme, block: TextBuilder.() -> Unit) {
+    appendLine(buildText(theme, false, block))
   }
 
   /** Appends a space to this component. */
@@ -166,39 +188,29 @@ public class TextBuilder {
     componentBuilder.clickEvent(event)
   }
 
+  /** Sets the click event to open the given [url]. */
+  public fun openUrl(url: String) {
+    clickEvent(ClickEvent.openUrl(url))
+  }
+
+  /** Sets the click event to run the given [command]. */
+  public fun runCommand(command: String) {
+    clickEvent(ClickEvent.runCommand(command))
+  }
+
+  /** Sets the click event to suggest the given [command]. */
+  public fun suggestCommand(command: String) {
+    clickEvent(ClickEvent.suggestCommand(command))
+  }
+
   /** Sets this component color using a TextColor. */
-  public fun color(color: TextColor) {
+  public fun color(color: TextColor?) {
     componentBuilder.color(color)
   }
 
   /** Sets this component color using a hex color. */
   public fun color(hex: Int) {
     componentBuilder.color(TextColor.color(hex))
-  }
-
-  /** Sets this component color using a hex color string. */
-  public fun color(hex: String) {
-    componentBuilder.color(TextColor.fromHexString(hex))
-  }
-
-  /** Sets this component color if no color is set yet. */
-  public fun colorIfAbsent(color: TextColor) {
-    componentBuilder.colorIfAbsent(color)
-  }
-
-  /** Sets this component color if no color is set yet using a hexadecimal color string. */
-  public fun colorIfAbsent(hex: String) {
-    componentBuilder.colorIfAbsent(TextColor.fromHexString(hex))
-  }
-
-  /** Adds a decoration to this component. */
-  public fun decorate(decoration: TextDecoration) {
-    componentBuilder.decorate(decoration)
-  }
-
-  /** Adds multiple decorations to this component. */
-  public fun decorate(vararg decorations: TextDecoration) {
-    decorations.forEach(componentBuilder::decorate)
   }
 
   /** Sets the decoration value for a specific decoration type. */
@@ -209,33 +221,14 @@ public class TextBuilder {
     componentBuilder.decoration(decoration, value)
   }
 
-  /** Sets the decoration value if it's absent for a specific decoration type. */
-  public fun decorationIfAbsent(
-    decoration: TextDecoration,
-    value: TextDecoration.State,
-  ) {
-    componentBuilder.decorationIfAbsent(decoration, value)
-  }
-
-  /** Sets multiple decorations at once. */
-  public fun decorations(map: Map<TextDecoration, TextDecoration.State>) {
-    componentBuilder.decorations(map)
-  }
-
   /** Sets the font. */
   public fun font(key: Keyed) {
     componentBuilder.font(key.key())
   }
 
-  /** Sets the font using a string key. */
-  public fun font(key: String) {
-    val keys = key.split(":")
-    font(key(keys.first(), keys.last()))
-  }
-
   /** Sets the font using a packed key. */
   public fun font(key: PackedKey) {
-    font(key.toString())
+    font(key.adventure())
   }
 
   /** Sets the font using an [AxiFont]. */
@@ -243,29 +236,24 @@ public class TextBuilder {
     font(font.font.key)
   }
 
-  /** Sets a hover event for this component. */
-  public fun hoverEvent(event: HoverEventSource<*>) {
-    componentBuilder.hoverEvent(event)
-  }
-
   /** Sets this component to be italic. */
   public fun italic() {
-    decorate(ITALIC)
+    componentBuilder.decorate(ITALIC)
   }
 
   /** Removes the italic decoration from this component. */
   public fun notItalic() {
-    decoration(ITALIC, false)
+    componentBuilder.decoration(ITALIC, false)
   }
 
   /** Sets this component to be bold. */
   public fun bold() {
-    decorate(BOLD)
+    componentBuilder.decorate(BOLD)
   }
 
   /** Removes the bold decoration from this component. */
   public fun notBold() {
-    decoration(BOLD, false)
+    componentBuilder.decoration(BOLD, false)
   }
 
   /** Appends a space with the specified width. */
@@ -288,24 +276,14 @@ public class TextBuilder {
     appendSpace(-offset)
   }
 
-  /** Converts the builder into a Component. */
-  public fun asComponent(): Component {
-    return componentBuilder.asComponent()
-  }
-
   /** Builds and returns this componentComponent. */
   public fun build(): TextComponent {
     return componentBuilder.build()
   }
 
-  /** Returns the list of child components. */
-  public fun children(): List<Component> {
-    return componentBuilder.children()
-  }
-
   /** Appends a component with a specified offset using a block. */
-  public inline fun appendWithOffset(offset: Int, block: TextBuilder.() -> Unit) {
-    appendWithOffset(offset, buildText(block))
+  public inline fun appendWithOffset(offset: Int, theme: Theme = this.theme, block: TextBuilder.() -> Unit) {
+    appendWithOffset(offset, buildText(theme, false, block))
   }
 
   /** Returns the width of this component. */
@@ -330,7 +308,7 @@ public class TextBuilder {
 
   /** Appends a component to this component. */
   public fun append(component: Component) {
-    append(*arrayOf(component))
+    componentBuilder.append(component)
   }
 
   /** Sets an offset for this component. */
@@ -350,27 +328,37 @@ public class TextBuilder {
 
   /** Adds an underline decoration to this component. */
   public fun underlined() {
-    decorate(TextDecoration.UNDERLINED)
+    componentBuilder.decorate(UNDERLINED)
   }
 
   /** Appends a layered text, built from the given [block] to this component. */
-  public fun appendLayered(block: LayeredTextBuilder.() -> Unit) {
-    append(buildLayeredText(block))
+  public fun appendLayered(theme: Theme = this.theme, block: LayeredTextBuilder.() -> Unit) {
+    append(buildLayeredText(theme, block))
   }
 }
 
 /** Builds a component using the specified [block]. */
-public inline fun buildText(block: TextBuilder.() -> Unit = {}): TextComponent {
-  val builder = TextBuilder()
+public inline fun buildText(
+  theme: Theme = AxiUI.theme(),
+  applyFixes: Boolean = false,
+  block: TextBuilder.() -> Unit = {},
+): TextComponent {
+  val builder = TextBuilder(theme)
+  if (applyFixes) {
+    theme.prefix?.let(builder.componentBuilder::append)
+  }
   builder.block()
+  if (applyFixes) {
+    theme.suffix?.let(builder.componentBuilder::append)
+  }
   builder.endOffset()
 
   return builder.build().compactText()
 }
 
 /** Builds a text from the given [block] and sends it. */
-public inline fun Audience.send(block: TextBuilder.() -> Unit): TextComponent {
-  val text = buildText(block)
+public inline fun Audience.send(theme: Theme = AxiUI.theme(), block: TextBuilder.() -> Unit): TextComponent {
+  val text = buildText(theme, true, block)
   sendMessage(text)
   return text
 }

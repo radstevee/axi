@@ -2,15 +2,16 @@ package net.radsteve.axi.example.game.tnttag.phase
 
 import net.radsteve.axi.example.game.tnttag.TntTagInstance
 import net.radsteve.axi.game.phase.GamePhase
-import net.radsteve.axi.ui.text.send
+import net.radsteve.axi.ui.theme.Themed
 import net.radsteve.axi.utility.players
 
-public class FinalPhase(instance: TntTagInstance) : GamePhase<TntTagInstance>(instance) {
+public class FinalPhase(instance: TntTagInstance) : GamePhase<TntTagInstance>(instance), Themed by instance {
   override suspend fun start() {
     players.forEach { player ->
       player.allowFlight = true
       player.isFlying = true
       player.inventory.clear()
+      player.clearActivePotionEffects()
       val stats = with(instance) { player.stats }
 
       player.send {
