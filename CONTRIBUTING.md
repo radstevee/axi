@@ -47,7 +47,7 @@ net.radsteve.axi.mymodule.MyModule
 
 ## Contribution Guidelines
 
-- Always reformat your code with the `:spotless` task
+- Always reformat your code with the `:lint` task
 - Always document all public API
 - Always test your changes
 - Always make sure that submitted code conforms with GPLv3
