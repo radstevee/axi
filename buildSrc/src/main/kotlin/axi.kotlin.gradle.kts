@@ -7,7 +7,7 @@ plugins {
   kotlin("jvm")
   kotlin("plugin.serialization")
   id("org.jetbrains.dokka")
-  id("com.diffplug.spotless")
+  id("org.jlleitschuh.gradle.ktlint")
   id("axi.publishing.repositories")
 
   `maven-publish`
@@ -21,6 +21,8 @@ version = rootProject.property("version") as String
 
 dependencies {
   implementation(libs.bundles.kotlinx)
+
+  ktlintRuleset(libs.ktlint.extras)
 }
 
 repositories {
@@ -91,13 +93,31 @@ java {
   }
 }
 
-spotless {
-  kotlin {
-    targetExclude("build/generated/**/*")
-    toggleOffOn()
-    ktlint(libs.versions.ktlint.get())
-      .setEditorConfigPath(rootProject.file(".editorconfig"))
+ktlint {
+  version = libs.versions.ktlint.asProvider()
+
+  filter {
+    exclude("**/generated/**")
+    include("**/kotlin/**")
   }
+
+  additionalEditorconfig.set(
+    mapOf(
+      "insert_final_newline" to "true",
+      "end_of_line" to "lf",
+      "indent_size" to "2",
+      "indent_style" to "space",
+      "max_line_length" to "off",
+      "ktlint_function_signature_body_expression_wrapping" to "default",
+      "ktlint_code_style" to "intellij_idea",
+      "ktlint_experimental" to "enabled",
+      "ktlint_standard_multiline-expression-wrapping" to "disabled",
+      "ktlint_standard_property-wrapping" to "disabled",
+      "ktlint_standard_condition-wrapping" to "disabled",
+      "ktlint_standard_function-expression-body" to "disabled",
+      "ktlint_standard_if-else-bracing" to "enabled",
+    )
+  )
 }
 
 extensions.create("axi", AxiExtension::class)

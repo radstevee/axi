@@ -69,11 +69,9 @@ public open class GamePhase<T : GameInstance<T>>(
   /** Ticks the displays of this instance for the given [displayTick]. Runs every second, **after tick()**. */
   public open suspend fun displayTick(tick: Int, displayTick: Int) {}
 
-  /**
-   * Utility to get the current countdown tick from the given [countdownStart] and [displayTick].
+  /** Utility to get the current countdown tick from the given  [countdownStart] and [displayTick].
    *
-   * Returns null if the given [countdownStart] is higher than the given [displayTick].
-   */
+   * Returns null if the given [countdownStart] is higher than the given [displayTick].*/
   public fun countdownTick(countdownStart: Int, displayTick: Int): Int? {
     if (countdownStart > displayTick) {
       return null

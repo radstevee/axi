@@ -23,10 +23,7 @@ public class WaitingPhase(instance: TntTagInstance) : GamePhase<TntTagInstance>(
     val countdownTick = countdownTick(7, displayTick) ?: return
 
     if (countdownTick == 0) {
-      send {
-        append("The game is starting!")
-        green()
-      }
+      send("The game is starting!", green)
 
       return
     }

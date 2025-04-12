@@ -1,11 +1,13 @@
 package net.radsteve.axi.ui.render.layer
 
 import net.kyori.adventure.text.TextComponent
+import net.radsteve.axi.ui.AxiUI
 import net.radsteve.axi.ui.render.Renderer
 import net.radsteve.axi.ui.render.redraw.redraw.RedrawResult
 import net.radsteve.axi.ui.render.redraw.redraw.Redrawable
 import net.radsteve.axi.ui.text.TextBuilder
 import net.radsteve.axi.ui.text.buildText
+import net.radsteve.axi.ui.theme.Theme
 
 /** A builder for [RenderLayer]s. */
 public class RenderedLayerBuilder {
@@ -13,18 +15,21 @@ public class RenderedLayerBuilder {
   private var renderer: Renderer = Renderer.Actionbar
 
   /** A builder for [RenderLayerContents] */
-  public inner class RenderLayerContentBuilder {
+  public inner class RenderLayerContentBuilder(
+    /** The theme. */
+    private val theme: Theme,
+  ) {
     private var contentProvider: suspend () -> TextComponent = { buildText() }
     private var redrawHandler: Redrawable = Redrawable { _ -> RedrawResult.Redraw }
 
     /** Sets the content provider, and if applicable, with the given [offset]. */
     public fun content(offset: Int = 0, block: suspend TextBuilder.() -> Unit) {
       if (offset == 0) {
-        contentProvider = { buildText { block() } }
+        contentProvider = { buildText(theme) { block() } }
         return
       }
       contentProvider = {
-        buildText {
+        buildText(theme) {
           appendSpace(offset)
           block()
         }
@@ -41,8 +46,8 @@ public class RenderedLayerBuilder {
   }
 
   /** Adds a content entry to this layer. */
-  public fun add(block: RenderLayerContentBuilder.() -> Unit): RenderLayerContents {
-    val content = RenderLayerContentBuilder().apply(block).build()
+  public fun add(theme: Theme = AxiUI.theme, block: RenderLayerContentBuilder.() -> Unit): RenderLayerContents {
+    val content = RenderLayerContentBuilder(theme).apply(block).build()
     contents.add(content)
     return content
   }
@@ -53,7 +58,12 @@ public class RenderedLayerBuilder {
   }
 
   /** Builds this to a [RenderLayer]. */
-  public fun build(): RenderLayer = RenderLayer(contents, renderer)
+  public fun build(): RenderLayer {
+    return RenderLayer(contents, renderer)
+  }
 }
 
-public fun buildRenderLayer(block: RenderedLayerBuilder.() -> Unit): RenderLayer = RenderedLayerBuilder().apply(block).build()
+/** Builds a render layer from the given [block].*/
+public fun buildRenderLayer(block: RenderedLayerBuilder.() -> Unit): RenderLayer {
+  return RenderedLayerBuilder().apply(block).build()
+}

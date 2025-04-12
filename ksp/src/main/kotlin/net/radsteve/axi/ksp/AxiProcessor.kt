@@ -84,6 +84,7 @@ public class AxiProcessor(
       val code = """
                 // spotless:off
                 //CHECKSTYLE:OFF
+                @file:Suppress("ktlint")
                 package $newPackage
                 
                 @Deprecated("auto generated class", level = DeprecationLevel.HIDDEN)

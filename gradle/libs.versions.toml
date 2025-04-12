@@ -19,8 +19,8 @@ koin = "4.1.0-Beta5"
 interfaces = "1.4.0-SNAPSHOT"
 classgraph = "4.8.179"
 fawe = "2.12.2"
-kraft = "0.0.2"
-kraftx = "0.0.1"
+ktlint-gradle = "12.2.0"
+ktlint-extras = "0.1.0"
 
 [libraries]
 kotlinx-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization-json" }
@@ -33,6 +33,7 @@ plugin-ktx-serial = { module = "org.jetbrains.kotlin.plugin.serialization:org.je
 plugin-paperweight = { module = "io.papermc.paperweight.userdev:io.papermc.paperweight.userdev.gradle.plugin", version.ref = "paperweight" }
 plugin-spotless = { module = "com.diffplug.spotless:com.diffplug.spotless.gradle.plugin", version.ref = "spotless" }
 plugin-ksp = { module = "com.google.devtools.ksp:symbol-processing-gradle-plugin", version.ref = "ksp" }
+plugin-ktlint = { module = "org.jlleitschuh.gradle.ktlint:org.jlleitschuh.gradle.ktlint.gradle.plugin", version.ref = "ktlint-gradle" }
 
 ksp = { module = "com.google.devtools.ksp:symbol-processing-api", version.ref = "ksp" }
 
@@ -72,8 +73,7 @@ classgraph = { module = "io.github.classgraph:classgraph", version.ref = "classg
 fawe-core = { module = "com.fastasyncworldedit:FastAsyncWorldEdit-Core", version.ref = "fawe" }
 fawe-bukkit = { module = "com.fastasyncworldedit:FastAsyncWorldEdit-Bukkit", version.ref = "fawe" }
 
-kraft = { module = "sh.illumi.kraft:kraft", version.ref = "kraft" }
-kraftx-logging = { module = "sh.illumi.kraft:kraftx-logging", version.ref = "kraftx" }
+ktlint-extras = { module = "net.radsteve.ktlint.extras:rules", version.ref = "ktlint-extras" }
 
 [bundles]
 kotlinx = ["kotlinx-coroutines"]
@@ -84,4 +84,3 @@ inject = ["inject-api", "inject-spigot", "inject-http"]
 koin = ["koin-core", "koin-core-coroutines", "koin-logger-slf4j"]
 kgp = ["kgp", "kgp-api"]
 fawe = ["fawe-core", "fawe-bukkit"]
-kraft = ["kraft", "kraftx-logging"]

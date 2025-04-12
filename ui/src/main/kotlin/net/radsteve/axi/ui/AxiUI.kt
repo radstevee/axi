@@ -12,12 +12,13 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.get
 import org.koin.core.component.inject
 import org.koin.core.module.Module
-import org.koin.core.module.dsl.bind
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.bind
 
 /** Initialises the axi UI module. */
-public class AxiUI : AxiModule, Themed {
+public class AxiUI :
+  AxiModule,
+  Themed {
   public override suspend fun enable(plugin: AxiPlugin) {
     plugin.registerEventListeners(RenderererTicker)
     plugin.registerEventListeners(plugin.get<AxiPackSendingServiceImpl>())
@@ -33,17 +34,13 @@ public class AxiUI : AxiModule, Themed {
 
   override var theme: Theme = Theme.Default
 
-  public companion object : KoinComponent {
+  public companion object : KoinComponent, Themed {
     private val ui: AxiUI by inject()
 
-    /** Gets the current main theme. */
-    public fun theme(): Theme {
-      return ui.theme
-    }
-
-    /** Sets the main theme to the given [new] theme. */
-    public fun theme(new: Theme) {
-      ui.theme = new
-    }
+    override var theme: Theme
+      get() = ui.theme
+      set(value) {
+        ui.theme = value
+      }
   }
 }

@@ -42,11 +42,9 @@ public data class DebounceComponent(
     return elapsed
   }
 
-  /**
-   * Suspends until the debounce entry for the given [klass] has expired
+  /** Suspends until the debounce entry for the given  [klass] has expired
    * and returns whether it had to wait, if the entry did not exist,
-   * it will return false.
-   */
+   * it will return false.*/
   public suspend fun wait(klass: KClass<out Any>): Boolean {
     entries[klass] ?: return false
 

@@ -9,7 +9,6 @@ private fun delegatingTask(name: String, vararg delegateTasks: String) {
 }
 
 delegatingTask("build", "build")
-delegatingTask("spotlessCheck", "spotlessCheck")
-delegatingTask("spotless", "spotlessApply")
 delegatingTask("publish", "publish")
 delegatingTask("dokka", "dokkaGenerate")
+delegatingTask("lint", "ktlintFormat")

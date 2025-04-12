@@ -21,33 +21,25 @@ public class FinalPhase(instance: TntTagInstance) : GamePhase<TntTagInstance>(in
           underlined()
         }
 
-        appendLine {
-          append("You have been tagged ")
-          append(stats.timesTagged) {
-            append(" time")
-            if (stats.timesTagged > 1 || stats.timesTagged == 0) {
-              append("s")
+        fun stat(text: String, value: Int) {
+          appendLine {
+            append(text)
+            append(value) {
+              append(" time")
+              if (value > 1 || value == 0) {
+                append("s")
+              }
+              red()
+              bold()
             }
-            red()
-            bold()
+
+            append(".")
+            yellow()
           }
-          append(".")
-          yellow()
         }
 
-        append {
-          append("You have tagged people ")
-          append(stats.tags) {
-            append(" time")
-            if (stats.tags > 1 || stats.tags == 0) {
-              append("s")
-            }
-            red()
-            bold()
-          }
-          append(".")
-          green()
-        }
+        stat("You have been tagged ", stats.timesTagged)
+        stat("You have tagged somebody ", stats.tags)
       }
     }
   }

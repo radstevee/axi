@@ -12,20 +12,14 @@ public abstract class Registry<K : Any, V>(
   internal open val keyToEntryMap: MutableMap<K, V> = mutableMapOf()
   internal open val entryToKeyMap: MutableMap<V, K> = mutableMapOf()
 
-  /**
-   * The amount of registered entries in this registry.
-   */
+  /** The amount of registered entries in this registry. */
   public open val size: Int get() = entries.size
 
-  /**
-   * The default value of this registry.
-   */
+  /** The default value of this registry. */
   public open val defaultValue: V? = null
 
-  /**
-   * Registers [entry] to the registry under [key].
-   * @return the passed [entry].
-   */
+  /** Registers  [entry] to the registry under [key].
+   * @return the passed [entry].*/
   public open fun register(key: K, entry: V): V {
     if (keys.contains(key)) {
       if (modifiable) {
@@ -47,30 +41,22 @@ public abstract class Registry<K : Any, V>(
     return entry
   }
 
-  /**
-   * @return the value that is assigned [key], or `null` if it is not registered
-   */
+  /**  @return the value that is assigned [key], or `null` if it is not registered*/
   public open operator fun get(key: K): V? {
     return keyToEntryMap[key]
   }
 
-  /**
-   * @return the key assigned to [entry], or `null` if it is not registered
-   */
+  /**  @return the key assigned to [entry], or `null` if it is not registered*/
   public open fun getKey(entry: V): K? {
     return entryToKeyMap[entry]
   }
 
-  /**
-   * @return the value that is assigned to the index [index], or null if one is not present
-   */
+  /**  @return the value that is assigned to the index [index], or null if one is not present*/
   public open operator fun get(index: Int): V? {
     return entries.getOrNull(index)
   }
 
-  /**
-   * @return the index of the entry
-   */
+  /**  @return the index of the entry*/
   public open fun indexOf(entry: V): Int {
     return entries.indexOf(entry)
   }
@@ -87,31 +73,23 @@ public abstract class Registry<K : Any, V>(
     return keyToEntryMap.toMap()
   }
 
-  /**
-   * Performs [block] on every registered entry.
-   */
+  /** Performs  [block] on every registered entry.*/
   public open fun forEach(block: (V) -> Unit) {
     entries.forEach(block)
   }
 
-  /**
-   * Performs [block] on every registered entry.
-   */
+  /** Performs  [block] on every registered entry.*/
   public open fun forEachEntry(block: (K, V) -> Unit) {
     keyToEntryMap.forEach(block)
   }
 
-  /**
-   * Filters the entries list to the given [predicate].
-   * @return a new list
-   */
+  /** Filters the entries list to the given  [predicate].
+   * @return a new list*/
   public open fun firstOrNull(predicate: (V) -> Boolean): V? {
     return entries.firstOrNull(predicate)
   }
 
-  /**
-   * Returns a random entry of the registry.
-   */
+  /** Returns a random entry of the registry. */
   public open fun random(random: Random = Random, filter: ((V) -> Boolean)? = null): V? {
     val entries = if (filter != null) {
       entries.filter(filter)

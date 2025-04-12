@@ -12,7 +12,7 @@ import kotlin.math.roundToInt
 /** A builder for layered text. */
 public class LayeredTextBuilder(
   /** The theme of this builder. */
-  public val theme: Theme = AxiUI.theme(),
+  public val theme: Theme = AxiUI.theme,
 ) {
   /** The contained layers of text. */
   public val layers: MutableList<TextComponent> = mutableListOf()
@@ -42,7 +42,7 @@ public class LayeredTextBuilder(
 
 /** Builds a layered text component. */
 public fun buildLayeredText(
-  theme: Theme = AxiUI.theme(),
+  theme: Theme = AxiUI.theme,
   block: LayeredTextBuilder.() -> Unit,
 ): TextComponent {
   val layeredBuilder = LayeredTextBuilder(theme).apply(block)

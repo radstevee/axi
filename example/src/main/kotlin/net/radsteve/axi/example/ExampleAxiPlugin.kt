@@ -16,6 +16,6 @@ public class ExampleAxiPlugin : AxiPlugin() {
 
     ExampleSystem.startTicking()
 
-    AxiUI.theme(Decayce)
+    AxiUI.theme = Decayce
   }
 }

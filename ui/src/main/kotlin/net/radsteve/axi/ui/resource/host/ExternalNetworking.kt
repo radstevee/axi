@@ -13,13 +13,11 @@ private var cachedServerAddress: InetSocketAddress? = null
 private val httpClient: HttpClient = HttpClient.newHttpClient()
 private const val CHECKIP_URL = "https://checkip.amazonaws.com"
 
-/**
- * Gets the external address of the server.
+/** Gets the external address of the server.
  * This method does a network request to `https://checkip.amazonaws.com`.
  *
  * You can specify them manually with the `axi.external_addr` and
- * `axi.external_port` JVM properties.
- */
+ * `axi.external_port` JVM properties.*/
 public fun externalServerAddress(): InetSocketAddress {
   cachedServerAddress?.let { addr -> return addr }
   val addrProp = System.getProperty("axi.external_addr")
@@ -47,7 +45,9 @@ public fun externalServerAddress(): InetSocketAddress {
 }
 
 /** Builds an external server URI with the specified [path] and [addr]. */
-public fun buildServerURI(path: String = "", addr: InetSocketAddress = externalServerAddress()): URI = URI.create("http://" + addr.hostString.removeSuffix("\n") + ":" + addr.port + "/" + path)
+public fun buildServerURI(path: String = "", addr: InetSocketAddress = externalServerAddress()): URI {
+  return URI.create("http://" + addr.hostString.removeSuffix("\n") + ":" + addr.port + "/" + path)
+}
 
 /** Checks if the [externalServerAddress] is accessible by sending it an HTTP request. */
 public fun checkExternalAddr(): Boolean {
@@ -69,9 +69,7 @@ public fun checkExternalAddr(): Boolean {
   }
   val res = response.getOrThrow()
 
-  // spotless:off - I have no idea why this is happening
   externalAddressAccessible = (res.statusCode() == 200) && (res.body().isEmpty())
-  // spotless:on
 
   return externalAddressAccessible!!
 }

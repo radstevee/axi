@@ -12,13 +12,6 @@ setOf("dev", "build", "preview").forEach { task ->
   }
 }
 
-spotless {
-  freshmark {
-    toggleOffOn()
-    target("src")
-  }
-}
-
 tasks {
   delete("publish")
 }

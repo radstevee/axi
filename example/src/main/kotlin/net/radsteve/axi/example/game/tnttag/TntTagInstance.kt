@@ -20,7 +20,7 @@ import net.radsteve.axi.ui.render.layer.buildRenderLayer
 import net.radsteve.axi.ui.render.layer.clearRenderables
 import net.radsteve.axi.ui.theme.Theme
 import net.radsteve.axi.ui.theme.Themed
-import net.radsteve.axi.ui.text.buildText
+import net.radsteve.axi.ui.text.text
 import net.radsteve.axi.utility.formatSeconds
 import net.radsteve.axi.utility.players
 import net.radsteve.axi.utility.resource
@@ -81,7 +81,7 @@ public class TntTagInstance(
   }
 
   public override suspend fun gameWorld(instance: GameInstance<*>): GameWorld {
-    return delegateWorldProvider(GameWorldProvider.clipboard(resource("tnt-tag.schem")))
+    return delegate(GameWorldProvider.clipboard(resource("tnt-tag.schem")))
   }
 
   override suspend fun on(event: EntityDamageEvent) {
@@ -155,10 +155,5 @@ public class TntTagInstance(
     })
   }
 
-  override val theme: Theme = Decayce.copy(
-    prefix = buildText(Decayce) {
-      append("[TNT Tag] ")
-      red()
-    }
-  )
+  override val theme: Theme = Decayce.copy(prefix = text("TNT Tag | ", Decayce, red))
 }

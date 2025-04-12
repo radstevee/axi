@@ -23,16 +23,14 @@ public open class CommandArgument<T : Any>(
     }
 
     val ctx = CloudCommandExecutionContext.Holder.get() ?: error("thread local unset")
-    return ctx.ctx.get<T>(id).also { value = it }
+    return ctx.ctx.get<T>(id).also { argValue -> value = argValue }
   }
 }
 
-/**
- * An instance of a command argument that cannot be null, by either providing
+/** An instance of a command argument that cannot be null, by either providing
  *
  * a) providing a default
- * b) using a required argument
- */
+ * b) using a required argument*/
 public class NonNullableCommandArgument<T : Any>(
   /** The ID of this argument. */
   public override val id: String,
@@ -47,10 +45,10 @@ public class NonNullableCommandArgument<T : Any>(
     }
 
     if (default == null) {
-      return super.getValue(thisRef, property)!!.also { value = it }
+      return super.getValue(thisRef, property)!!.also { argValue -> value = argValue }
     }
 
     val ctx = CloudCommandExecutionContext.Holder.get() ?: error("thread local unset")
-    return ctx.ctx.getOrDefault<T>(id, default).also { value = it }
+    return ctx.ctx.getOrDefault<T>(id, default).also { argValue -> value = argValue }
   }
 }

@@ -1,5 +1,6 @@
 package net.radsteve.axi.example.game.tnttag.phase
 
+import net.kyori.adventure.text.format.TextDecoration.BOLD
 import net.radsteve.axi.example.game.tnttag.TntTagInstance
 import net.radsteve.axi.game.phase.GamePhase
 import net.radsteve.axi.ui.theme.Themed
@@ -102,11 +103,7 @@ public class TaggingPhase(instance: TntTagInstance) : GamePhase<TntTagInstance>(
       player.inventory.clear()
     }
 
-    send {
-      append("The game is over!")
-      red()
-      bold()
-    }
+    send("The game is over!", red, BOLD)
   }
 
   override suspend fun on(event: EntityDamageByEntityEvent) {

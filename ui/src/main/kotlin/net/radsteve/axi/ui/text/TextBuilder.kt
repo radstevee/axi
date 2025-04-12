@@ -20,35 +20,18 @@ import net.radsteve.axi.ui.render.layer.layered.buildLayeredText
 import net.radsteve.axi.ui.resource.font.AxiFont
 import net.radsteve.axi.ui.resource.pack.AxiPackRegistry.AxiPacks.negativeSpaces
 import net.radsteve.axi.ui.theme.Theme
+import net.radsteve.axi.ui.theme.Themed
 import net.radsteve.axi.ui.util.adventure
 import net.radstevee.packed.core.key.Key as PackedKey
 
 /** A text component builder. */
 public class TextBuilder(
   /** The theme of this text builder. */
-  public val theme: Theme = Theme.Default,
-) {
+  public override val theme: Theme,
+) : Themed {
   @PublishedApi
   internal val componentBuilder: TextComponent.Builder = text()
   private var offset: Int? = null
-  public val foreground: TextColor? = theme.foreground
-  public val accent: TextColor? = theme.accent
-  public val black: TextColor? = theme.palette?.black
-  public val darkBlue: TextColor? = theme.palette?.darkBlue
-  public val darkGreen: TextColor? = theme.palette?.darkGreen
-  public val darkAqua: TextColor? = theme.palette?.darkAqua
-  public val darkRed: TextColor? = theme.palette?.darkRed
-  public val darkPurple: TextColor? = theme.palette?.darkPurple
-  public val gold: TextColor? = theme.palette?.gold
-  public val gray: TextColor? = theme.palette?.gray
-  public val darkGray: TextColor? = theme.palette?.darkGray
-  public val blue: TextColor? = theme.palette?.blue
-  public val green: TextColor? = theme.palette?.green
-  public val aqua: TextColor? = theme.palette?.aqua
-  public val red: TextColor? = theme.palette?.red
-  public val pink: TextColor? = theme.palette?.pink
-  public val yellow: TextColor? = theme.palette?.yellow
-  public val white: TextColor? = theme.palette?.white
   public val bold: TextDecoration = BOLD
   public val italic: TextDecoration = ITALIC
   public val underlined: TextDecoration = UNDERLINED
@@ -138,21 +121,20 @@ public class TextBuilder(
   }
 
   /** Appends text of the given [content] and applies the given [applicables]. */
-  public fun append(content: String, vararg applicables: ComponentBuilderApplicable?) {
+  public fun append(content: Any, vararg applicables: ComponentBuilderApplicable?) {
     append(content) {
       applicables.filterNotNull().forEach(componentBuilder::applicableApply)
     }
   }
 
-  /** Appends text of the given [content] and applies the given [applicables]. */
-  public fun append(content: Int, vararg applicables: ComponentBuilderApplicable?) {
-    append(content.toString(), *applicables)
-  }
-
   /** Appends text using the given [block] and appends the given [content]. */
   public inline fun append(content: Any, block: TextBuilder.() -> Unit) {
     append {
-      append(text(content.toString()))
+      if (content is ComponentLike) {
+        append(content as? Component ?: content.asComponent())
+      } else {
+        append(text(content.toString()))
+      }
       block()
     }
   }
@@ -337,9 +319,28 @@ public class TextBuilder(
   }
 }
 
+/** Builds a text component from the given [content] and applies the given [applicables]. */
+public fun text(
+  content: Any,
+  theme: Theme,
+  vararg applicables: ComponentBuilderApplicable?,
+): TextComponent {
+  return buildText(theme) {
+    append(content, *applicables)
+  }
+}
+
+/** Builds a text component from the given [content] and applies the given [applicables]. */
+public fun text(
+  content: Any,
+  vararg applicables: ComponentBuilderApplicable?,
+): TextComponent {
+  return text(content, AxiUI.theme, *applicables)
+}
+
 /** Builds a component using the specified [block]. */
 public inline fun buildText(
-  theme: Theme = AxiUI.theme(),
+  theme: Theme = AxiUI.theme,
   applyFixes: Boolean = false,
   block: TextBuilder.() -> Unit = {},
 ): TextComponent {
@@ -357,8 +358,16 @@ public inline fun buildText(
 }
 
 /** Builds a text from the given [block] and sends it. */
-public inline fun Audience.send(theme: Theme = AxiUI.theme(), block: TextBuilder.() -> Unit): TextComponent {
-  val text = buildText(theme, true, block)
-  sendMessage(text)
-  return text
+public inline fun Audience.send(theme: Theme = AxiUI.theme, block: TextBuilder.() -> Unit): TextComponent {
+  return buildText(theme, true, block).also(::sendMessage)
+}
+
+/** Builds a text component from the given [content], applies the given [applicables] and sends it. */
+public fun Audience.send(content: Any, theme: Theme, vararg applicables: ComponentBuilderApplicable?): TextComponent {
+  return text(content, theme, *applicables).also(::sendMessage)
+}
+
+/** Builds a text component from the given [content], applies the given [applicables] and sends it. */
+public fun Audience.send(content: Any, vararg applicables: ComponentBuilderApplicable?): TextComponent {
+  return send(content, AxiUI.theme, *applicables)
 }

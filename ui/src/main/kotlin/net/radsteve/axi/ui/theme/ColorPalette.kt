@@ -23,6 +23,7 @@ public data class ColorPalette(
   public val white: TextColor? = NamedTextColor.WHITE,
 ) {
   public companion object {
-    public val Default: ColorPalette = ColorPalette()
+    /** The default Minecraft colours. */
+    public val Minecraft: ColorPalette = ColorPalette()
   }
 }

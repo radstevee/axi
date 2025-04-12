@@ -60,11 +60,9 @@ public fun Attachable.checkDebounce(klass: KClass<out Any>): Boolean {
   return component.check(klass)
 }
 
-/**
- * Suspends until the debounce entry for the given [klass] has expired
+/** Suspends until the debounce entry for the given  [klass] has expired
  * and returns whether it had to wait, if the entry did not exist,
- * it will return false.
- */
+ * it will return false.*/
 public suspend fun Attachable.waitUntilDebounced(klass: KClass<out Any>): Boolean {
   val component = getOrPut(::DebounceComponent)
   return component.wait(klass)
@@ -80,11 +78,9 @@ public fun Player.checkDebounce(klass: KClass<out Any>): Boolean {
   return attachable.checkDebounce(klass)
 }
 
-/**
- * Suspends until the debounce entry for the given [klass] has expired
+/** Suspends until the debounce entry for the given  [klass] has expired
  * and returns whether it had to wait, if the entry did not exist,
- * it will return false.
- */
+ * it will return false.*/
 public suspend fun Player.waitUntilDebounced(klass: KClass<out Any>): Boolean {
   return attachable.waitUntilDebounced(klass)
 }
