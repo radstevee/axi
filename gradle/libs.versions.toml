@@ -20,7 +20,7 @@ interfaces = "1.4.0-SNAPSHOT"
 classgraph = "4.8.179"
 fawe = "2.12.2"
 ktlint-gradle = "12.2.0"
-ktlint-extras = "0.1.0"
+ktlint-extras = "0.1.1"
 
 [libraries]
 kotlinx-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization-json" }

@@ -63,7 +63,7 @@ public class RenderedLayerBuilder {
   }
 }
 
-/** Builds a render layer from the given [block].*/
+/** Builds a render layer from the given [block]. */
 public fun buildRenderLayer(block: RenderedLayerBuilder.() -> Unit): RenderLayer {
   return RenderedLayerBuilder().apply(block).build()
 }
