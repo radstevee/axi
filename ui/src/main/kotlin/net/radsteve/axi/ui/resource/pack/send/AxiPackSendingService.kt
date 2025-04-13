@@ -9,9 +9,11 @@ import java.util.UUID
 
 /** A service responsible for sending axi packs to audiences. */
 public interface AxiPackSendingService : KoinComponent {
-  /** Sends an  [AxiPack] to an audience if it is not applied yet and
+  /**
+   * Sends an [AxiPack] to an audience if it is not applied yet and
    * returns whether it loaded successfully for each player.
-   * If a player disconnects whilst loading the pack, it will return false for them.*/
+   * If a player disconnects whilst loading the pack, it will return false for them.
+   */
   public suspend fun Audience.sendAxiPack(pack: AxiPack): Map<UUID, Boolean>
 
   /** Removes an [AxiPack] from an audience. */
@@ -20,7 +22,7 @@ public interface AxiPackSendingService : KoinComponent {
 
 private val service: AxiPackSendingService by AxiPluginHolder.plugin().inject()
 
-/** Sends an  [AxiPack] to an audience if it is not applied yet and
+/** Sends an [AxiPack] to an audience if it is not applied yet and
  * returns whether it loaded successfully for each player.
  * If a player disconnects whilst loading the pack, it will return false for them.
  *
@@ -31,7 +33,7 @@ public suspend fun Audience.sendAxiPack(pack: AxiPack): Map<UUID, Boolean> {
   }
 }
 
-/** Removes an  [AxiPack] from an audience.
+/** Removes an [AxiPack] from an audience.
  *
  * @see AxiPackSendingService.removeAxiPack*/
 public suspend fun Audience.removeAxiPack(pack: AxiPack) {

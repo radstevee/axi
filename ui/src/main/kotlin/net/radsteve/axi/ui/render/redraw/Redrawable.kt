@@ -1,4 +1,4 @@
-package net.radsteve.axi.ui.render.redraw.redraw
+package net.radsteve.axi.ui.render.redraw
 
 /** Something that can be redrawn. */
 public fun interface Redrawable {

@@ -3,8 +3,8 @@ package net.radsteve.axi.ui.render.layer
 import net.kyori.adventure.text.TextComponent
 import net.radsteve.axi.ui.AxiUI
 import net.radsteve.axi.ui.render.Renderer
-import net.radsteve.axi.ui.render.redraw.redraw.RedrawResult
-import net.radsteve.axi.ui.render.redraw.redraw.Redrawable
+import net.radsteve.axi.ui.render.redraw.RedrawResult
+import net.radsteve.axi.ui.render.redraw.Redrawable
 import net.radsteve.axi.ui.text.TextBuilder
 import net.radsteve.axi.ui.text.buildText
 import net.radsteve.axi.ui.theme.Theme

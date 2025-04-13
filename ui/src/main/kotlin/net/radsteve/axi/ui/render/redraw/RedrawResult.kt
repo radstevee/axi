@@ -1,4 +1,4 @@
-package net.radsteve.axi.ui.render.redraw.redraw
+package net.radsteve.axi.ui.render.redraw
 
 /** A result from a redraw. */
 public enum class RedrawResult {

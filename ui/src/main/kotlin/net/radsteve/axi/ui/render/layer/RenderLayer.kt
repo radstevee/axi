@@ -4,7 +4,7 @@ import net.kyori.adventure.text.TextComponent
 import net.radsteve.axi.ui.render.RedrawableRenderable
 import net.radsteve.axi.ui.render.Renderer
 import net.radsteve.axi.ui.render.layer.layered.buildLayeredText
-import net.radsteve.axi.ui.render.redraw.redraw.RedrawResult
+import net.radsteve.axi.ui.render.redraw.RedrawResult
 
 /** A layer of components that can be rendered to an Audience, by using anything that can display text. */
 public class RenderLayer(

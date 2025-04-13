@@ -18,8 +18,7 @@ public abstract class Registry<K : Any, V>(
   /** The default value of this registry. */
   public open val defaultValue: V? = null
 
-  /** Registers  [entry] to the registry under [key].
-   * @return the passed [entry].*/
+  /** Registers [entry] under the given [key] and returns the [entry]. */
   public open fun register(key: K, entry: V): V {
     if (keys.contains(key)) {
       if (modifiable) {
@@ -73,18 +72,17 @@ public abstract class Registry<K : Any, V>(
     return keyToEntryMap.toMap()
   }
 
-  /** Performs  [block] on every registered entry.*/
+  /** Performs [block] on every registered entry. */
   public open fun forEach(block: (V) -> Unit) {
     entries.forEach(block)
   }
 
-  /** Performs  [block] on every registered entry.*/
+  /** Performs [block] on every registered entry. */
   public open fun forEachEntry(block: (K, V) -> Unit) {
     keyToEntryMap.forEach(block)
   }
 
-  /** Filters the entries list to the given  [predicate].
-   * @return a new list*/
+  /** Filters the entries for a given [predicate]. */
   public open fun firstOrNull(predicate: (V) -> Boolean): V? {
     return entries.firstOrNull(predicate)
   }

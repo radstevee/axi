@@ -7,23 +7,26 @@ import net.radsteve.axi.plugin.AxiPluginHolder
 import java.io.InputStream
 import kotlin.reflect.KClass
 
-/** Cache for resources. The key of this map
+/**
+ * Cache for resources. The key of this map
  * is a pair of the resource path and the
  * resource type passed in to [resource].
  *
- * This also acts as a schematic cache.*/
+ * This also acts as a schematic cache.
+ */
 @PublishedApi
 internal val cache: MutableMap<Pair<String, KClass<out Any>>, Any> = mutableMapOf()
 
-/** Reads a resource from the given  [path] as type [T].
+/** Reads a resource from the given [path] as type [T].
  *
  * Read resources are cached by type.
  *
  * [T] can be one of the following:
  *
  * - [String]
+ * - [Int]
  * - [ByteArray]
- * - [com.sk89q.worldedit.extent.clipboard.Clipboard]*/
+ * - [com.sk89q.worldedit.extent.clipboard.Clipboard] */
 public inline fun <reified T : Any> resource(path: String, classLoader: ClassLoader = AxiPluginHolder.plugin().javaClass.classLoader): T {
   val cached = cache[path to T::class] as T?
   if (cached != null) {
@@ -36,6 +39,7 @@ public inline fun <reified T : Any> resource(path: String, classLoader: ClassLoa
     @Suppress("IMPLICIT_CAST_TO_ANY") // This is intended
     when (T::class) {
       String::class -> stream.readBytes().decodeToString()
+      Int::class -> stream.readBytes().decodeToString().toInt()
       ByteArray::class -> stream.readBytes()
       Clipboard::class -> readSchematic(stream)
       else -> error("invalid resource type")

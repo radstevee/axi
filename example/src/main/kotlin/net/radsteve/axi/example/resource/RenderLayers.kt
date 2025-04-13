@@ -2,10 +2,8 @@ package net.radsteve.axi.example.resource
 
 import net.radsteve.axi.ui.render.layer.RenderLayer
 import net.radsteve.axi.ui.render.layer.buildRenderLayer
-import net.radsteve.axi.ui.render.redraw.redraw.RedrawResult
+import net.radsteve.axi.ui.render.redraw.RedrawResult
 import org.bukkit.Bukkit
-import kotlin.math.roundToInt
-import kotlin.math.sin
 
 public fun testRenderLayer(initTick: Int): RenderLayer = buildRenderLayer {
   add {

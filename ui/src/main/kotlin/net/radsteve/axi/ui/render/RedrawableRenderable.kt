@@ -1,8 +1,8 @@
 package net.radsteve.axi.ui.render
 
 import net.kyori.adventure.audience.Audience
-import net.radsteve.axi.ui.render.redraw.redraw.RedrawResult
-import net.radsteve.axi.ui.render.redraw.redraw.Redrawable
+import net.radsteve.axi.ui.render.redraw.RedrawResult
+import net.radsteve.axi.ui.render.redraw.Redrawable
 import net.radsteve.axi.utility.forEachPlayer
 
 /** Something that can be rendered and redrawn. */

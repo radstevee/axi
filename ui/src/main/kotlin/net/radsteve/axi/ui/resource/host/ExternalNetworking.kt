@@ -13,11 +13,13 @@ private var cachedServerAddress: InetSocketAddress? = null
 private val httpClient: HttpClient = HttpClient.newHttpClient()
 private const val CHECKIP_URL = "https://checkip.amazonaws.com"
 
-/** Gets the external address of the server.
+/**
+ * Gets the external address of the server.
  * This method does a network request to `https://checkip.amazonaws.com`.
  *
  * You can specify them manually with the `axi.external_addr` and
- * `axi.external_port` JVM properties.*/
+ * `axi.external_port` JVM properties.
+ */
 public fun externalServerAddress(): InetSocketAddress {
   cachedServerAddress?.let { addr -> return addr }
   val addrProp = System.getProperty("axi.external_addr")
