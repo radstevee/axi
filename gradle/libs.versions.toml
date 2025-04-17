@@ -19,8 +19,8 @@ koin = "4.1.0-Beta5"
 interfaces = "1.4.0-SNAPSHOT"
 classgraph = "4.8.179"
 fawe = "2.12.2"
-kraft = "0.0.2"
-kraftx = "0.0.1"
+mixin = "0.15.4+mixin.0.8.7"
+mixinextras = "0.4.1"
 
 [libraries]
 kotlinx-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization-json" }
@@ -72,8 +72,8 @@ classgraph = { module = "io.github.classgraph:classgraph", version.ref = "classg
 fawe-core = { module = "com.fastasyncworldedit:FastAsyncWorldEdit-Core", version.ref = "fawe" }
 fawe-bukkit = { module = "com.fastasyncworldedit:FastAsyncWorldEdit-Bukkit", version.ref = "fawe" }
 
-kraft = { module = "sh.illumi.kraft:kraft", version.ref = "kraft" }
-kraftx-logging = { module = "sh.illumi.kraft:kraftx-logging", version.ref = "kraftx" }
+mixin = { module = "net.fabricmc:sponge-mixin", version.ref = "mixin" }
+mixinextras = { module = "io.github.llamalad7:mixinextras-common", version.ref = "mixinextras" }
 
 [bundles]
 kotlinx = ["kotlinx-coroutines"]
@@ -84,4 +84,3 @@ inject = ["inject-api", "inject-spigot", "inject-http"]
 koin = ["koin-core", "koin-core-coroutines", "koin-logger-slf4j"]
 kgp = ["kgp", "kgp-api"]
 fawe = ["fawe-core", "fawe-bukkit"]
-kraft = ["kraft", "kraftx-logging"]

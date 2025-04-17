@@ -1,0 +1,7 @@
+{
+  "mixins": [
+    "CraftPlayerMixin"
+  ],
+  "package": "net.radsteve.axi.mixin",
+  "compatibilityLevel": "JAVA_21"
+}

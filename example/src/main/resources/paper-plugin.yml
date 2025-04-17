@@ -8,3 +8,4 @@ dependencies:
     FastAsyncWorldEdit:
       load: BEFORE
       required: true
+      join-classpath: true

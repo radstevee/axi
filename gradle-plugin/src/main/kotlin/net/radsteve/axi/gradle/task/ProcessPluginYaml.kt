@@ -51,6 +51,15 @@ public abstract class ProcessPluginYaml @Inject constructor(
     if ("loader" !in yaml) {
       new["loader"] = LOADER
     }
+    if ("mixins" !in yaml) {
+      new["mixins"] = listOf("axi.mixins.json")
+    }
+    if ("wideners" !in yaml) {
+      new["wideners"] = emptyList<String>()
+    }
+    if ("datapack-entry" !in yaml) {
+      new["datapack-entry"] = true
+    }
 
     if (!file.exists()) {
       file.parentFile.mkdirs()

@@ -110,7 +110,7 @@ public open class GameInstance<T : GameInstance<T>>(
   /** Initialises a player for this game instance. */
   public open suspend fun initializePlayer(player: Player) {
     player.gameMode = GameMode.ADVENTURE
-    player.axiTeleport(spawnFor(player))
+    player.teleport(spawnFor(player))
     player.closeInventory()
     displaySetup(player)
   }
@@ -148,7 +148,7 @@ public open class GameInstance<T : GameInstance<T>>(
   public open suspend fun stop() {
     players.forEach { player ->
       // Teleport the player to the main world's spawn location if it exists.
-      Bukkit.getWorld("world")?.spawnLocation?.let(player::axiTeleport)
+      Bukkit.getWorld("world")?.spawnLocation?.let(player::teleport)
     }
   }
 

@@ -37,6 +37,7 @@ tasks {
 
     downloadPlugins {
       modrinth("fastasyncworldedit", "cf5QSDJ7")
+      modrinth("eclipse-mixin", "XO9cy7sT")
     }
   }
 
@@ -52,6 +53,12 @@ tasks {
         excluded.any { excluded -> excluded in dep.name.replace(":", ".") }
       }
     }
+  }
+
+  register<Copy>("copy") {
+    from(shadowJar)
+    dependsOn(shadowJar)
+    into("run/plugins")
   }
 
   delete("publish")
