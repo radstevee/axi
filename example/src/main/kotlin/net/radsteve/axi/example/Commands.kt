@@ -72,7 +72,11 @@ public val GameCommand: Command = Command("game") {
 
   executor {
     val players = playerSelector.values()
-    val context = GameContext(gameType, players.audience, players.map(Player::getUniqueId).toMutableList())
+    val context = GameContext(
+      gameType,
+      players.audience,
+      players.map(Player::getUniqueId).toMutableList()
+    )
     GameInstanceController.create(context)
   }
 }

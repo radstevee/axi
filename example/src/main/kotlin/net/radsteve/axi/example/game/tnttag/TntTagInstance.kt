@@ -104,12 +104,7 @@ public class TntTagInstance(
     // add our statistic and timer HUD to the player's actionbar
     player.addRenderable(buildRenderLayer {
       // left hand side: kills display
-      add {
-        // kill display background
-        content(offset = -120) {
-          append(Sprites.SmallHudBackground)
-        }
-      }
+      constant(Sprites.SmallHudBackground, offset = -120)
 
       add {
         // kill display content
@@ -121,12 +116,7 @@ public class TntTagInstance(
       }
 
       // centre: timer
-      add {
-        // timer background
-        content {
-          append(Sprites.SmallHudBackground)
-        }
-      }
+      constant(Sprites.SmallHudBackground)
 
       add {
         // timer content
@@ -137,12 +127,7 @@ public class TntTagInstance(
       }
 
       // right hand side: deaths display
-      add {
-        // deaths display background
-        content(offset = 120) {
-          append(Sprites.SmallHudBackground)
-        }
-      }
+      constant(Sprites.SmallHudBackground, offset = 120)
 
       add {
         // deaths display content

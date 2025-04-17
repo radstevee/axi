@@ -36,6 +36,19 @@ public class RenderedLayerBuilder {
       }
     }
 
+    /** Adds a constant content with the given [offset]. */
+    public fun content(offset: Int = 0, content: TextComponent) {
+      if (offset == 0) {
+        contentProvider = { content }
+        return
+      }
+      contentProvider = {
+        buildText(theme) {
+          appendSpace(offset)
+        }
+      }
+    }
+
     /** Sets the redraw handler to the given [redrawable]. */
     public fun redraw(redrawable: Redrawable) {
       redrawHandler = redrawable
@@ -50,6 +63,13 @@ public class RenderedLayerBuilder {
     val content = RenderLayerContentBuilder(theme).apply(block).build()
     contents.add(content)
     return content
+  }
+
+  /** Adds a constant entry to this layer of the given [content]. */
+  public fun constant(content: TextComponent, offset: Int = 0, theme: Theme = AxiUI.theme): RenderLayerContents {
+    return add(theme) {
+      content(offset, content)
+    }
   }
 
   /** Sets the renderer. */
