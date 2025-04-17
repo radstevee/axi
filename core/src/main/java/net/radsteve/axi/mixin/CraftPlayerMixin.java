@@ -1,7 +1,7 @@
 package net.radsteve.axi.mixin;
 
-import com.llamalad7.mixinextras.sugar.Share;
-import com.llamalad7.mixinextras.sugar.ref.LocalRef;
+import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import io.papermc.paper.entity.TeleportFlag;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.entity.CraftPlayer;
@@ -10,9 +10,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
 
@@ -21,14 +18,15 @@ public abstract class CraftPlayerMixin {
   @Shadow
   public abstract Player getPlayer();
 
-  @Inject(method = "teleport(Lorg/bukkit/Location;Lorg/bukkit/event/player/PlayerTeleportEvent$TeleportCause;[Lio/papermc/paper/entity/TeleportFlag;)Z", at = @At("HEAD"))
-  private void injectHead(Location location, PlayerTeleportEvent.TeleportCause cause, TeleportFlag[] flags, CallbackInfoReturnable<Boolean> cir, @Share("passengers") LocalRef<List<Entity>> passengerRef) {
-    passengerRef.set(getPlayer().getPassengers());
-    passengerRef.get().forEach((passenger) -> getPlayer().removePassenger(passenger));
-  }
+  @WrapMethod(method = "teleport(Lorg/bukkit/Location;Lorg/bukkit/event/player/PlayerTeleportEvent$TeleportCause;[Lio/papermc/paper/entity/TeleportFlag;)Z")
+  private boolean wrap(Location location, PlayerTeleportEvent.TeleportCause cause, TeleportFlag[] flags, Operation<Boolean> original) {
+    final Player player = this.getPlayer();
+    final List<Entity> passengers = player.getPassengers();
 
-  @Inject(method = "teleport(Lorg/bukkit/Location;Lorg/bukkit/event/player/PlayerTeleportEvent$TeleportCause;[Lio/papermc/paper/entity/TeleportFlag;)Z", at = @At("TAIL"))
-  private void injectTail(Location location, PlayerTeleportEvent.TeleportCause cause, TeleportFlag[] flags, CallbackInfoReturnable<Boolean> cir, @Share("passengers") LocalRef<List<Entity>> passengerRef) {
-    passengerRef.get().forEach((passenger) -> getPlayer().addPassenger(passenger));
+    passengers.forEach(player::removePassenger);
+    final boolean result = original.call(location, cause, flags);
+    passengers.forEach(player::addPassenger);
+
+    return result;
   }
 }
