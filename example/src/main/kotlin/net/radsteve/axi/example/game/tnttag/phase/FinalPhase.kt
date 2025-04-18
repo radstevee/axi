@@ -15,11 +15,7 @@ public class FinalPhase(instance: TntTagInstance) : GamePhase<TntTagInstance>(in
       val stats = with(instance) { player.stats }
 
       player.send {
-        appendLine {
-          append("Game Roundup:")
-          blue()
-          underlined()
-        }
+        appendLine("Game Roundup:", blue, underlined)
 
         fun stat(text: String, value: Int) {
           appendLine {

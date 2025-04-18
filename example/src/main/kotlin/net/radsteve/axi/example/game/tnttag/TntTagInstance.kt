@@ -81,7 +81,7 @@ public class TntTagInstance(
   }
 
   public override suspend fun gameWorld(instance: GameInstance<*>): GameWorld {
-    return delegate(GameWorldProvider.clipboard(resource("tnt-tag.schem")))
+    return delegateTo(GameWorldProvider.clipboard(resource("tnt-tag.schem")))
   }
 
   override suspend fun on(event: EntityDamageEvent) {

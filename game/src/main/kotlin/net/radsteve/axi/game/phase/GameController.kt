@@ -44,6 +44,7 @@ public class GameController<T : GameInstance<T>>(
 
     currentPhase = phase
 
+    instance.world = phase.gameWorld(instance)
     phase.start()
 
     instance.players.forEach { player ->

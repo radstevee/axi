@@ -56,7 +56,11 @@ public inline fun <reified T : Any> Attachable.observableLazyData(
     }
 
     override fun setValue(thisRef: Any?, property: KProperty<*>, value: T?) {
-      observer(get<T>(), value)
+      val old = get<T>()
+      if (old == value) {
+        return
+      }
+      observer(old, value)
       set(value)
     }
   }
@@ -79,7 +83,11 @@ public inline fun <reified T : Any> Attachable.observableNonNullLazyData(
     }
 
     override fun setValue(thisRef: Any?, property: KProperty<*>, value: T) {
-      observer(get<T>() ?: error("old non-null state was null"), value)
+      val old = get<T>() ?: error("old non-nullable data was null")
+      if (old == value) {
+        return
+      }
+      observer(old, value)
       set(value)
     }
   }

@@ -19,7 +19,7 @@ public fun interface GameWorldProvider {
   public suspend fun gameWorld(instance: GameInstance<*>): GameWorld
 
   /** Delegates a world provider to the [other] provider. */
-  public suspend fun GameInstance<*>.delegate(other: GameWorldProvider): GameWorld {
+  public suspend fun GameInstance<*>.delegateTo(other: GameWorldProvider): GameWorld {
     return other.gameWorld(this)
   }
 

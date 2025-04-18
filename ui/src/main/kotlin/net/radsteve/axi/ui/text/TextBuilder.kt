@@ -145,14 +145,14 @@ public class TextBuilder(
   }
 
   /** Appends the given [component] and appends a newline. */
-  public fun appendLine(component: Component) {
-    append(component)
+  public fun appendLine(component: Component, vararg applicables: ComponentBuilderApplicable?) {
+    append(component, *applicables)
     appendNewline()
   }
 
   /** Appends the given [text] and appends a newline. */
-  public fun appendLine(text: String) {
-    appendLine(text(text))
+  public fun appendLine(text: String, vararg applicables: ComponentBuilderApplicable?) {
+    appendLine(text(text, *applicables))
   }
 
   /** Builds a component from the given [block] and appends it and a newline. */
