@@ -32,7 +32,11 @@ private open class MutableLazy<T>(private val initializer: () -> T) : ReadWriteP
 
 private class ObservableMutableLazy<T>(initializer: () -> T, private val observer: (old: T, new: T) -> Unit) : MutableLazy<T>(initializer) {
   override fun setValue(thisRef: Any?, property: KProperty<*>, value: T) {
-    observer(value(), value)
+    val old = value()
+    if (old == value) {
+      return
+    }
+    observer(old, value)
     super.setValue(thisRef, property, value)
   }
 }
