@@ -59,5 +59,5 @@ public class GameInstanceExceptionHandler<T : GameInstance<T>>(
     }
   }
 
-  private companion object Key : CoroutineContext.Key<GameInstanceExceptionHandler<*>>
+  public companion object Key : CoroutineContext.Key<GameInstanceExceptionHandler<*>>
 }
