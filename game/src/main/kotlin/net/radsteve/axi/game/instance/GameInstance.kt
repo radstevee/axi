@@ -103,7 +103,7 @@ public open class GameInstance<T : GameInstance<T>>(
   }
 
   /** Gets the spawn location for the given [player]. */
-  public open suspend fun spawnFor(player: Player): Location {
+  public open fun spawnFor(player: Player): Location {
     return world.world.spawnLocation
   }
 
@@ -181,7 +181,7 @@ public open class GameInstance<T : GameInstance<T>>(
   }
 
   /** Whether this instance is finishing and should be removed. */
-  public open suspend fun finishing(): Boolean {
+  public open fun finishing(): Boolean {
     return controller.empty()
   }
 

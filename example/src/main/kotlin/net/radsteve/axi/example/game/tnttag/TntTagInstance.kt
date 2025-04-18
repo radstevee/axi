@@ -76,7 +76,7 @@ public class TntTagInstance(
     add(10.seconds, ::FinalPhase)
   }
 
-  override suspend fun spawnFor(player: Player): Location {
+  override fun spawnFor(player: Player): Location {
     return Location(world.world, -49.5, -6.0, -52.5)
   }
 

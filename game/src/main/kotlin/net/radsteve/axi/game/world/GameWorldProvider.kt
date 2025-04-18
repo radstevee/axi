@@ -4,6 +4,7 @@ import com.sk89q.worldedit.extent.clipboard.Clipboard
 import com.sk89q.worldedit.math.BlockVector3
 import net.kyori.adventure.util.TriState
 import net.radsteve.axi.coroutines.AxiCoroutines.asyncContext
+import net.radsteve.axi.coroutines.AxiCoroutines.syncContext
 import net.radsteve.axi.game.instance.GameInstance
 import net.radsteve.axi.game.world.GameWorldProvider.Companion.clipboard
 import net.radsteve.axi.tick.TickDuration.inWholeTicks
@@ -26,16 +27,18 @@ public fun interface GameWorldProvider {
   public companion object {
     /** Creates a void world. */
     public fun void(): GameWorldProvider = GameWorldProvider { instance ->
-      GameWorld(
-        WorldCreator.ofKey(TemporaryWorldNameProvider[instance.key()].bukkit())
-          .biomeProvider(VoidBiomeProvider)
-          .generator(VoidChunkGenerator)
-          .type(WorldType.FLAT)
-          .keepSpawnLoaded(TriState.FALSE)
-          .generateStructures(false)
-          .createWorld()
-          ?: error("failed creating world"),
-      )
+      syncContext {
+        GameWorld(
+          WorldCreator.ofKey(TemporaryWorldNameProvider[instance.key()].bukkit())
+            .biomeProvider(VoidBiomeProvider)
+            .generator(VoidChunkGenerator)
+            .type(WorldType.FLAT)
+            .keepSpawnLoaded(TriState.FALSE)
+            .generateStructures(false)
+            .createWorld()
+            ?: error("failed creating world"),
+        )
+      }
     }
 
     /** Creates a void world and pastes the given [clipboard] at (0, 0, 0). */
