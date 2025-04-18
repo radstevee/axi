@@ -4,6 +4,7 @@ import net.radsteve.axi.coroutines.registerEventListeners
 import net.radsteve.axi.mod.AxiModule
 import net.radsteve.axi.plugin.AxiPlugin
 import net.radsteve.axi.ui.render.RenderererTicker
+import net.radsteve.axi.ui.resource.host.externalAddressAccessible
 import net.radsteve.axi.ui.resource.pack.send.AxiPackSendingService
 import net.radsteve.axi.ui.resource.pack.send.AxiPackSendingServiceImpl
 import net.radsteve.axi.ui.theme.Theme
@@ -26,6 +27,8 @@ public class AxiUI :
     // The negative spaces hook just iterates through characters which adventure isn't a large fan of
     // This also does not fix it so you have to add this to the JVM flags
     System.setProperty("net.kyori.adventure.text.warnWhenLegacyFormattingDetected", "false")
+
+    plugin.slF4JLogger.info("Is external address accessible? $externalAddressAccessible")
   }
 
   override suspend fun Module.module(plugin: AxiPlugin) {
