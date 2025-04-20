@@ -112,12 +112,16 @@ public class TextBuilder(
 
   /** Appends children to this component. */
   public fun append(vararg components: ComponentLike) {
-    components.forEach(componentBuilder::append)
+    components.forEach { component ->
+      componentBuilder.append(component)
+    }
   }
 
   /** Appends text using the given [block]. */
   public inline fun append(theme: Theme = this.theme, block: TextBuilder.() -> Unit) {
-    append(buildText(theme, false, block))
+    val builder = TextBuilder(theme)
+    builder.block()
+    componentBuilder.append(builder.build())
   }
 
   /** Appends text of the given [content] and applies the given [applicables]. */
@@ -129,14 +133,15 @@ public class TextBuilder(
 
   /** Appends text using the given [block] and appends the given [content]. */
   public inline fun append(content: Any, block: TextBuilder.() -> Unit) {
-    append {
-      if (content is ComponentLike) {
-        append(content as? Component ?: content.asComponent())
-      } else {
-        append(text(content.toString()))
-      }
-      block()
+    if (content is TextBuilder) {
+      componentBuilder.append(content.build())
+    } else if (content is ComponentLike) {
+      componentBuilder.append(content as? Component ?: content.asComponent())
+    } else {
+      componentBuilder.append(Component.text(content.toString()))
     }
+
+    this.block()
   }
 
   /** Appends a newline to this component. */
@@ -157,7 +162,9 @@ public class TextBuilder(
 
   /** Builds a component from the given [block] and appends it and a newline. */
   public fun appendLine(theme: Theme = this.theme, block: TextBuilder.() -> Unit) {
-    appendLine(buildText(theme, false, block))
+    val builder = TextBuilder(theme)
+    builder.block()
+    appendLine(builder.build())
   }
 
   /** Appends a space to this component. */
@@ -265,7 +272,9 @@ public class TextBuilder(
 
   /** Appends a component with a specified offset using a block. */
   public inline fun appendWithOffset(offset: Int, theme: Theme = this.theme, block: TextBuilder.() -> Unit) {
-    appendWithOffset(offset, buildText(theme, false, block))
+    val builder = TextBuilder(theme)
+    builder.block()
+    appendWithOffset(offset, builder.build())
   }
 
   /** Returns the width of this component. */
@@ -325,9 +334,17 @@ public fun text(
   theme: Theme,
   vararg applicables: ComponentBuilderApplicable?,
 ): TextComponent {
-  return buildText(theme) {
-    append(content, *applicables)
+  val builder = TextBuilder(theme)
+  if (content is Component) {
+    builder.append(content)
+  } else if (content is ComponentLike) {
+    builder.append(content.asComponent())
+  } else {
+    builder.componentBuilder.content(content.toString())
   }
+
+  applicables.filterNotNull().forEach(builder.componentBuilder::applicableApply)
+  return builder.build()
 }
 
 /** Builds a text component from the given [content] and applies the given [applicables]. */
