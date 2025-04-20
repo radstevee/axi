@@ -5,7 +5,13 @@ import net.radsteve.axi.ui.resource.pack.AxiPack
 import net.radstevee.packed.core.font.Font
 import net.radstevee.packed.core.key.Key
 
-public class SpriteFont(pack: AxiPack, private val sprites: List<Sprite>) : AxiFont {
+/** A font that only contains sprites. */
+public class SpriteFont(
+  /** The resource pack. */
+  pack: AxiPack,
+  /** The sprites. */
+  private val sprites: List<Sprite>,
+) : AxiFont {
   override val font: Font = pack.pack.addFont {
     key = Key("axi", "sprites")
 

@@ -22,20 +22,24 @@ public interface AxiPackSendingService : KoinComponent {
 
 private val service: AxiPackSendingService by AxiPluginHolder.plugin().inject()
 
-/** Sends an [AxiPack] to an audience if it is not applied yet and
+/**
+ * Sends an [AxiPack] to an audience if it is not applied yet and
  * returns whether it loaded successfully for each player.
  * If a player disconnects whilst loading the pack, it will return false for them.
  *
- * @see AxiPackSendingService.sendAxiPack*/
+ * @see AxiPackSendingService.sendAxiPack
+ */
 public suspend fun Audience.sendAxiPack(pack: AxiPack): Map<UUID, Boolean> {
   return with(service) {
     sendAxiPack(pack)
   }
 }
 
-/** Removes an [AxiPack] from an audience.
+/**
+ * Removes an [AxiPack] from an audience.
  *
- * @see AxiPackSendingService.removeAxiPack*/
+ * @see AxiPackSendingService.removeAxiPack
+ */
 public suspend fun Audience.removeAxiPack(pack: AxiPack) {
   with(service) {
     removeAxiPack(pack)
