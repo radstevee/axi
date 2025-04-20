@@ -53,16 +53,8 @@ tasks.jar {
   }
 }
 
-testing {
-  suites {
-    register("axi-test", JvmTestSuite::class) {
-      useKotlinTest(libs.versions.kotlin.get())
-
-      dependencies {
-        implementation(libs.kotlinx.coroutines.test)
-      }
-    }
-  }
+tasks.test {
+  useJUnitPlatform()
 }
 
 val dokkaJar = tasks.register<Jar>("dokkaHtmlJar") {

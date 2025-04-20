@@ -16,5 +16,6 @@ dependencies {
   }
   api(libs.bundles.mccoroutine)
   api(libs.bundles.koin)
-  // api(libs.bundles.kraft)
+  api(libs.tomlj)
+  api(kotlin("reflect"))
 }

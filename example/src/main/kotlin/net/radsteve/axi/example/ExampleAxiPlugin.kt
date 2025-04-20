@@ -17,5 +17,8 @@ public class ExampleAxiPlugin : AxiPlugin() {
     ExampleSystem.startTicking()
 
     AxiUI.theme = Decayce
+
+    slF4JLogger.info("String: ${ExampleConfig.string}")
+    slF4JLogger.info("Num: ${ExampleConfig.NestedSection.num}")
   }
 }

@@ -21,6 +21,7 @@ classgraph = "4.8.179"
 fawe = "2.12.2"
 ktlint-gradle = "12.2.0"
 ktlint-extras = "0.2.1"
+tomlj = "1.1.1"
 
 [libraries]
 kotlinx-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization-json" }
@@ -74,6 +75,8 @@ fawe-core = { module = "com.fastasyncworldedit:FastAsyncWorldEdit-Core", version
 fawe-bukkit = { module = "com.fastasyncworldedit:FastAsyncWorldEdit-Bukkit", version.ref = "fawe" }
 
 ktlint-extras = { module = "net.radsteve.ktlint.extras:rules", version.ref = "ktlint-extras" }
+
+tomlj = { module = "org.tomlj:tomlj", version.ref = "tomlj" }
 
 [bundles]
 kotlinx = ["kotlinx-coroutines"]
