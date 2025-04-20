@@ -3,13 +3,6 @@
 Axi provides great coroutine integration to Minecraft
 using [MCCoroutine ↗](https://github.com/Shynixn/MCCoroutine).
 
-::: warning
-Do not shade your own version of `kotlinx.coroutines`. This
-may break Axi as it relies on IntelliJ's internal fork of
-`kotlinx.coroutines` and leverages some of its internal
-coroutine API.
-:::
-
 ## Extensions
 
 Axi adds the following extensions:

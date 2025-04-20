@@ -30,7 +30,6 @@ repositories {
   maven("https://maven.radsteve.net/public")
   maven("https://maven.mcbrawls.net/releases")
   maven("https://maven.enginehub.org/repo")
-  maven("https://packages.jetbrains.team/maven/p/ij/intellij-dependencies")
 }
 
 kotlin {
@@ -50,18 +49,6 @@ tasks.withType<KotlinCompile> {
 tasks.jar {
   manifest {
     attributes("Implementation-Version" to version)
-  }
-}
-
-testing {
-  suites {
-    register("axi-test", JvmTestSuite::class) {
-      useKotlinTest(libs.versions.kotlin.get())
-
-      dependencies {
-        implementation(libs.kotlinx.coroutines.test)
-      }
-    }
   }
 }
 

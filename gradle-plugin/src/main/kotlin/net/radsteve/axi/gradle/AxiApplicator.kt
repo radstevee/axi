@@ -29,7 +29,6 @@ public object AxiApplicator {
     repositories.maven(AxiRepos.PAPER)
     repositories.maven(AxiRepos.BRAWLS)
     repositories.maven(AxiRepos.ENGINEHUB)
-    repositories.maven(AxiRepos.INTELLIJ)
 
     afterEvaluate(::applyAfter)
   }
