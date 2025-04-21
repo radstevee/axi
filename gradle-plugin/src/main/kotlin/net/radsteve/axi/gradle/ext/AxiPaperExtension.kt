@@ -17,6 +17,7 @@ public abstract class AxiPaperExtension {
   }
 
   public fun internals(coordinates: String) {
+    internals()
     devBundleCoordinates.set(coordinates)
   }
 }
