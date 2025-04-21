@@ -64,7 +64,7 @@ public object AxiApplicator {
 
       exclude("plugin.yml")
       // we exclude the default plugin yml's
-      from(compilation.defaultSourceSet.resources.sourceDirectories.singleFile) {
+      from(compilation.resources) {
         exclude("paper-plugin.yml")
       }
       // to add our own

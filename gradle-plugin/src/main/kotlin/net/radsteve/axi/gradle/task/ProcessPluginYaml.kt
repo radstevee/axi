@@ -1,5 +1,6 @@
 package net.radsteve.axi.gradle.task
 
+import net.radsteve.axi.gradle.resources
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
 import org.jetbrains.kotlin.gradle.plugin.KotlinCompilation
@@ -18,7 +19,7 @@ public abstract class ProcessPluginYaml @Inject constructor(
   @TaskAction
   public fun run() {
     val yaml = Yaml()
-    val resources = compilation.defaultSourceSet.resources.sourceDirectories.singleFile
+    val resources = compilation.resources
 
     val pluginYamlFile = resources.resolve("plugin.yml")
     val paperPluginYamlFile = resources.resolve("paper-plugin.yml")
