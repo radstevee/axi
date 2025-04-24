@@ -30,7 +30,7 @@ public class TextVisitor(
 
   /** Visits the given component. */
   public fun visit() {
-    compacted.filterIsInstance<TextComponent>().map(TextComponent::compactText).forEach(::visit)
+    compacted.map(Component::compact).filterIsInstance<TextComponent>().forEach(::visit)
   }
 }
 

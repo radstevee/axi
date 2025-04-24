@@ -1,6 +1,7 @@
 package net.radsteve.axi.ui.theme
 
 import net.kyori.adventure.audience.Audience
+import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.ComponentBuilderApplicable
 import net.kyori.adventure.text.TextComponent
 import net.kyori.adventure.text.format.TextColor
@@ -15,7 +16,7 @@ public interface Themed {
   public val theme: Theme
 
   /** Builds a component of the given [block] with this theme. */
-  public fun buildText(applyFixes: Boolean = false, block: TextBuilder.() -> Unit = {}): TextComponent {
+  public fun buildText(applyFixes: Boolean = false, block: TextBuilder.() -> Unit = {}): Component {
     return buildText(theme, applyFixes, block)
   }
 
@@ -23,17 +24,17 @@ public interface Themed {
   public fun text(
     content: Any,
     vararg applicables: ComponentBuilderApplicable?,
-  ): TextComponent {
+  ): Component {
     return text(content, theme, *applicables)
   }
 
   /** Sends the audience a message built from the given [block] and this theme. */
-  public fun Audience.send(block: TextBuilder.() -> Unit): TextComponent {
+  public fun Audience.send(block: TextBuilder.() -> Unit): Component {
     return buildText(true, block).also(::sendMessage)
   }
 
   /** Builds a text component from the given [content], applies the given [applicables] and sends it. */
-  public fun Audience.send(content: Any, vararg applicables: ComponentBuilderApplicable?): TextComponent {
+  public fun Audience.send(content: Any, vararg applicables: ComponentBuilderApplicable?): Component {
     return send(content, theme, *applicables)
   }
 

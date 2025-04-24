@@ -15,7 +15,7 @@ public class LayeredTextBuilder(
   public val theme: Theme = AxiUI.theme,
 ) {
   /** The contained layers of text. */
-  public val layers: MutableList<TextComponent> = mutableListOf()
+  public val layers: MutableList<Component> = mutableListOf()
 
   /** Appends [component] with the given [offset]. */
   public fun appendWithOffset(offset: Int, component: Component) {
@@ -37,14 +37,14 @@ public class LayeredTextBuilder(
   }
 
   /** Appends a text component layer. */
-  public fun append(component: TextComponent): Boolean = layers.add(component)
+  public fun append(component: Component): Boolean = layers.add(component)
 }
 
 /** Builds a layered text component. */
 public fun buildLayeredText(
   theme: Theme = AxiUI.theme,
   block: LayeredTextBuilder.() -> Unit,
-): TextComponent {
+): Component {
   val layeredBuilder = LayeredTextBuilder(theme).apply(block)
   val layers = layeredBuilder.layers
 
@@ -55,8 +55,8 @@ public fun buildLayeredText(
 public fun buildLayeredText(
   centred: Boolean = true,
   roundWidthCalculation: Boolean = false,
-  layers: List<TextComponent>,
-): TextComponent {
+  layers: List<Component>,
+): Component {
   if (layers.isEmpty()) {
     return buildText()
   }

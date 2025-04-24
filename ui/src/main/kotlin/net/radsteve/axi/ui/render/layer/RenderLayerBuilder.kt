@@ -1,5 +1,6 @@
 package net.radsteve.axi.ui.render.layer
 
+import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.TextComponent
 import net.radsteve.axi.ui.AxiUI
 import net.radsteve.axi.ui.render.Renderer
@@ -19,8 +20,8 @@ public class RenderedLayerBuilder {
     /** The theme. */
     private val theme: Theme,
   ) {
-    private var contentProvider: suspend () -> TextComponent = { buildText() }
-    private var redrawHandler: Redrawable = Redrawable { _ -> RedrawResult.Redraw }
+    public var contentProvider: suspend () -> Component = { Component.empty() }
+    public var redrawHandler: Redrawable = Redrawable { _ -> RedrawResult.Redraw }
 
     /** Sets the content provider, and if applicable, with the given [offset]. */
     public fun content(offset: Int = 0, block: suspend TextBuilder.() -> Unit) {
@@ -37,7 +38,7 @@ public class RenderedLayerBuilder {
     }
 
     /** Adds a constant content with the given [offset]. */
-    public fun content(offset: Int = 0, content: TextComponent) {
+    public fun content(offset: Int = 0, content: Component) {
       if (offset == 0) {
         contentProvider = { content }
         return
@@ -55,7 +56,9 @@ public class RenderedLayerBuilder {
     }
 
     /** Builds this to [RenderLayerContents]. */
-    public fun build(): RenderLayerContents = RenderLayerContents(contentProvider, redrawHandler)
+    public fun build(): RenderLayerContents {
+      return RenderLayerContents(contentProvider, redrawHandler)
+    }
   }
 
   /** Adds a content entry to this layer. */
@@ -66,7 +69,7 @@ public class RenderedLayerBuilder {
   }
 
   /** Adds a constant entry to this layer of the given [content]. */
-  public fun constant(content: TextComponent, offset: Int = 0, theme: Theme = AxiUI.theme): RenderLayerContents {
+  public fun constant(content: Component, offset: Int = 0, theme: Theme = AxiUI.theme): RenderLayerContents {
     return add(theme) {
       content(offset, content)
     }

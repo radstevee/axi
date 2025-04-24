@@ -266,7 +266,7 @@ public class TextBuilder(
   }
 
   /** Builds and returns this componentComponent. */
-  public fun build(): TextComponent {
+  public fun build(): Component {
     return componentBuilder.build()
   }
 
@@ -333,7 +333,7 @@ public fun text(
   content: Any,
   theme: Theme,
   vararg applicables: ComponentBuilderApplicable?,
-): TextComponent {
+): Component {
   val builder = TextBuilder(theme)
   if (content is Component) {
     builder.append(content)
@@ -351,7 +351,7 @@ public fun text(
 public fun text(
   content: Any,
   vararg applicables: ComponentBuilderApplicable?,
-): TextComponent {
+): Component {
   return text(content, AxiUI.theme, *applicables)
 }
 
@@ -360,7 +360,7 @@ public inline fun buildText(
   theme: Theme = AxiUI.theme,
   applyFixes: Boolean = false,
   block: TextBuilder.() -> Unit = {},
-): TextComponent {
+): Component {
   val builder = TextBuilder(theme)
   if (applyFixes) {
     theme.prefix?.let(builder.componentBuilder::append)
@@ -371,20 +371,20 @@ public inline fun buildText(
   }
   builder.endOffset()
 
-  return builder.build().compactText()
+  return builder.build().compact()
 }
 
 /** Builds a text from the given [block] and sends it. */
-public inline fun Audience.send(theme: Theme = AxiUI.theme, block: TextBuilder.() -> Unit): TextComponent {
+public inline fun Audience.send(theme: Theme = AxiUI.theme, block: TextBuilder.() -> Unit): Component {
   return buildText(theme, true, block).also(::sendMessage)
 }
 
 /** Builds a text component from the given [content], applies the given [applicables] and sends it. */
-public fun Audience.send(content: Any, theme: Theme, vararg applicables: ComponentBuilderApplicable?): TextComponent {
+public fun Audience.send(content: Any, theme: Theme, vararg applicables: ComponentBuilderApplicable?): Component {
   return text(content, theme, *applicables).also(::sendMessage)
 }
 
 /** Builds a text component from the given [content], applies the given [applicables] and sends it. */
-public fun Audience.send(content: Any, vararg applicables: ComponentBuilderApplicable?): TextComponent {
+public fun Audience.send(content: Any, vararg applicables: ComponentBuilderApplicable?): Component {
   return send(content, AxiUI.theme, *applicables)
 }

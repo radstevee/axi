@@ -28,6 +28,3 @@ public fun ComponentLike.compactChildren(): List<Component> {
 
   return childrenList
 }
-
-/** Helper function for [Component.compact]. */
-public fun TextComponent.compactText(): TextComponent = compact() as TextComponent

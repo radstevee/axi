@@ -1,6 +1,6 @@
 package net.radsteve.axi.ui.render
 
-import net.kyori.adventure.text.TextComponent
+import net.kyori.adventure.text.Component
 
 /** Represents something that can be rendered to an audience. */
 public interface Renderable {
@@ -8,5 +8,5 @@ public interface Renderable {
   public val renderer: Renderer
 
   /** Renders this renderable. */
-  public suspend fun render(): TextComponent
+  public suspend fun render(): Component
 }

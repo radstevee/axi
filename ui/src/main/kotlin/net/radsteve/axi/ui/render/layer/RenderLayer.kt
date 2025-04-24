@@ -1,5 +1,6 @@
 package net.radsteve.axi.ui.render.layer
 
+import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.TextComponent
 import net.radsteve.axi.ui.render.RedrawableRenderable
 import net.radsteve.axi.ui.render.Renderer
@@ -15,7 +16,7 @@ public class RenderLayer(
   public override val renderer: Renderer,
 ) : RedrawableRenderable {
   /** Compiles this render layer to a component. */
-  override suspend fun render(): TextComponent {
+  override suspend fun render(): Component {
     val contents = contents.map { content -> content.content(false) }
     return buildLayeredText(layers = contents)
   }

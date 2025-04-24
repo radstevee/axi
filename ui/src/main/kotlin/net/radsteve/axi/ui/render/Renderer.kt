@@ -1,13 +1,14 @@
 package net.radsteve.axi.ui.render
 
 import net.kyori.adventure.audience.Audience
+import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.TextComponent
 import net.radsteve.axi.ui.text.send
 
 /** Renders a renderable. */
 public fun interface Renderer {
   /** Renders a given [renderable] for the given [audience]. The entire stacked content is provided with [stackedContent]. */
-  public suspend fun render(audience: Audience, renderable: Renderable, stackedContent: TextComponent)
+  public suspend fun render(audience: Audience, renderable: Renderable, stackedContent: Component)
 
   /** Built-in renderers. */
   public companion object Builtins {

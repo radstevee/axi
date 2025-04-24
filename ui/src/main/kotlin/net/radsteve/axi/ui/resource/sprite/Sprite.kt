@@ -72,5 +72,5 @@ public class Sprite(
     if (!data.shadow) {
       removeShadow()
     }
-  }
+  } as TextComponent
 }
